@@ -44,16 +44,105 @@ section {
     pointer-events: none;
 }
 
-.profile-image {
-    width: 300px;
-    height: 300px;
+/* Hero Profile Image */
+.hero-profile-image {
+    width: 320px;
+    height: 320px;
     object-fit: cover;
     transition: transform var(--transition-speed) ease;
-    border: 4px solid var(--bs-info);
+    border: 5px solid var(--bs-info);
+    position: relative;
+    z-index: 2;
 }
 
-.profile-image:hover {
+.hero-profile-image:hover {
     transform: scale(1.05);
+}
+
+.hero-image-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.image-decoration {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border: 2px dashed rgba(13, 110, 253, 0.3);
+    border-radius: 50%;
+    z-index: 1;
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.floating-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.floating-icon {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.7;
+    animation: float 3s ease-in-out infinite;
+}
+
+.floating-icon:nth-child(1) { animation-delay: 0s; }
+.floating-icon:nth-child(2) { animation-delay: 1s; }
+.floating-icon:nth-child(3) { animation-delay: 2s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Hero Stats */
+.hero-stats {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item h5 {
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+/* Hero Content Improvements */
+.hero-intro h4 {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.hero-intro h1 {
+    background: linear-gradient(135deg, #0d6efd, #6f42c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.hero-buttons .btn {
+    transition: all var(--transition-speed) ease;
+    font-weight: 500;
+}
+
+.hero-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* Navigation */

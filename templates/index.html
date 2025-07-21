@@ -55,24 +55,70 @@
     <section id="home" class="hero-section">
         <div class="container">
             <div class="row align-items-center min-vh-100">
-                <div class="col-lg-6">
-                    <div class="hero-content">
-                        <h1 class="display-4 fw-bold mb-4 fade-in">
-                            Hello, I'm <span class="text-info">Arjun PV</span>
-                        </h1>
-                        <p class="lead mb-3 fade-in">
-                            Welcome to my digital portfolio—where data meets intelligence and innovation comes to life. As a B.Tech student specializing in Artificial Intelligence and Data Science (2024–2028), I'm passionate about transforming complex data into actionable insights and building intelligent systems that shape the future.
+                <div class="col-lg-7 order-lg-1">
+                    <div class="hero-content pe-lg-4">
+                        <div class="hero-intro mb-4">
+                            <h4 class="text-info mb-2 fade-in">Hello, I'm</h4>
+                            <h1 class="display-3 fw-bold mb-3 fade-in">
+                                Arjun PV
+                            </h1>
+                            <h3 class="h4 text-muted mb-3 fade-in">AI & Data Science Student</h3>
+                        </div>
+                        
+                        <p class="lead mb-4 fade-in">
+                            Welcome to my digital portfolio—where data meets intelligence and innovation comes to life. 
+                            I'm passionate about transforming complex data into actionable insights and building intelligent 
+                            systems that shape the future of technology.
                         </p>
+                        
+                        <div class="hero-stats mb-4 fade-in">
+                            <div class="row g-3">
+                                <div class="col-4">
+                                    <div class="stat-item text-center">
+                                        <h5 class="text-info mb-1">2024-2028</h5>
+                                        <small class="text-muted">BTech Program</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item text-center">
+                                        <h5 class="text-info mb-1">3+</h5>
+                                        <small class="text-muted">Languages</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item text-center">
+                                        <h5 class="text-info mb-1">AI/DS</h5>
+                                        <small class="text-muted">Specialization</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="hero-buttons fade-in">
-                            <a href="#gallery" class="btn btn-info btn-lg me-3">About Me</a>
-                            <a href="#contact" class="btn btn-outline-light btn-lg">Let's Connect</a>
+                            <a href="#gallery" class="btn btn-info btn-lg me-3 px-4">About Me</a>
+                            <a href="#contact" class="btn btn-outline-light btn-lg px-4">Let's Connect</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="hero-image text-center">
-                        <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}" 
-                             alt="Arjun PV" class="img-fluid rounded-circle profile-image shadow-lg">
+                <div class="col-lg-5 order-lg-2">
+                    <div class="hero-image-container text-center position-relative">
+                        <div class="hero-image-wrapper">
+                            <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}" 
+                                 alt="Arjun PV - AI & Data Science Student" 
+                                 class="img-fluid rounded-circle hero-profile-image shadow-lg">
+                            <div class="image-decoration"></div>
+                        </div>
+                        <div class="floating-elements">
+                            <div class="floating-icon" style="top: 20%; left: 10%;">
+                                <i class="fas fa-brain text-info"></i>
+                            </div>
+                            <div class="floating-icon" style="top: 60%; right: 15%;">
+                                <i class="fas fa-code text-secondary"></i>
+                            </div>
+                            <div class="floating-icon" style="bottom: 25%; left: 20%;">
+                                <i class="fas fa-chart-line text-info"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
