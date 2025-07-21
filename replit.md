@@ -16,6 +16,7 @@ Preferred communication style: Simple, everyday language.
   - SSLC: 2021-2022
   - Plus Two: 2022-2024
   - BTech in Artificial Intelligence and Data Science: 2024-2028
+- Programming Skills: Python, HTML/CSS, C++
 
 ## System Architecture
 
