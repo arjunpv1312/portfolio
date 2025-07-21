@@ -273,6 +273,20 @@ section {
     scroll-margin-top: 80px;
 }
 
+/* Reduced spacing for compact layout */
+.py-5 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+.mb-5 {
+    margin-bottom: 2rem !important;
+}
+
+.mt-5 {
+    margin-top: 2rem !important;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .profile-image {
