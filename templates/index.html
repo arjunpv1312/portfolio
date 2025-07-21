@@ -246,82 +246,48 @@
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="py-4 bg-body-secondary">
+    <section id="gallery" class="py-3 bg-body-secondary">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="display-5 fw-bold mb-4">Life in Pictures</h2>
-                    <p class="lead mb-4">A glimpse into some of the moments and experiences that bring color to my world.</p>
+                    <h2 class="display-5 fw-bold mb-3">About Me</h2>
+                    <p class="lead mb-3">Combining technical expertise with passion for innovation in AI and Data Science.</p>
                 </div>
             </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="https://pixabay.com/get/g86eef6b22395936d6ce56e9fd7b81ad44d9a05f031500d773764e14884138109e590302001475749af8f0232814061f1ddec4f320e6f04efc0fefe21656864ec_1280.jpg" 
-                             alt="Workspace and creativity" class="img-fluid rounded shadow gallery-image">
-                        <div class="gallery-overlay">
-                            <div class="gallery-text">
-                                <h6>Creative Workspace</h6>
-                                <p>Where ideas come to life</p>
+            <!-- Profile Image Section -->
+            <div class="row mb-4">
+                <div class="col-lg-4 mx-auto text-center">
+                    <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}" 
+                         alt="Arjun PV - AI & Data Science Student" 
+                         class="img-fluid rounded-circle shadow-lg" 
+                         style="width: 250px; height: 250px; object-fit: cover; border: 4px solid var(--bs-info);">
+                </div>
+            </div>
+            
+            <!-- Skills and Info Cards -->
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="skills-showcase card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-3">
+                            <h5 class="mb-3"><i class="fas fa-code text-info me-2"></i>Technical Skills</h5>
+                            <div class="skills-grid">
+                                <span class="badge bg-info me-2 mb-2 p-2">Python</span>
+                                <span class="badge bg-info me-2 mb-2 p-2">HTML/CSS</span>
+                                <span class="badge bg-info me-2 mb-2 p-2">C++</span>
+                                <span class="badge bg-secondary me-2 mb-2 p-2">Machine Learning</span>
+                                <span class="badge bg-secondary me-2 mb-2 p-2">Data Science</span>
+                                <span class="badge bg-secondary me-2 mb-2 p-2">AI Development</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="https://pixabay.com/get/g1b5db4d3ee58c6412e28e018f4bbcdac678c8ef3be4a0b205e44ea9c0cafd57afafe7247f542181156420410bd3fac57c866127e27406817f1b7486ebddcf205_1280.jpg" 
-                             alt="Learning and growth" class="img-fluid rounded shadow gallery-image">
-                        <div class="gallery-overlay">
-                            <div class="gallery-text">
-                                <h6>Continuous Learning</h6>
-                                <p>Always growing and evolving</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="https://pixabay.com/get/gc91925d4b6eb8cdbe96cefebaca3def86cb7c94660ad5f6eddcee77778ba105df743e45d985540f24530b545d3547d01d2ea3ca4c4fa9668309d2602b2d864ba_1280.jpg" 
-                             alt="Personal moments" class="img-fluid rounded shadow gallery-image">
-                        <div class="gallery-overlay">
-                            <div class="gallery-text">
-                                <h6>Personal Moments</h6>
-                                <p>Life's precious memories</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="https://pixabay.com/get/gb92ad73bf2b0b49a430ae5b90b2cf8cbd62c54cec6493f4b4d309b7f7e17c6eac978a4d208204455b925d178be6096e6671dbf05cc37bbeb0bbbeb26e05dd663_1280.jpg" 
-                             alt="Professional headshot" class="img-fluid rounded shadow gallery-image">
-                        <div class="gallery-overlay">
-                            <div class="gallery-text">
-                                <h6>Professional Side</h6>
-                                <p>Ready for new challenges</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="https://pixabay.com/get/g0fd32867bdfebde44fb7e58d540f23a0cbdef981998109e86baea2fc03c76fa7f5c404628c5a708e5fb658da1710b06345c87bdeb70649cd78c9490cc027c9ad_1280.jpg" 
-                             alt="Another professional moment" class="img-fluid rounded shadow gallery-image">
-                        <div class="gallery-overlay">
-                            <div class="gallery-text">
-                                <h6>Vision & Goals</h6>
-                                <p>Looking toward the future</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gallery-item">
-                        <div class="gallery-placeholder rounded shadow d-flex align-items-center justify-content-center">
-                            <div class="text-center">
-                                <i class="fas fa-plus fa-3x text-muted mb-3"></i>
-                                <p class="text-muted">More memories<br>to come...</p>
-                            </div>
+                <div class="col-md-6">
+                    <div class="education-highlight card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-3">
+                            <h5 class="mb-3"><i class="fas fa-graduation-cap text-info me-2"></i>Current Focus</h5>
+                            <p class="mb-2"><strong>BTech in AI & Data Science</strong></p>
+                            <p class="text-muted mb-2">2024-2028</p>
+                            <p class="small">Building expertise in intelligent systems and data-driven solutions to shape the future of technology</p>
                         </div>
                     </div>
                 </div>
