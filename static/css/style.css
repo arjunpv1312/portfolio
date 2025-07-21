@@ -5,10 +5,28 @@
     --card-hover-transform: translateY(-5px);
 }
 
+/* Global spacing optimizations */
+.py-3 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+section {
+    margin-bottom: 0;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.container {
+    max-width: 1140px;
+}
+
 /* Hero Section */
 .hero-section {
     background: var(--hero-bg);
-    min-height: 100vh;
+    min-height: 95vh;
     display: flex;
     align-items: center;
     position: relative;
