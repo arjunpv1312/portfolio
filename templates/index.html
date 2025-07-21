@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Johnson - Personal Introduction</title>
+    
+    <!-- Bootstrap CSS with Replit Dark Theme -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Smooth scrolling behavior -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#home">Alex Johnson</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#interests">Interests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#journey">Journey</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="display-4 fw-bold mb-4 fade-in">
+                            Hello, I'm <span class="text-info">Alex Johnson</span>
+                        </h1>
+                        <p class="lead mb-4 fade-in">
+                            Welcome to my little corner of the internet! I'm passionate about creating meaningful connections, 
+                            exploring new technologies, and sharing stories that inspire. Let me show you who I am beyond the screen.
+                        </p>
+                        <div class="hero-buttons fade-in">
+                            <a href="#about" class="btn btn-info btn-lg me-3">Get to Know Me</a>
+                            <a href="#contact" class="btn btn-outline-light btn-lg">Let's Connect</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image text-center">
+                        <img src="https://pixabay.com/get/g04dc99da48a07fd5d5ec12ca2a4d811feb730df4d2f6e3e7f461d85396970017f026fa58d9d49f6804a9e3717075d540738da85f0cb01e8f170985c3a10fcd6f_1280.jpg" 
+                             alt="Alex Johnson" class="img-fluid rounded-circle profile-image shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-5">My Story</h2>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="https://pixabay.com/get/gca9f0c49bb576fd21278da35d8ffad7dc2660b06c3ec72bf26208ff23f3b06514829ca16e5f5c204467d36550281ef330253d7f1a2b1ccd698d94c3a6de0156d_1280.jpg" 
+                         alt="Personal workspace" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content mt-4 mt-lg-0">
+                        <h3 class="h4 mb-4">A Little About Me</h3>
+                        <p class="mb-4">
+                            I'm a curious soul with a passion for learning and growing. My journey has taken me through 
+                            various paths, each teaching me something valuable about life, relationships, and the world around us.
+                        </p>
+                        <p class="mb-4">
+                            When I'm not working on exciting projects, you'll find me exploring new places, reading thought-provoking 
+                            books, or having deep conversations with friends over coffee. I believe that every person has a unique 
+                            story to tell, and I love discovering what makes each individual special.
+                        </p>
+                        <p>
+                            My approach to life is simple: be genuine, stay curious, and always be willing to help others. 
+                            These values guide everything I do, from my professional work to my personal relationships.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section id="interests" class="py-5 bg-body-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-5">What I Love</h2>
+                    <p class="lead mb-5">Here are some of the things that spark joy in my life and keep me motivated every day.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="interest-card card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="interest-icon mb-3">
+                                <i class="fas fa-code fa-3x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Technology & Innovation</h5>
+                            <p class="card-text">
+                                I'm fascinated by how technology can solve real-world problems and create new possibilities. 
+                                Always exploring the latest trends and innovations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="interest-card card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="interest-icon mb-3">
+                                <i class="fas fa-book fa-3x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Reading & Learning</h5>
+                            <p class="card-text">
+                                Books are my gateway to different worlds and perspectives. I love diving into everything 
+                                from fiction to philosophy, always hungry for new knowledge.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="interest-card card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="interest-icon mb-3">
+                                <i class="fas fa-plane fa-3x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Travel & Adventure</h5>
+                            <p class="card-text">
+                                Exploring new places and cultures enriches my understanding of the world. 
+                                Every journey teaches me something new about myself and others.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="interest-card card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="interest-icon mb-3">
+                                <i class="fas fa-camera fa-3x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Photography</h5>
+                            <p class="card-text">
+                                Capturing moments and telling stories through images is one of my favorite creative outlets. 
+                                Every photo has a story waiting to be shared.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="interest-card card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="interest-icon mb-3">
+                                <i class="fas fa-users fa-3x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Community Building</h5>
+                            <p class="card-text">
+                                I believe in the power of bringing people together. Whether it's organizing events or 
+                                mentoring others, I love building meaningful connections.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="interest-card card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="interest-icon mb-3">
+                                <i class="fas fa-music fa-3x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Music & Arts</h5>
+                            <p class="card-text">
+                                Music is the soundtrack to life, and I enjoy exploring different genres and attending live performances. 
+                                Art in all its forms inspires and moves me.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Timeline -->
+    <section id="journey" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-5">My Journey</h2>
+                    <p class="lead mb-5">Here are some key moments that have shaped who I am today.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h5>Early Learning Years</h5>
+                                <p class="text-muted mb-2">2015-2018</p>
+                                <p>Discovered my passion for technology and problem-solving. These formative years taught me the importance of continuous learning and staying curious.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h5>Professional Growth</h5>
+                                <p class="text-muted mb-2">2018-2021</p>
+                                <p>Started building real-world experience and developing my skills. Learned the value of collaboration and how to turn ideas into reality.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h5>New Adventures</h5>
+                                <p class="text-muted mb-2">2021-2023</p>
+                                <p>Took on new challenges and expanded my horizons. This period was all about pushing boundaries and discovering what I'm truly capable of.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h5>Present Day</h5>
+                                <p class="text-muted mb-2">2023-Present</p>
+                                <p>Focused on making meaningful connections and contributing to projects that matter. Always looking forward to what's next on this incredible journey.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-5 bg-body-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-5">Life in Pictures</h2>
+                    <p class="lead mb-5">A glimpse into some of the moments and experiences that bring color to my world.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="https://pixabay.com/get/g86eef6b22395936d6ce56e9fd7b81ad44d9a05f031500d773764e14884138109e590302001475749af8f0232814061f1ddec4f320e6f04efc0fefe21656864ec_1280.jpg" 
+                             alt="Workspace and creativity" class="img-fluid rounded shadow gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">
+                                <h6>Creative Workspace</h6>
+                                <p>Where ideas come to life</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="https://pixabay.com/get/g1b5db4d3ee58c6412e28e018f4bbcdac678c8ef3be4a0b205e44ea9c0cafd57afafe7247f542181156420410bd3fac57c866127e27406817f1b7486ebddcf205_1280.jpg" 
+                             alt="Learning and growth" class="img-fluid rounded shadow gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">
+                                <h6>Continuous Learning</h6>
+                                <p>Always growing and evolving</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="https://pixabay.com/get/gc91925d4b6eb8cdbe96cefebaca3def86cb7c94660ad5f6eddcee77778ba105df743e45d985540f24530b545d3547d01d2ea3ca4c4fa9668309d2602b2d864ba_1280.jpg" 
+                             alt="Personal moments" class="img-fluid rounded shadow gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">
+                                <h6>Personal Moments</h6>
+                                <p>Life's precious memories</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="https://pixabay.com/get/gb92ad73bf2b0b49a430ae5b90b2cf8cbd62c54cec6493f4b4d309b7f7e17c6eac978a4d208204455b925d178be6096e6671dbf05cc37bbeb0bbbeb26e05dd663_1280.jpg" 
+                             alt="Professional headshot" class="img-fluid rounded shadow gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">
+                                <h6>Professional Side</h6>
+                                <p>Ready for new challenges</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <img src="https://pixabay.com/get/g0fd32867bdfebde44fb7e58d540f23a0cbdef981998109e86baea2fc03c76fa7f5c404628c5a708e5fb658da1710b06345c87bdeb70649cd78c9490cc027c9ad_1280.jpg" 
+                             alt="Another professional moment" class="img-fluid rounded shadow gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">
+                                <h6>Vision & Goals</h6>
+                                <p>Looking toward the future</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder rounded shadow d-flex align-items-center justify-content-center">
+                            <div class="text-center">
+                                <i class="fas fa-plus fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">More memories<br>to come...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-5">Let's Connect</h2>
+                    <p class="lead mb-5">I'd love to hear from you! Whether you want to collaborate, share an idea, or just say hello, don't hesitate to reach out.</p>
+                </div>
+            </div>
+            
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="row mb-4">
+                            <div class="col-lg-8 mx-auto">
+                                <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <form method="POST" action="{{ url_for('contact') }}" class="contact-form">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Your Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label">Your Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-info btn-lg px-5">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Social Links -->
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h5 class="mb-4">Find Me Online</h5>
+                    <div class="social-links">
+                        <a href="mailto:alex@example.com" class="btn btn-outline-light btn-lg me-2 mb-2">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-lg me-2 mb-2">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-lg me-2 mb-2">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-lg me-2 mb-2">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 bg-body-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2025 Alex Johnson. Made with <i class="fas fa-heart text-danger"></i> and lots of coffee.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

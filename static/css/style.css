@@ -1,0 +1,322 @@
+/* Custom styles for the personal introduction website */
+:root {
+    --transition-speed: 0.3s;
+    --hero-bg: linear-gradient(135deg, rgba(13, 110, 253, 0.1) 0%, rgba(111, 66, 193, 0.1) 100%);
+    --card-hover-transform: translateY(-5px);
+}
+
+/* Hero Section */
+.hero-section {
+    background: var(--hero-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(13, 110, 253, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.profile-image {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    transition: transform var(--transition-speed) ease;
+    border: 4px solid var(--bs-info);
+}
+
+.profile-image:hover {
+    transform: scale(1.05);
+}
+
+/* Navigation */
+.navbar {
+    background: rgba(33, 37, 41, 0.95) !important;
+    backdrop-filter: blur(10px);
+    transition: all var(--transition-speed) ease;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    transition: color var(--transition-speed) ease;
+}
+
+.navbar-brand:hover {
+    color: var(--bs-info) !important;
+}
+
+.nav-link {
+    transition: color var(--transition-speed) ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--bs-info) !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--bs-info);
+    transition: all var(--transition-speed) ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease forwards;
+}
+
+.fade-in:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.fade-in:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Interest Cards */
+.interest-card {
+    transition: all var(--transition-speed) ease;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.interest-card:hover {
+    transform: var(--card-hover-transform);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+.interest-icon {
+    transition: transform var(--transition-speed) ease;
+}
+
+.interest-card:hover .interest-icon {
+    transform: scale(1.1);
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--bs-info);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 40px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -47px;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background: var(--bs-info);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 0 0 4px var(--bs-dark);
+}
+
+.timeline-content {
+    background: var(--bs-body-bg);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform var(--transition-speed) ease;
+}
+
+.timeline-item:hover .timeline-content {
+    transform: var(--card-hover-transform);
+}
+
+/* Gallery */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform var(--transition-speed) ease;
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.1);
+}
+
+.gallery-text {
+    text-align: center;
+    color: white;
+}
+
+.gallery-placeholder {
+    height: 250px;
+    background: var(--bs-body-bg);
+    border: 2px dashed var(--bs-border-color);
+    transition: all var(--transition-speed) ease;
+}
+
+.gallery-placeholder:hover {
+    border-color: var(--bs-info);
+    background: rgba(13, 110, 253, 0.1);
+}
+
+/* Contact Form */
+.contact-form {
+    background: var(--bs-body-bg);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 2px solid var(--bs-border-color);
+    transition: all var(--transition-speed) ease;
+}
+
+.form-control:focus {
+    border-color: var(--bs-info);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Social Links */
+.social-links .btn {
+    border-radius: 25px;
+    transition: all var(--transition-speed) ease;
+    min-width: 120px;
+}
+
+.social-links .btn:hover {
+    background: var(--bs-info);
+    border-color: var(--bs-info);
+    transform: var(--card-hover-transform);
+}
+
+/* Buttons */
+.btn {
+    border-radius: 25px;
+    transition: all var(--transition-speed) ease;
+    font-weight: 500;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Section Spacing */
+section {
+    scroll-margin-top: 80px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-image {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .hero-content {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .timeline {
+        padding-left: 20px;
+    }
+    
+    .timeline-item {
+        padding-left: 30px;
+    }
+    
+    .timeline-marker {
+        left: -37px;
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+    
+    .contact-form {
+        padding: 30px 20px;
+    }
+}
+
+/* Smooth scrolling enhancement */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Dark mode specific adjustments */
+[data-bs-theme="dark"] .timeline-marker {
+    box-shadow: 0 0 0 4px var(--bs-body-bg);
+}
+
+[data-bs-theme="dark"] .gallery-placeholder {
+    background: rgba(255, 255, 255, 0.05);
+}
