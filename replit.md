@@ -8,6 +8,12 @@ This is a personal portfolio website built with Flask that showcases an individu
 
 Preferred communication style: Simple, everyday language.
 
+## Personal Information
+- Full Name: Arjun PV
+- Email: Pvarjun527@gmail.com
+- LinkedIn: https://www.linkedin.com/in/arjun-pv-55baa0293
+- Education: BTech student (2024-2028 batch)
+
 ## System Architecture
 
 The application follows a simple Flask-based architecture with the following characteristics:
