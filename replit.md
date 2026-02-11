@@ -11,7 +11,7 @@ Preferred communication style: Simple, everyday language.
 ## Personal Information
 - Full Name: Arjun PV
 - Email: Pvarjun527@gmail.com
-- LinkedIn: https://www.linkedin.com/in/arjun-pv-55baa0293
+- LinkedIn: https://www.linkedin.com/in/arjun-pv1312
 - Education: 
   - SSLC: 2021-2022
   - Plus Two: 2022-2024
