@@ -18,6 +18,15 @@ Preferred communication style: Simple, everyday language.
   - BTech in Artificial Intelligence and Data Science: 2024-2028
 - Programming Skills: Python, HTML/CSS, C++
 
+### Certificates
+- Google AI Studio App Deployment (GUVI/HCL)
+- Kaggle Python Coder
+- AI Tool Creation (SkillEcted)
+- AI Workshop Completion
+- AWS Cloud
+- Microsoft Data Analytics
+- Generative AI
+
 ## System Architecture
 
 The application follows a simple Flask-based architecture with the following characteristics:
