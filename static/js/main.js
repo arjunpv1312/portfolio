@@ -249,13 +249,37 @@ function initializeScrollEffects() {
     if (heroSection) {
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
+            const rate = scrolled * 0.3;
             
             if (scrolled < window.innerHeight) {
-                heroSection.style.transform = `translateY(${rate}px)`;
+                const content = heroSection.querySelector('.hero-content');
+                if (content) {
+                    content.style.transform = `translateY(${rate}px)`;
+                    content.style.opacity = 1 - (scrolled / window.innerHeight);
+                }
             }
         });
     }
+
+    // Scroll progress bar
+    const progressBar = document.createElement('div');
+    progressBar.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: var(--bs-info);
+        z-index: 9999;
+        transition: width 0.1s ease;
+    `;
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        progressBar.style.width = scrolled + "%";
+    });
     
     // Back to top button
     createBackToTopButton();

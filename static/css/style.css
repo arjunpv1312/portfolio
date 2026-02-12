@@ -394,7 +394,66 @@ section {
     margin-top: 2rem !important;
 }
 
-/* Responsive Design */
+/* Certificates Section Enhancement */
+#certificates .card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(5px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#certificates .card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--bs-info) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}
+
+#certificates i {
+    transition: all 0.4s ease;
+}
+
+#certificates .card:hover i {
+    transform: rotate(10deg) scale(1.1);
+    color: #fff !important;
+}
+
+/* Glassmorphism effects */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Animated background for sections */
+.bg-animated {
+    background: linear-gradient(-45deg, #212529, #2c3034, #212529, #1a1d20);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #212529;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #343a40;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-info);
+}
 @media (max-width: 768px) {
     .profile-image {
         width: 250px;
