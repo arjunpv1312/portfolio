@@ -127,12 +127,44 @@ section {
 }
 
 .hero-intro h1 {
-    background: linear-gradient(135deg, #0d6efd, #6f42c1);
+    background: linear-gradient(135deg, #0d6efd, #6f42c1, #0dcaf0);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.1;
+    animation: textGradient 5s linear infinite, heroFloat 3s ease-in-out infinite;
+}
+
+@keyframes textGradient {
+    to { background-position: 200% center; }
+}
+
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.hero-section .lead {
+    position: relative;
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.hero-section .lead::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: var(--bs-info);
+    transition: width 0.5s ease;
+}
+
+.hero-section:hover .lead::before {
+    width: 100%;
 }
 
 .hero-buttons .btn {
