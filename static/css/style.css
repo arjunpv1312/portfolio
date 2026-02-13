@@ -469,7 +469,104 @@ section {
     100% { background-position: 0% 50%; }
 }
 
-/* Custom scrollbar */
+/* Modern Typography & Sophisticated Colors */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.01em;
+}
+
+/* Glassmorphism Section Headers */
+.section-header {
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--bs-info);
+    border-radius: 2px;
+}
+
+/* Project/Experience Cards */
+.card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: rgba(33, 37, 41, 0.4);
+    backdrop-filter: blur(12px);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(13, 202, 240, 0.3) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Modern Timeline Styling */
+.timeline-marker {
+    background: linear-gradient(135deg, var(--bs-info), #6f42c1);
+    border: none;
+}
+
+.timeline-content {
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+    border-left-color: var(--bs-info);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Hero Content Polish */
+.hero-content p {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+}
+
+/* Skill Badges Upgrade */
+.badge {
+    padding: 0.6em 1.2em;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.badge:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Contact Form Polish */
+.contact-form {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(33, 37, 41, 0.6);
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
 }
