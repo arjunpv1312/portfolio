@@ -26,6 +26,7 @@ Preferred communication style: Simple, everyday language.
 - AWS Cloud
 - Microsoft Data Analytics
 - Generative AI
+- Introduction to Generative AI and Agents
 
 ## System Architecture
 
