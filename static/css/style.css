@@ -127,17 +127,17 @@ section {
 }
 
 .hero-intro h1 {
-    background: linear-gradient(135deg, #0dcaf0, #ffffff, #0dcaf0);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
+    color: #8b0000; /* Deep Red */
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+    font-weight: 900;
     line-height: 1.1;
     display: inline-block;
     padding: 0 0.1em;
-    text-shadow: 0 0 20px rgba(13, 202, 240, 0.3);
-    animation: textGradient 5s linear infinite, heroFloat 3s ease-in-out infinite;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: heroFloat 3s ease-in-out infinite;
 }
 
 @keyframes textGradient {
