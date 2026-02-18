@@ -461,28 +461,40 @@ section {
 
 /* Animated background for sections */
 .contact-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    backdrop-filter: blur(10px);
 }
 
-.contact-card .btn-outline-info:hover {
-    background-color: var(--bs-info);
-    color: #000;
+.contact-card:hover {
+    background: rgba(13, 202, 240, 0.1);
+    transform: translateY(-10px);
+    border-color: var(--bs-info);
+    box-shadow: 0 10px 30px rgba(13, 202, 240, 0.2);
 }
 
 .contact-card i {
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
 }
 
 .contact-card:hover i {
-    transform: scale(1.2);
+    transform: scale(1.2) rotate(5deg);
 }
 
 .contact-card h6 {
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5rem;
+}
+
+.contact-card p {
+    transition: color 0.3s ease;
+}
+
+.contact-card:hover p {
+    color: #fff !important;
 }
 
 .bg-animated-subtle {
