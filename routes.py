@@ -24,16 +24,25 @@ def contact():
         
         # Prepare recipient list
         recipients = []
-        default_sender = app.config.get('MAIL_DEFAULT_SENDER')
         forward_to = app.config.get('MAIL_FORWARD_TO')
         
-        if default_sender:
-            recipients.append(default_sender)
-        if forward_to and forward_to != default_sender:
+        # Priority 1: User specified forwarding address
+        if forward_to:
             recipients.append(forward_to)
             
+        # Priority 2: Replit provided secret (if available)
+        replit_mail_forward = os.environ.get('MAIL_FORWARD_TO')
+        if replit_mail_forward and replit_mail_forward not in recipients:
+            recipients.append(replit_mail_forward)
+            
+        # Priority 3: Default sender (if available)
+        default_sender = app.config.get('MAIL_DEFAULT_SENDER')
+        if default_sender and default_sender not in recipients:
+            recipients.append(default_sender)
+            
         if not recipients:
-            recipients = ['your-email@example.com']  # fallback
+            # Last resort fallback to the user's provided email for this session
+            recipients = ['Pvarjun527@gmail.com']
         
         # Create email message
         msg = Message(
