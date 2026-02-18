@@ -460,6 +460,35 @@ section {
 }
 
 /* Animated background for sections */
+.contact-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.contact-card .btn-outline-info:hover {
+    background-color: var(--bs-info);
+    color: #000;
+}
+
+.contact-card i {
+    transition: transform 0.3s ease;
+}
+
+.contact-card:hover i {
+    transform: scale(1.2);
+}
+
+.contact-card h6 {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bg-animated-subtle {
+    background: linear-gradient(135deg, rgba(13, 202, 240, 0.05), rgba(111, 66, 193, 0.05));
+}
+
 .bg-animated {
     background: linear-gradient(-45deg, #212529, #2c3034, #212529, #1a1d20);
     background-size: 400% 400%;
