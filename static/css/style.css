@@ -5,6 +5,12 @@
     --card-hover-transform: translateY(-5px);
 }
 
+/* Ensure all page content renders above the particle canvas */
+nav, section, footer {
+    position: relative;
+    z-index: 1;
+}
+
 /* Global spacing optimizations */
 .py-3 {
     padding-top: 2rem !important;
