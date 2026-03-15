@@ -7,7 +7,81 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeGallery();
     initializeContactForm();
     initializeScrollEffects();
+    initializeTypingAnimation();
 });
+
+function initializeTypingAnimation() {
+    const phrases = [
+        'Artificial Intelligence',
+        'Data Science',
+        'Machine Learning',
+        'Python Development',
+        'AI Innovation'
+    ];
+
+    const heroH1 = document.querySelector('.hero-intro h1');
+    if (!heroH1) return;
+
+    const prefix = document.querySelector('.hero-intro h4');
+    if (prefix) prefix.textContent = 'Exploring the Frontiers of';
+
+    heroH1.innerHTML = '<span id="typed-text"></span><span class="typed-cursor">|</span>';
+    heroH1.style.minHeight = '1.2em';
+
+    const typedEl = document.getElementById('typed-text');
+    const cursor = document.querySelector('.typed-cursor');
+
+    const cursorStyle = document.createElement('style');
+    cursorStyle.textContent = `
+        .typed-cursor {
+            display: inline-block;
+            color: #0dcaf0;
+            font-weight: 300;
+            animation: blink 0.7s infinite;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    `;
+    document.head.appendChild(cursorStyle);
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typeSpeed = 80;
+    const deleteSpeed = 40;
+    const pauseAfterType = 1800;
+    const pauseAfterDelete = 400;
+
+    function type() {
+        const current = phrases[phraseIndex];
+
+        if (!isDeleting) {
+            typedEl.textContent = current.substring(0, charIndex + 1);
+            charIndex++;
+            if (charIndex === current.length) {
+                isDeleting = true;
+                setTimeout(type, pauseAfterType);
+                return;
+            }
+            setTimeout(type, typeSpeed);
+        } else {
+            typedEl.textContent = current.substring(0, charIndex - 1);
+            charIndex--;
+            if (charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(type, pauseAfterDelete);
+                return;
+            }
+            setTimeout(type, deleteSpeed);
+        }
+    }
+
+    setTimeout(type, 800);
+}
 
 // Navigation functionality
 function initializeNavigation() {
