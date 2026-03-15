@@ -64,29 +64,66 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <div class="container">
-            <div class="row justify-content-center align-items-center min-vh-100">
-                <div class="col-lg-8 text-center">
-                    <div class="hero-content">
-                        <div class="hero-intro mb-4">
-                            <h4 class="text-info mb-2 fade-in">Exploring the Frontiers of</h4>
-                            <h1 class="display-1 fw-bold mb-3 fade-in" style="color: #ffffff; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); font-family: 'Inter', sans-serif;">
-                                Artificial Intelligence & Data Science
-                            </h1>
-                            <h3 class="h3 text-muted mb-4 fade-in">Innovation Meets Intelligence</h3>
+            <div class="row align-items-center min-vh-100 g-5">
+
+                <!-- Left: Text Content -->
+                <div class="col-lg-6">
+                    <div class="hero-intro">
+                        <div class="hero-label fade-in mb-3">
+                            <span class="badge-label"><i class="fas fa-circle-dot me-2"></i>Available for Internships</span>
                         </div>
-                        
-                        <p class="lead mb-5 fade-in">
-                            Welcome to my digital portfolio—where data meets intelligence and innovation comes to life. 
-                            I'm passionate about transforming complex data into actionable insights and building intelligent 
-                            systems that shape the future of technology.
+                        <p class="hero-subtitle fade-in mb-1">Exploring the Frontiers of</p>
+                        <h1 class="display-2 fw-bold mb-3 fade-in">
+                            <span id="typed-text"></span><span class="typed-cursor">|</span>
+                        </h1>
+                        <h2 class="h4 hero-name fade-in mb-4">Arjun PV &mdash; <span class="text-muted fw-normal">AI & Data Science Student</span></h2>
+                        <p class="lead hero-desc fade-in mb-4">
+                            Passionate about transforming complex data into actionable insights and building intelligent systems that shape the future of technology.
                         </p>
-                        
-                        <div class="hero-buttons fade-in">
-                            <a href="#gallery" class="btn btn-info btn-lg me-3 px-4">About Me</a>
+                        <div class="hero-buttons fade-in d-flex gap-3 flex-wrap">
+                            <a href="#gallery" class="btn btn-info btn-lg px-4">About Me</a>
                             <a href="#contact" class="btn btn-outline-light btn-lg px-4">Let's Connect</a>
+                        </div>
+                        <!-- Quick stats -->
+                        <div class="hero-stats-row d-flex gap-4 mt-5 fade-in">
+                            <div class="stat-pill">
+                                <span class="stat-num">12+</span>
+                                <span class="stat-label">Certificates</span>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-num">Rank 57</span>
+                                <span class="stat-label">Career Challenge</span>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-num">40K+</span>
+                                <span class="stat-label">Buildathon Peers</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Right: Visual -->
+                <div class="col-lg-6 text-center">
+                    <div class="hero-visual">
+                        <div class="hero-orbit-wrapper">
+                            <div class="orbit-ring orbit-ring-1"></div>
+                            <div class="orbit-ring orbit-ring-2"></div>
+                            <div class="hero-avatar-ring">
+                                <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}"
+                                     alt="Arjun PV"
+                                     class="hero-avatar-img"
+                                     onerror="this.parentElement.innerHTML='<div class=\'avatar-placeholder\'><i class=\'fas fa-user fa-4x\'></i></div>'">
+                            </div>
+                            <!-- Floating tech icons on orbit -->
+                            <div class="orbit-icon icon-1"><i class="fab fa-python"></i></div>
+                            <div class="orbit-icon icon-2"><i class="fas fa-brain"></i></div>
+                            <div class="orbit-icon icon-3"><i class="fas fa-chart-line"></i></div>
+                            <div class="orbit-icon icon-4"><i class="fab fa-aws"></i></div>
+                            <div class="orbit-icon icon-5"><i class="fas fa-code"></i></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -94,50 +131,81 @@
     <!-- About Me Section -->
     <section id="gallery" class="py-5 bg-animated">
         <div class="container">
-            <div class="row section-header">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="display-5 fw-bold section-title mb-2">Arjun PV</h2>
-                    <h3 class="h4 text-info mb-4">Professional Profile</h3>
-                    <p class="lead opacity-75">Bridging the gap between data architecture and intelligent user experiences.</p>
+            <div class="row align-items-center g-5">
+
+                <!-- Left: Profile Photo -->
+                <div class="col-lg-4 text-center">
+                    <div class="about-photo-wrapper">
+                        <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}"
+                             alt="Arjun PV"
+                             class="about-photo"
+                             onerror="this.style.display='none'">
+                        <div class="about-photo-glow"></div>
+                    </div>
+                    <!-- Social quick links -->
+                    <div class="mt-4 d-flex justify-content-center gap-3">
+                        <a href="mailto:Pvarjun527@gmail.com" class="about-social-btn" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/arjun-pv1312" target="_blank" class="about-social-btn" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="tel:+919946269473" class="about-social-btn" title="Phone">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <!-- Profile Image Section -->
-            <div class="row mb-4">
-                <div class="col-lg-4 mx-auto text-center">
-                    <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}" 
-                         alt="Arjun PV - AI & Data Science Student" 
-                         class="img-fluid rounded-circle shadow-lg" 
-                         style="width: 250px; height: 250px; object-fit: cover; border: 4px solid var(--bs-info);">
-                </div>
-            </div>
-            
-            <!-- Skills and Info Cards -->
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="skills-showcase card border-0 shadow-sm h-100">
-                        <div class="card-body text-center p-3">
-                            <h5 class="mb-3"><i class="fas fa-code text-info me-2"></i>Technical Skills</h5>
-                            <div class="skills-grid">
-                                <span class="badge bg-info me-2 mb-2 p-2">Python</span>
-                                <span class="badge bg-info me-2 mb-2 p-2">HTML/CSS</span>
-                                <span class="badge bg-info me-2 mb-2 p-2">C++</span>
-                                <span class="badge bg-secondary me-2 mb-2 p-2">Machine Learning</span>
-                                <span class="badge bg-secondary me-2 mb-2 p-2">Data Science</span>
-                                <span class="badge bg-secondary me-2 mb-2 p-2">AI Development</span>
+
+                <!-- Right: Bio + Skills -->
+                <div class="col-lg-8">
+                    <p class="about-eyebrow mb-2">Professional Profile</p>
+                    <h2 class="display-5 fw-bold section-title mb-1">Arjun PV</h2>
+                    <h3 class="h5 mb-4" style="background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">BTech in Artificial Intelligence & Data Science</h3>
+                    <p class="lead mb-4 opacity-75">
+                        A first-year engineering student passionate about bridging the gap between data architecture and intelligent user experiences. I believe in learning by building, and in using technology to solve problems that matter.
+                    </p>
+
+                    <!-- Skills -->
+                    <div class="mb-4">
+                        <p class="small text-muted fw-bold text-uppercase mb-2" style="letter-spacing:1.5px">Core Languages</p>
+                        <span class="badge bg-info me-2 mb-2 p-2">Python</span>
+                        <span class="badge bg-info me-2 mb-2 p-2">HTML / CSS</span>
+                        <span class="badge bg-info me-2 mb-2 p-2">C++</span>
+                    </div>
+                    <div class="mb-4">
+                        <p class="small text-muted fw-bold text-uppercase mb-2" style="letter-spacing:1.5px">Focus Areas</p>
+                        <span class="badge bg-secondary me-2 mb-2 p-2">Machine Learning</span>
+                        <span class="badge bg-secondary me-2 mb-2 p-2">Data Science</span>
+                        <span class="badge bg-secondary me-2 mb-2 p-2">AI Development</span>
+                        <span class="badge bg-secondary me-2 mb-2 p-2">Generative AI</span>
+                    </div>
+
+                    <!-- Info row -->
+                    <div class="row g-3 mt-1">
+                        <div class="col-sm-4">
+                            <div class="about-info-card">
+                                <i class="fas fa-graduation-cap mb-2"></i>
+                                <p class="mb-0 fw-semibold">BTech AI & DS</p>
+                                <p class="small text-muted mb-0">2024 – 2028</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="about-info-card">
+                                <i class="fas fa-map-marker-alt mb-2"></i>
+                                <p class="mb-0 fw-semibold">Palakkad, Kerala</p>
+                                <p class="small text-muted mb-0">India</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="about-info-card">
+                                <i class="fas fa-certificate mb-2"></i>
+                                <p class="mb-0 fw-semibold">12+ Certificates</p>
+                                <p class="small text-muted mb-0">Verified credentials</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="education-highlight card border-0 shadow-sm h-100">
-                        <div class="card-body text-center p-3">
-                            <h5 class="mb-3"><i class="fas fa-graduation-cap text-info me-2"></i>Current Focus</h5>
-                            <p class="mb-2"><strong>BTech in AI & Data Science</strong></p>
-                            <p class="text-muted mb-2">2024-2028</p>
-                            <p class="small">Building expertise in intelligent systems and data-driven solutions to shape the future of technology</p>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
@@ -317,125 +385,148 @@
                     <p class="lead opacity-75">Verified credentials demonstrating my expertise in emerging technologies.</p>
                 </div>
             </div>
+
+            <!-- Featured Achievements -->
+            <p class="cert-category-label">🏆 Featured Achievements</p>
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card cert-featured h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="cert-icon-lg"><i class="fas fa-trophy"></i></div>
+                                <div>
+                                    <h5 class="card-title mb-1">India AI Impact Buildathon</h5>
+                                    <p class="small text-muted mb-2">HCL GUVI | India AI Impact Summit 2026</p>
+                                    <p class="small mb-3">Competed among <strong>40,000+ participants</strong> across India in a nationwide AI innovation challenge.</p>
+                                    <a href="{{ url_for('static', filename='assets/certificates/hcl_guvi_buildathon.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card cert-featured h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="cert-icon-lg"><i class="fas fa-medal"></i></div>
+                                <div>
+                                    <h5 class="card-title mb-1">Career Readiness Challenge 2026</h5>
+                                    <p class="small text-muted mb-2">upDt Education Technology</p>
+                                    <p class="small mb-3">Achieved <strong class="text-info">Rank 57</strong> — successfully completed all phases of the challenge.</p>
+                                    <a href="{{ url_for('static', filename='assets/certificates/career_readiness.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI & Technology -->
+            <p class="cert-category-label">🤖 AI & Technology</p>
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="cert-compact-card">
+                        <i class="fas fa-robot cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Google AI Studio App Deployment</p>
+                            <p class="cert-compact-sub">GUVI | HCL | Google for Education</p>
+                        </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/google_ai.png') }}" target="_blank" class="cert-compact-btn">View</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cert-compact-card">
+                        <i class="fas fa-brain cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Create Your Own AI Tools</p>
+                            <p class="cert-compact-sub">SkillEcted Campus Program</p>
+                        </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/ai_tools.png') }}" target="_blank" class="cert-compact-btn">View</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cert-compact-card">
+                        <i class="fas fa-microchip cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Generative AI Certificate</p>
+                            <p class="cert-compact-sub">GenAI Technologies</p>
+                        </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/gen_ai.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cert-compact-card">
+                        <i class="fas fa-robot cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Intro to Generative AI & Agents</p>
+                            <p class="cert-compact-sub">Generative AI Technologies</p>
+                        </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/gen_ai_agents.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cert-compact-card">
+                        <i class="fas fa-tools cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">AI Workshop Completion</p>
+                            <p class="cert-compact-sub">Artificial Intelligence Workshop</p>
+                        </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/workshop.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cert-compact-card">
+                        <i class="fas fa-terminal cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Claude Code: Coding Assistant</p>
+                            <p class="cert-compact-sub">Free Course Completion</p>
+                        </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/claude_code.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cloud & Data -->
+            <p class="cert-category-label">☁️ Cloud & Data</p>
             <div class="row g-3">
                 <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-robot fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Building & Deploying Apps with Google AI Studio</h5>
-                            <p class="small text-muted mb-3">GUVI | HCL | Google for Education Partner</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/google_ai.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
+                    <div class="cert-compact-card">
+                        <i class="fab fa-aws cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">AWS Cloud Certification</p>
+                            <p class="cert-compact-sub">Cloud Computing</p>
                         </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/aws_cloud.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fab fa-python fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Python Coder Badge</h5>
-                            <p class="small text-muted mb-3">Kaggle</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/python_coder.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
+                    <div class="cert-compact-card">
+                        <i class="fas fa-chart-pie cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Microsoft Data Analytics</p>
+                            <p class="cert-compact-sub">Data Analysis</p>
                         </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/data_analytics.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-brain fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Create Your Own AI Tools</h5>
-                            <p class="small text-muted mb-3">SkillEcted Campus Program</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/ai_tools.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
+                    <div class="cert-compact-card">
+                        <i class="fab fa-python cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Python Coder Badge</p>
+                            <p class="cert-compact-sub">Kaggle</p>
                         </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/python_coder.png') }}" target="_blank" class="cert-compact-btn">View</a>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-tools fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Workshop Completion</h5>
-                            <p class="small text-muted mb-3">Artificial Intelligence Workshop</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/workshop.pdf') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
+                    <div class="cert-compact-card">
+                        <i class="fas fa-certificate cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Mindluster Certification</p>
+                            <p class="cert-compact-sub">Online Learning Platform</p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fab fa-aws fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">AWS Cloud Certification</h5>
-                            <p class="small text-muted mb-3">Cloud Computing</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/aws_cloud.pdf') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-chart-pie fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Microsoft Data Analytics</h5>
-                            <p class="small text-muted mb-3">Data Analysis</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/data_analytics.pdf') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-microchip fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Generative AI Certificate</h5>
-                            <p class="small text-muted mb-3">GenAI Technologies</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/gen_ai.pdf') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-robot fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Introduction to Generative AI and Agents</h5>
-                            <p class="small text-muted mb-3">Generative AI Technologies</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/gen_ai_agents.pdf') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-trophy fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">India AI Impact Buildathon</h5>
-                            <p class="small text-muted mb-3">HCL GUVI | India AI Impact Summit 2026</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/hcl_guvi_buildathon.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-terminal fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Claude Code: The Coding Assistant</h5>
-                            <p class="small text-muted mb-3">Free Course Completion</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/claude_code.pdf') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-medal fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Career Readiness Challenge 2026</h5>
-                            <p class="small text-muted mb-3">upDt Education Technology &mdash; <strong class="text-info">Rank 57</strong></p>
-                            <a href="{{ url_for('static', filename='assets/certificates/career_readiness.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-3">
-                            <i class="fas fa-certificate fa-3x text-info mb-3"></i>
-                            <h5 class="card-title">Mindluster Certification</h5>
-                            <p class="small text-muted mb-3">Online Learning Platform</p>
-                            <a href="{{ url_for('static', filename='assets/certificates/mindluster.pdf') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                        </div>
+                        <a href="{{ url_for('static', filename='assets/certificates/mindluster.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
                     </div>
                 </div>
             </div>
