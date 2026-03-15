@@ -27,6 +27,8 @@ Preferred communication style: Simple, everyday language.
 - Microsoft Data Analytics
 - Generative AI
 - Introduction to Generative AI and Agents
+- India AI Impact Buildathon - Certificate of Participation (HCL GUVI, India AI Impact Summit 2026)
+- Claude Code: The Coding Assistant (Free Course Completion)
 
 ## System Architecture
 
