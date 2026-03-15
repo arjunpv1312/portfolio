@@ -1,0 +1,197 @@
+/* Bold & Vibrant Theme Variation
+   Emotional Register: Youthful, energetic, confident, playful
+   Color Palette: High-contrast, dynamic — deep purple, bright neon accents, electric blue, vibrant lime
+*/
+
+:root {
+    --bs-info: #BFFF00; /* Vibrant Lime */
+    --bs-info-rgb: 191, 255, 0;
+    --bs-primary: #EC4899; /* Bright Neon Pink */
+    --bs-secondary: #3B82F6; /* Electric Blue */
+    --bs-body-bg: #0F0014; /* Deep Purple Black */
+    --bs-dark: #2D0040;
+    --bs-body-color: #FFFFFF;
+    
+    --hero-bg: linear-gradient(135deg, #2D0040 0%, #0F0014 100%);
+    --card-hover-transform: translateY(-8px) scale(1.02);
+}
+
+body {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    font-family: 'Space Grotesk', 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+h1, h2, h3, h4, h5, h6, .display-1, .display-5, .section-title {
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.text-info {
+    color: var(--bs-info) !important;
+    text-shadow: 0 0 10px rgba(191, 255, 0, 0.4);
+}
+
+/* Hero Section */
+.hero-section::before {
+    background: radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.15) 0%, transparent 60%);
+}
+.hero-intro h1 {
+    color: #FFFFFF !important;
+    text-shadow: 4px 4px 0px var(--bs-primary), -2px -2px 0px var(--bs-secondary) !important;
+    animation: heroFloat 2s ease-in-out infinite;
+}
+
+/* Backgrounds */
+.bg-animated {
+    background: linear-gradient(-45deg, #2D0040, #0F0014, #1E002B, #3B82F6);
+    background-size: 400% 400%;
+    animation: gradientBG 8s ease infinite;
+}
+
+/* Profile Image */
+.hero-profile-image {
+    border: 4px solid var(--bs-primary) !important;
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.6);
+    border-radius: 20px;
+}
+.image-decoration {
+    border: 3px solid var(--bs-info);
+    border-radius: 20px;
+    animation: rotate 10s linear infinite;
+}
+
+/* Buttons */
+.btn-info {
+    background: linear-gradient(90deg, var(--bs-info), var(--bs-secondary));
+    border: none;
+    color: #000000;
+    font-weight: 800;
+    box-shadow: 0 0 15px rgba(191, 255, 0, 0.4);
+    border-radius: 8px;
+}
+.btn-info:hover {
+    background: linear-gradient(90deg, var(--bs-secondary), var(--bs-info));
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+    transform: translateY(-3px) scale(1.05);
+}
+.btn-outline-light {
+    border: 2px solid var(--bs-primary);
+    color: var(--bs-primary);
+    border-radius: 8px;
+    font-weight: 800;
+}
+.btn-outline-light:hover {
+    background: var(--bs-primary);
+    color: #FFFFFF;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.6);
+}
+
+/* Badges */
+.badge {
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 0.6rem 1rem;
+    text-transform: uppercase;
+}
+.badge.bg-info {
+    background: linear-gradient(45deg, var(--bs-info), #34D399) !important;
+    color: #000 !important;
+    box-shadow: 0 2px 10px rgba(191, 255, 0, 0.3);
+}
+.badge.bg-secondary {
+    background: linear-gradient(45deg, var(--bs-secondary), var(--bs-primary)) !important;
+    color: #FFF !important;
+    box-shadow: 0 2px 10px rgba(236, 72, 153, 0.3);
+}
+
+/* Cards */
+.card, .skills-showcase, .education-highlight, .interest-card {
+    background: rgba(45, 0, 64, 0.7) !important;
+    border: 2px solid rgba(236, 72, 153, 0.3) !important;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+}
+.card:hover {
+    border-color: var(--bs-info) !important;
+    box-shadow: 0 0 30px rgba(191, 255, 0, 0.2), inset 0 0 20px rgba(59, 130, 246, 0.2) !important;
+}
+.card i {
+    color: var(--bs-primary) !important;
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+}
+.card:hover i {
+    color: var(--bs-info) !important;
+    text-shadow: 0 0 15px rgba(191, 255, 0, 0.6);
+}
+
+/* Timeline */
+.timeline::before {
+    background: linear-gradient(to bottom, var(--bs-primary), var(--bs-secondary), var(--bs-info));
+    width: 4px;
+}
+.timeline-marker {
+    background: var(--bs-primary);
+    border: none;
+    box-shadow: 0 0 15px var(--bs-primary);
+}
+.timeline-item:hover .timeline-marker {
+    background: var(--bs-info);
+    box-shadow: 0 0 20px var(--bs-info);
+    transform: scale(1.5) rotate(15deg);
+}
+.timeline-content {
+    background: rgba(45, 0, 64, 0.8) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-left: 4px solid var(--bs-primary);
+}
+.timeline-item:hover .timeline-content {
+    border-left-color: var(--bs-info);
+    background: rgba(45, 0, 64, 1) !important;
+}
+
+/* Section Title */
+.section-title::after {
+    background: linear-gradient(90deg, var(--bs-primary), var(--bs-info));
+    height: 4px;
+}
+
+/* Form */
+.form-control {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    color: #FFF;
+    border-radius: 8px;
+}
+.form-control:focus {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: var(--bs-info);
+    box-shadow: 0 0 15px rgba(191, 255, 0, 0.3);
+}
+
+/* Floating icons */
+.floating-icon {
+    color: var(--bs-primary);
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+}
+.floating-icon:nth-child(2) {
+    color: var(--bs-secondary);
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+.floating-icon:nth-child(3) {
+    color: var(--bs-info);
+    text-shadow: 0 0 10px rgba(191, 255, 0, 0.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar-track {
+    background: #0F0014;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bs-primary);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-info);
+}

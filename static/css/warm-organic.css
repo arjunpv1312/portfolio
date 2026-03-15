@@ -1,0 +1,141 @@
+/* Warm & Organic Theme Variation
+   Emotional Register: Welcoming, innovative, organic, energetic
+   Color Palette: Warm tones — amber, terracotta, warm browns, soft orange
+*/
+
+:root {
+    /* Override Bootstrap variables */
+    --bs-info: #FCD34D; /* Amber */
+    --bs-info-rgb: 252, 211, 77;
+    --bs-primary: #DC2626; /* Terracotta */
+    --bs-body-bg: #111827; /* Warmer dark ground */
+    --bs-dark: #1F2937;
+    --bs-body-color: #F9FAFB;
+    
+    /* Custom Theme Variables */
+    --hero-bg: linear-gradient(135deg, rgba(252, 211, 77, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%);
+    --card-hover-transform: translateY(-5px);
+}
+
+body {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Typography Accents */
+h1, h2, h3, .section-title, .navbar-brand, .display-1, .display-5 {
+    font-family: 'Merriweather', 'Georgia', serif;
+    color: #FEF3C7;
+}
+
+h4.text-info, h5.text-info {
+    color: var(--bs-info) !important;
+}
+
+.text-info {
+    color: var(--bs-info) !important;
+}
+
+/* Backgrounds and Sections */
+.hero-section::before {
+    background: radial-gradient(circle at 30% 70%, rgba(220, 38, 38, 0.08) 0%, transparent 50%);
+}
+
+.bg-animated {
+    background: linear-gradient(-45deg, #111827, #1F2937, #374151, #111827);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+.bg-animated-subtle {
+    background: linear-gradient(135deg, rgba(252, 211, 77, 0.05), rgba(220, 38, 38, 0.05));
+}
+
+/* Profile Image */
+.hero-profile-image {
+    border: 5px solid var(--bs-info);
+    border-radius: 40px; /* Softer curves instead of circle maybe, or keep circle if inline style forces it, wait inline style is rounded-circle. */
+    box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
+}
+
+.image-decoration {
+    border: 2px dashed rgba(252, 211, 77, 0.4);
+}
+
+/* Buttons and Badges */
+.btn-info {
+    background-color: var(--bs-info);
+    border-color: var(--bs-info);
+    color: #111827;
+    box-shadow: 0 4px 15px rgba(252, 211, 77, 0.2);
+}
+
+.btn-info:hover {
+    background-color: #FBBF24;
+    border-color: #FBBF24;
+    color: #111827;
+    box-shadow: 0 6px 20px rgba(252, 211, 77, 0.4);
+}
+
+.badge.bg-info {
+    background-color: rgba(252, 211, 77, 0.2) !important;
+    color: var(--bs-info) !important;
+    border: 1px solid rgba(252, 211, 77, 0.3);
+    border-radius: 20px; /* Softer */
+}
+
+/* Cards & Glassmorphism */
+.card, .skills-showcase, .education-highlight, .interest-card {
+    background: rgba(31, 41, 55, 0.6) !important;
+    border: 1px solid rgba(252, 211, 77, 0.1) !important;
+    border-radius: 20px;
+}
+
+.card:hover {
+    border-color: rgba(252, 211, 77, 0.3) !important;
+    box-shadow: 0 20px 40px rgba(220, 38, 38, 0.15) !important;
+}
+
+/* Timeline */
+.timeline::before {
+    background: var(--bs-info);
+}
+
+.timeline-marker {
+    background: linear-gradient(135deg, #FCD34D, #DC2626);
+    box-shadow: 0 0 0 4px var(--bs-body-bg);
+}
+
+.timeline-item:hover .timeline-marker {
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+}
+
+.timeline-item:hover .timeline-content {
+    border-left-color: var(--bs-info);
+    background: rgba(252, 211, 77, 0.05) !important;
+}
+
+/* Section Title Underline */
+.section-title::after {
+    background: var(--bs-info);
+}
+
+/* Nav Link */
+.nav-link:hover, .navbar-brand:hover {
+    color: var(--bs-info) !important;
+}
+.nav-link::after {
+    background: var(--bs-info);
+}
+
+/* Form */
+.form-control:focus {
+    border-color: var(--bs-info);
+    box-shadow: 0 0 0 0.2rem rgba(252, 211, 77, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-info);
+}
