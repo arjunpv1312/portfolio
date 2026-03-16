@@ -764,30 +764,45 @@ section {
 
 .badge-label i { color: #22c55e; }
 
-.hero-subtitle {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: rgba(226,232,240,0.55);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.hero-name-grad {
+.hero-main-name {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.0;
+    letter-spacing: -2px;
     background: var(--accent-grad);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    line-height: 1.05;
-    letter-spacing: -2px;
-    margin-bottom: 0 !important;
+    filter: drop-shadow(0 0 24px rgba(0,212,255,0.25));
 }
 
-.hero-specialise {
-    font-size: 0.85rem;
+.hero-role {
+    font-size: 1rem;
     font-weight: 500;
-    color: rgba(226,232,240,0.45);
-    letter-spacing: 0.08em;
+    color: rgba(226,232,240,0.55);
+    letter-spacing: 0.02em;
+    margin-bottom: 0;
+}
+
+.hero-typed-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.hero-typed-label {
+    font-size: 0.78rem;
+    font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(226,232,240,0.35);
+    white-space: nowrap;
+}
+
+.hero-typed-word {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent-start);
 }
 
 .hero-name {
