@@ -911,6 +911,16 @@ section {
     margin: 0 auto;
 }
 
+.about-photo-fallback {
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(139,92,246,0.15));
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent-start);
+    letter-spacing: -1px;
+}
+
 .about-photo-glow {
     position: absolute;
     inset: -20px;

@@ -139,7 +139,10 @@
                         <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}"
                              alt="Arjun PV"
                              class="about-photo"
-                             onerror="this.style.display='none'">
+                             onerror="this.style.display='none'; document.getElementById('about-fallback').style.display='flex';">
+                        <div id="about-fallback" class="about-photo about-photo-fallback" style="display:none;">
+                            <span>AP</span>
+                        </div>
                         <div class="about-photo-glow"></div>
                     </div>
                     <!-- Social quick links -->
@@ -162,7 +165,7 @@
                     <h2 class="display-5 fw-bold section-title mb-1">Arjun PV</h2>
                     <h3 class="h5 mb-4" style="background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">BTech in Artificial Intelligence & Data Science</h3>
                     <p class="lead mb-4 opacity-75">
-                        In my first year of engineering, I competed in the India AI Impact Buildathon against 40,000+ participants nationwide, placed <strong>#57</strong> in the Career Readiness Challenge 2026, and earned 12+ verified certifications. I learn by doing — and I'm actively looking for opportunities to contribute to real AI projects.
+                        Across my BTech journey so far, I've competed in the India AI Impact Buildathon against 40,000+ participants nationwide, placed <strong>#57</strong> in the Career Readiness Challenge 2026, and earned 12+ verified certifications — with more ahead. I learn by doing, and I'm actively looking for opportunities to contribute to real AI projects.
                     </p>
 
                     <!-- Skills -->
