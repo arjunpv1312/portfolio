@@ -118,19 +118,16 @@ function initializeNavigation() {
         }
     }
     
-    // Smooth scrolling for navigation links
+    // Smooth scrolling for navigation links (only internal anchor links)
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
+            if (!targetId || !targetId.startsWith('#')) return; // skip external links
+            e.preventDefault();
             const targetSection = document.querySelector(targetId);
-            
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
             }
         });
     });
