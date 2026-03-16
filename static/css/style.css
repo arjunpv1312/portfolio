@@ -546,23 +546,49 @@ section {
 .contact-card {
     background: var(--bg-card);
     border: 1px solid rgba(255,255,255,0.07);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
     backdrop-filter: blur(16px);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-card::after {
+    content: '\f35d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 0.65rem;
+    color: rgba(0,212,255,0.35);
+    transition: all 0.3s ease;
 }
 
 .contact-card:hover {
-    background: rgba(0,212,255,0.06);
-    transform: translateY(-10px);
-    border-color: rgba(0,212,255,0.4);
-    box-shadow: var(--accent-glow);
+    background: rgba(0,212,255,0.08);
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(0,212,255,0.5);
+    box-shadow: 0 12px 40px rgba(0,212,255,0.18), 0 0 0 1px rgba(0,212,255,0.2);
+}
+
+.contact-card:hover::after {
+    color: rgba(0,212,255,0.9);
+    top: 8px;
+    right: 10px;
+}
+
+.contact-card:active {
+    transform: translateY(-4px) scale(0.99);
 }
 
 .contact-card i {
-    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, color 0.3s ease;
 }
 
 .contact-card:hover i {
-    transform: scale(1.2) rotate(5deg);
+    transform: scale(1.25) rotate(-5deg);
+    color: var(--accent-start) !important;
 }
 
 .contact-card h6 {
@@ -574,6 +600,7 @@ section {
 
 .contact-card p {
     transition: color 0.3s ease;
+    word-break: break-word;
 }
 
 .contact-card:hover p {
@@ -1113,6 +1140,13 @@ section {
 }
 
 /* ── Mobile improvements ────────────────────────────── */
+@media (max-width: 991px) {
+    /* On tablet/mobile — orbit goes below text and shrinks */
+    .hero-visual {
+        margin-top: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
 
     /* Hero */
@@ -1122,21 +1156,35 @@ section {
         padding-bottom: 40px;
     }
 
-    .hero-intro h1,
-    .hero-section h1.display-2 {
-        font-size: 2rem !important;
-        line-height: 1.2 !important;
-        word-break: break-word;
+    .hero-main-name {
+        font-size: clamp(2rem, 10vw, 3rem) !important;
     }
 
     .hero-desc { max-width: 100%; }
 
-    .hero-buttons { flex-direction: column; }
-    .hero-buttons .btn { width: 100%; }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.6rem !important;
+    }
+    .hero-buttons .btn {
+        display: block;
+        width: 100%;
+        margin-right: 0 !important;
+    }
 
-    .hero-stats-row { gap: 1.2rem !important; flex-wrap: wrap; }
+    .hero-stats-row {
+        gap: 0.8rem !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-    /* Orbit visual - hide on small screens */
+    .stat-pill {
+        flex: 0 0 auto;
+        font-size: 0.8rem;
+        padding: 0.45em 0.9em;
+    }
+
+    /* Orbit visual — smaller on tablet */
     .hero-orbit-wrapper {
         width: 220px;
         height: 220px;
@@ -1159,24 +1207,12 @@ section {
         height: 180px;
     }
 
-    .hero-intro h4 {
-        font-size: 0.95rem;
-    }
-
-    .hero-intro h3 {
-        font-size: 1rem;
-    }
+    .hero-intro h4 { font-size: 0.95rem; }
+    .hero-intro h3 { font-size: 1rem; }
 
     .hero-content p.lead {
         font-size: 0.9rem;
         padding: 0 0.5rem;
-    }
-
-    .hero-buttons .btn {
-        display: block;
-        width: 100%;
-        margin-right: 0 !important;
-        margin-bottom: 0.75rem;
     }
 
     /* Profile image */
@@ -1187,88 +1223,100 @@ section {
     }
 
     /* Section headings */
-    .display-5 {
-        font-size: 1.6rem !important;
-    }
+    .display-5 { font-size: 1.6rem !important; }
+    .section-header { margin-bottom: 2rem; }
 
-    .section-header {
-        margin-bottom: 2rem;
-    }
-
-    /* Cards & interest grid */
+    /* Cards */
     .interest-card,
     #certificates .card {
         margin-bottom: 0.5rem;
     }
 
     /* Timeline */
-    .timeline {
-        padding-left: 20px;
-    }
-
-    .timeline-item {
-        padding-left: 30px;
-    }
-
+    .timeline { padding-left: 20px; }
+    .timeline-item { padding-left: 30px; }
     .timeline-marker {
         left: -37px;
         width: 25px;
         height: 25px;
         font-size: 12px;
     }
-
     .timeline-item:hover .timeline-content {
         transform: none !important;
     }
 
     /* Contact form */
-    .contact-form {
-        padding: 20px 15px;
-    }
+    .contact-form { padding: 20px 15px; }
 
-    /* Contact cards — stack 2 per row on small screens */
+    /* Contact cards — 2 per row on mobile */
     #contact .col-md-3 {
         flex: 0 0 50%;
         max-width: 50%;
     }
 
     .contact-card {
-        padding: 1rem !important;
+        padding: 1.1rem 0.8rem !important;
+        min-height: 110px;
     }
 
-    .contact-card h6 {
-        font-size: 0.75rem;
-    }
-
-    .contact-card p {
-        font-size: 0.7rem;
-        word-break: break-all;
-    }
+    .contact-card h6 { font-size: 0.72rem; }
+    .contact-card p  { font-size: 0.68rem; }
 
     /* Navbar brand */
-    .navbar-brand {
-        font-size: 1.1rem;
-    }
+    .navbar-brand { font-size: 1.1rem; }
 
     /* Back-to-top button */
     .btn-floating {
         bottom: 15px !important;
         right: 15px !important;
-        width: 40px !important;
-        height: 40px !important;
+        width: 44px !important;
+        height: 44px !important;
         font-size: 0.85rem;
     }
 }
 
-@media (max-width: 400px) {
-    .hero-intro h1,
-    .hero-section h1.display-1 {
-        font-size: 1.6rem !important;
+/* ── Very small phones (< 480px) ────────────── */
+@media (max-width: 480px) {
+    /* Completely hide orbit on tiny phones — hero is text only */
+    .hero-visual { display: none !important; }
+
+    .hero-main-name {
+        font-size: clamp(1.8rem, 11vw, 2.4rem) !important;
     }
 
+    .hero-typed-row {
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    /* Contact cards — 1 per row on very small */
     #contact .col-md-3 {
         flex: 0 0 100%;
         max-width: 100%;
+    }
+
+    .contact-card {
+        min-height: auto;
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        text-align: left !important;
+    }
+
+    .contact-card i {
+        font-size: 1.4rem !important;
+        margin-bottom: 0 !important;
+        flex-shrink: 0;
+    }
+
+    .contact-card h6 { margin-bottom: 0.1rem; }
+}
+
+/* ── Ultra-small (< 360px) ──────────────────── */
+@media (max-width: 360px) {
+    .hero-main-name {
+        font-size: 1.6rem !important;
     }
 }
 

@@ -155,38 +155,90 @@ function initializeNavigation() {
 
 // Animation functionality
 function initializeAnimations() {
-    // Intersection Observer for fade-in animations
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
     };
-    
+
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in-visible');
+                entry.target.classList.add('scroll-visible');
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-    
-    // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.interest-card, .timeline-item, .gallery-item');
-    animatedElements.forEach(element => {
-        observer.observe(element);
+
+    // All elements that animate on scroll
+    const selectors = [
+        '.interest-card',
+        '.timeline-item',
+        '.cert-compact-card',
+        '.cert-featured',
+        '.about-info-card',
+        '.contact-card',
+        '.section-header',
+        '.stat-pill',
+        '.skills-showcase',
+        '.education-highlight'
+    ];
+
+    const allElements = document.querySelectorAll(selectors.join(', '));
+
+    // Group siblings by parent — apply stagger within each row
+    const parentMap = new Map();
+    allElements.forEach(el => {
+        const key = el.parentElement;
+        if (!parentMap.has(key)) parentMap.set(key, []);
+        parentMap.get(key).push(el);
     });
-    
-    // Add CSS for fade-in animation
+
+    parentMap.forEach((siblings) => {
+        siblings.forEach((el, i) => {
+            el.style.setProperty('--stagger', i);
+            observer.observe(el);
+        });
+    });
+
+    // Add CSS for scroll animations
     const style = document.createElement('style');
     style.textContent = `
-        .interest-card, .timeline-item, .gallery-item {
+        .interest-card,
+        .cert-compact-card,
+        .cert-featured,
+        .about-info-card,
+        .contact-card,
+        .skills-showcase,
+        .education-highlight {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+            transform: translateY(28px);
+            transition: opacity 0.55s ease calc(var(--stagger, 0) * 90ms),
+                        transform 0.55s ease calc(var(--stagger, 0) * 90ms);
         }
-        
-        .fade-in-visible {
+
+        .timeline-item {
+            opacity: 0;
+            transform: translateX(-24px);
+            transition: opacity 0.55s ease calc(var(--stagger, 0) * 100ms),
+                        transform 0.55s ease calc(var(--stagger, 0) * 100ms);
+        }
+
+        .stat-pill {
+            opacity: 0;
+            transform: translateY(16px) scale(0.95);
+            transition: opacity 0.5s ease calc(var(--stagger, 0) * 80ms),
+                        transform 0.5s ease calc(var(--stagger, 0) * 80ms);
+        }
+
+        .section-header {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scroll-visible {
             opacity: 1 !important;
-            transform: translateY(0) !important;
+            transform: none !important;
         }
     `;
     document.head.appendChild(style);
@@ -342,9 +394,10 @@ function initializeScrollEffects() {
         top: 0;
         left: 0;
         height: 3px;
-        background: var(--bs-info);
+        background: linear-gradient(90deg, #00d4ff, #8b5cf6);
         z-index: 9999;
         transition: width 0.1s ease;
+        box-shadow: 0 0 8px rgba(0,212,255,0.6);
     `;
     document.body.appendChild(progressBar);
 
@@ -475,6 +528,34 @@ function initializeParticles() {
 
     // Click burst
     const bursts = [];
+    // Touch support — mirror mouse interactions
+    canvas.addEventListener('touchmove', e => {
+        e.preventDefault();
+        const t = e.touches[0];
+        mouse.x = t.clientX;
+        mouse.y = t.clientY;
+    }, { passive: false });
+
+    canvas.addEventListener('touchend', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    canvas.addEventListener('touchstart', e => {
+        const t = e.touches[0];
+        bursts.push({ x: t.clientX, y: t.clientY, r: 0, maxR: 160, alpha: 0.6 });
+        particles.forEach(p => {
+            const dx = p.x - t.clientX;
+            const dy = p.y - t.clientY;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 180 && d > 0) {
+                const force = (180 - d) / 180 * 3.5;
+                p.vx += (dx / d) * force;
+                p.vy += (dy / d) * force;
+            }
+        });
+    }, { passive: true });
+
     window.addEventListener('click', e => {
         bursts.push({ x: e.clientX, y: e.clientY, r: 0, maxR: 160, alpha: 0.6 });
         // Push nearby particles outward
