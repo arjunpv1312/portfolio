@@ -525,20 +525,19 @@ function initializeParticles() {
 
     // Click burst
     const bursts = [];
-    // Touch support — mirror mouse interactions
-    canvas.addEventListener('touchmove', e => {
-        e.preventDefault();
+    // Touch support — listen on window (canvas has pointer-events:none)
+    window.addEventListener('touchmove', e => {
         const t = e.touches[0];
         mouse.x = t.clientX;
         mouse.y = t.clientY;
-    }, { passive: false });
+    }, { passive: true });
 
-    canvas.addEventListener('touchend', () => {
+    window.addEventListener('touchend', () => {
         mouse.x = null;
         mouse.y = null;
     });
 
-    canvas.addEventListener('touchstart', e => {
+    window.addEventListener('touchstart', e => {
         const t = e.touches[0];
         bursts.push({ x: t.clientX, y: t.clientY, r: 0, maxR: 160, alpha: 0.6 });
         particles.forEach(p => {
