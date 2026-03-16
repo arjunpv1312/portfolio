@@ -428,75 +428,166 @@ function initializeParticles() {
     resize();
     window.addEventListener('resize', resize);
 
-    const PARTICLE_COUNT = window.innerWidth < 600 ? 50 : 100;
-    const CONNECTION_DIST = 140;
+    const isMobile = window.innerWidth < 600;
+    const COUNT = isMobile ? 55 : 120;
+    const CONNECT_DIST = isMobile ? 100 : 150;
+    const REPEL_DIST   = 110;
+    const ATTRACT_DIST = 220;
+    const MAX_SPEED    = 2.2;
+    const BASE_SPEED   = 0.45;
+    const DAMPEN       = 0.97;
 
-    const particles = [];
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5,
-            r: Math.random() * 2 + 1,
-            alpha: Math.random() * 0.5 + 0.2
-        });
+    // Brand palette — cyan → violet only
+    const COLORS = [
+        { h: 192, s: 100, l: 60 }, // #00d4ff cyan
+        { h: 210, s:  90, l: 65 }, // blue-cyan
+        { h: 230, s:  85, l: 65 }, // blue
+        { h: 260, s:  75, l: 65 }, // indigo
+        { h: 275, s:  70, l: 62 }, // violet #8b5cf6
+    ];
+
+    function randColor() {
+        return COLORS[Math.floor(Math.random() * COLORS.length)];
     }
 
-    // Mouse interaction
-    const mouse = { x: null, y: null, radius: 120 };
+    const particles = Array.from({ length: COUNT }, () => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = BASE_SPEED * (0.5 + Math.random());
+        const c = randColor();
+        return {
+            x:  Math.random() * canvas.width,
+            y:  Math.random() * canvas.height,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            r:  Math.random() * 2.2 + 0.8,
+            alpha: Math.random() * 0.45 + 0.2,
+            c,
+            pulsePhase: Math.random() * Math.PI * 2,
+        };
+    });
+
+    // Mouse / touch
+    const mouse = { x: null, y: null, down: false };
     window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
     window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+    window.addEventListener('mousedown', () => { mouse.down = true; });
+    window.addEventListener('mouseup',   () => { mouse.down = false; });
 
-    let hue = 180; // start at cyan
+    // Click burst
+    const bursts = [];
+    window.addEventListener('click', e => {
+        bursts.push({ x: e.clientX, y: e.clientY, r: 0, maxR: 160, alpha: 0.6 });
+        // Push nearby particles outward
+        particles.forEach(p => {
+            const dx = p.x - e.clientX;
+            const dy = p.y - e.clientY;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 180 && d > 0) {
+                const force = (180 - d) / 180 * 3.5;
+                p.vx += (dx / d) * force;
+                p.vy += (dy / d) * force;
+            }
+        });
+    });
+
+    let t = 0;
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        hue = (hue + 0.1) % 360;
+        t += 0.012;
+
+        // Draw click burst rings
+        for (let i = bursts.length - 1; i >= 0; i--) {
+            const b = bursts[i];
+            b.r   += 5;
+            b.alpha -= 0.018;
+            if (b.alpha <= 0) { bursts.splice(i, 1); continue; }
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(0,212,255,${b.alpha})`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
 
         particles.forEach((p, i) => {
-            // Move
+            // Natural drift
             p.x += p.vx;
             p.y += p.vy;
 
-            // Bounce
-            if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-            if (p.y < 0 || p.y > canvas.height)  p.vy *= -1;
+            // Soft bounce off edges
+            if (p.x < 0)             { p.x = 0;            p.vx = Math.abs(p.vx); }
+            if (p.x > canvas.width)  { p.x = canvas.width; p.vx = -Math.abs(p.vx); }
+            if (p.y < 0)             { p.y = 0;            p.vy = Math.abs(p.vy); }
+            if (p.y > canvas.height) { p.y = canvas.height; p.vy = -Math.abs(p.vy); }
 
-            // Mouse repulsion
+            // Mouse interaction
             if (mouse.x !== null) {
                 const dx = p.x - mouse.x;
                 const dy = p.y - mouse.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < mouse.radius) {
-                    const force = (mouse.radius - dist) / mouse.radius;
-                    p.vx += (dx / dist) * force * 0.3;
-                    p.vy += (dy / dist) * force * 0.3;
-                    // Clamp speed
-                    const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-                    if (speed > 2) { p.vx = (p.vx / speed) * 2; p.vy = (p.vy / speed) * 2; }
+                const d  = Math.sqrt(dx * dx + dy * dy);
+
+                if (d < REPEL_DIST && d > 0) {
+                    // Repel — push away
+                    const force = ((REPEL_DIST - d) / REPEL_DIST) * (mouse.down ? 0.9 : 0.55);
+                    p.vx += (dx / d) * force;
+                    p.vy += (dy / d) * force;
+                } else if (d < ATTRACT_DIST && d > REPEL_DIST) {
+                    // Attract gently — pull toward cursor
+                    const force = ((ATTRACT_DIST - d) / ATTRACT_DIST) * 0.04;
+                    p.vx -= (dx / d) * force;
+                    p.vy -= (dy / d) * force;
                 }
             }
 
-            // Draw particle
+            // Speed cap + natural dampening back to base speed
+            const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+            if (speed > MAX_SPEED) {
+                p.vx = (p.vx / speed) * MAX_SPEED;
+                p.vy = (p.vy / speed) * MAX_SPEED;
+            }
+            if (speed > BASE_SPEED) {
+                p.vx *= DAMPEN;
+                p.vy *= DAMPEN;
+            }
+
+            // Pulsing glow radius
+            const pulse = Math.sin(t * 1.5 + p.pulsePhase) * 0.4 + 1;
+            const radius = p.r * pulse;
+
+            // Glow via radial gradient
+            const { h, s, l } = p.c;
+            const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 3.5);
+            grad.addColorStop(0,   `hsla(${h},${s}%,${l}%,${p.alpha})`);
+            grad.addColorStop(0.4, `hsla(${h},${s}%,${l}%,${p.alpha * 0.4})`);
+            grad.addColorStop(1,   `hsla(${h},${s}%,${l}%,0)`);
+
             ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `hsla(${(hue + i * 3) % 360}, 80%, 65%, ${p.alpha})`;
+            ctx.arc(p.x, p.y, radius * 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
             ctx.fill();
 
-            // Draw connections
+            // Solid core dot
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${h},${s}%,${l + 10}%,${p.alpha + 0.15})`;
+            ctx.fill();
+
+            // Draw connections — only brand colours, gradient line
             for (let j = i + 1; j < particles.length; j++) {
                 const q = particles[j];
                 const dx = p.x - q.x;
                 const dy = p.y - q.y;
                 const d  = Math.sqrt(dx * dx + dy * dy);
-                if (d < CONNECTION_DIST) {
-                    const opacity = (1 - d / CONNECTION_DIST) * 0.25;
+                if (d < CONNECT_DIST) {
+                    const opacity = (1 - d / CONNECT_DIST) * 0.22;
+                    const linGrad = ctx.createLinearGradient(p.x, p.y, q.x, q.y);
+                    linGrad.addColorStop(0, `hsla(${p.c.h},${p.c.s}%,${p.c.l}%,${opacity})`);
+                    linGrad.addColorStop(1, `hsla(${q.c.h},${q.c.s}%,${q.c.l}%,${opacity})`);
                     ctx.beginPath();
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(q.x, q.y);
-                    ctx.strokeStyle = `hsla(${(hue + i * 3) % 360}, 70%, 60%, ${opacity})`;
-                    ctx.lineWidth = 0.8;
+                    ctx.strokeStyle = linGrad;
+                    ctx.lineWidth = 0.7;
                     ctx.stroke();
                 }
             }
