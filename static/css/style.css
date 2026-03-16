@@ -765,10 +765,27 @@ section {
 .badge-label i { color: #22c55e; }
 
 .hero-subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: rgba(226,232,240,0.6);
-    letter-spacing: 0.05em;
+    color: rgba(226,232,240,0.55);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hero-name-grad {
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.hero-specialise {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(226,232,240,0.45);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
