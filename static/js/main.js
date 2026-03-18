@@ -465,7 +465,7 @@ const debouncedScrollHandler = debounce(function() {
 
 window.addEventListener('scroll', debouncedScrollHandler);
 
-// ── Particle Background ──────────────────────────────
+// ── Neural Network Particle Background ───────────────
 function initializeParticles() {
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
@@ -479,195 +479,264 @@ function initializeParticles() {
     window.addEventListener('resize', resize);
 
     const isMobile = window.innerWidth < 600;
-    const COUNT = isMobile ? 55 : 120;
-    const CONNECT_DIST = isMobile ? 100 : 150;
-    const REPEL_DIST   = 110;
-    const ATTRACT_DIST = 220;
-    const MAX_SPEED    = 2.2;
-    const BASE_SPEED   = 0.45;
-    const DAMPEN       = 0.97;
 
-    // Brand palette — cyan → violet only
+    // Counts
+    const NEURON_COUNT   = isMobile ? 8  : 14;   // hub nodes
+    const PARTICLE_COUNT = isMobile ? 40 : 80;   // regular drifting nodes
+    const CONNECT_DIST   = isMobile ? 120 : 170; // regular connections
+    const NEURON_DIST    = isMobile ? 200 : 280; // neuron-to-neuron connections
+    const REPEL_DIST     = 110;
+    const ATTRACT_DIST   = 230;
+    const MAX_SPEED      = 2.0;
+    const BASE_SPEED     = 0.38;
+    const DAMPEN         = 0.97;
+
+    // Brand palette — cyan → violet
     const COLORS = [
-        { h: 192, s: 100, l: 60 }, // #00d4ff cyan
-        { h: 210, s:  90, l: 65 }, // blue-cyan
-        { h: 230, s:  85, l: 65 }, // blue
-        { h: 260, s:  75, l: 65 }, // indigo
-        { h: 275, s:  70, l: 62 }, // violet #8b5cf6
+        { h: 192, s: 100, l: 60 },
+        { h: 210, s:  90, l: 65 },
+        { h: 230, s:  85, l: 65 },
+        { h: 260, s:  75, l: 65 },
+        { h: 275, s:  70, l: 62 },
     ];
+    const randColor = () => COLORS[Math.floor(Math.random() * COLORS.length)];
 
-    function randColor() {
-        return COLORS[Math.floor(Math.random() * COLORS.length)];
-    }
-
-    const particles = Array.from({ length: COUNT }, () => {
+    // ── Neuron hub nodes ─────────────────────────────
+    const neurons = Array.from({ length: NEURON_COUNT }, () => {
         const angle = Math.random() * Math.PI * 2;
-        const speed = BASE_SPEED * (0.5 + Math.random());
+        const speed = BASE_SPEED * 0.28;
         const c = randColor();
         return {
-            x:  Math.random() * canvas.width,
-            y:  Math.random() * canvas.height,
+            x: canvas.width  * (0.1 + Math.random() * 0.8),
+            y: canvas.height * (0.1 + Math.random() * 0.8),
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
-            r:  Math.random() * 2.2 + 0.8,
-            alpha: Math.random() * 0.45 + 0.2,
+            r: Math.random() * 1.8 + 2.8,
+            alpha: 0.75 + Math.random() * 0.2,
             c,
+            pulsePhase: Math.random() * Math.PI * 2,
+            ringPhase:  Math.random() * Math.PI * 2,
+        };
+    });
+
+    // ── Regular drifting nodes ────────────────────────
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = BASE_SPEED * (0.5 + Math.random());
+        return {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            r: Math.random() * 1.4 + 0.5,
+            alpha: Math.random() * 0.3 + 0.12,
+            c: randColor(),
             pulsePhase: Math.random() * Math.PI * 2,
         };
     });
 
+    // ── Signal pulses (travel along neuron connections) ─
+    const pulses = [];
+    function maybeSpawnPulse() {
+        if (pulses.length >= (isMobile ? 6 : 14)) return;
+        for (let i = 0; i < neurons.length; i++) {
+            for (let j = i + 1; j < neurons.length; j++) {
+                const dx = neurons[i].x - neurons[j].x;
+                const dy = neurons[i].y - neurons[j].y;
+                if (Math.sqrt(dx*dx + dy*dy) < NEURON_DIST && Math.random() < 0.012) {
+                    pulses.push({
+                        from: neurons[i], to: neurons[j],
+                        prog: 0,
+                        spd: 0.004 + Math.random() * 0.007,
+                        c: Math.random() < 0.5 ? neurons[i].c : neurons[j].c,
+                        rev: Math.random() < 0.5,
+                    });
+                }
+            }
+        }
+    }
+
     // Mouse / touch
     const mouse = { x: null, y: null, down: false };
-    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('mousemove',  e => { mouse.x = e.clientX; mouse.y = e.clientY; });
     window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
-    window.addEventListener('mousedown', () => { mouse.down = true; });
-    window.addEventListener('mouseup',   () => { mouse.down = false; });
+    window.addEventListener('mousedown',  () => { mouse.down = true; });
+    window.addEventListener('mouseup',    () => { mouse.down = false; });
+
+    window.addEventListener('touchmove', e => {
+        const t = e.touches[0];
+        mouse.x = t.clientX; mouse.y = t.clientY;
+    }, { passive: true });
+    window.addEventListener('touchend',  () => { mouse.x = null; mouse.y = null; });
+    window.addEventListener('touchstart', e => {
+        const t = e.touches[0];
+        bursts.push({ x: t.clientX, y: t.clientY, r: 0, alpha: 0.6 });
+        [...neurons, ...particles].forEach(p => {
+            const dx = p.x - t.clientX, dy = p.y - t.clientY;
+            const d = Math.sqrt(dx*dx + dy*dy);
+            if (d < 180 && d > 0) { const f = (180-d)/180*3; p.vx += dx/d*f; p.vy += dy/d*f; }
+        });
+    }, { passive: true });
 
     // Click burst
     const bursts = [];
-    // Touch support — listen on window (canvas has pointer-events:none)
-    window.addEventListener('touchmove', e => {
-        const t = e.touches[0];
-        mouse.x = t.clientX;
-        mouse.y = t.clientY;
-    }, { passive: true });
-
-    window.addEventListener('touchend', () => {
-        mouse.x = null;
-        mouse.y = null;
-    });
-
-    window.addEventListener('touchstart', e => {
-        const t = e.touches[0];
-        bursts.push({ x: t.clientX, y: t.clientY, r: 0, maxR: 160, alpha: 0.6 });
-        particles.forEach(p => {
-            const dx = p.x - t.clientX;
-            const dy = p.y - t.clientY;
-            const d = Math.sqrt(dx * dx + dy * dy);
-            if (d < 180 && d > 0) {
-                const force = (180 - d) / 180 * 3.5;
-                p.vx += (dx / d) * force;
-                p.vy += (dy / d) * force;
-            }
-        });
-    }, { passive: true });
-
     window.addEventListener('click', e => {
-        bursts.push({ x: e.clientX, y: e.clientY, r: 0, maxR: 160, alpha: 0.6 });
-        // Push nearby particles outward
-        particles.forEach(p => {
-            const dx = p.x - e.clientX;
-            const dy = p.y - e.clientY;
-            const d = Math.sqrt(dx * dx + dy * dy);
-            if (d < 180 && d > 0) {
-                const force = (180 - d) / 180 * 3.5;
-                p.vx += (dx / d) * force;
-                p.vy += (dy / d) * force;
-            }
+        bursts.push({ x: e.clientX, y: e.clientY, r: 0, alpha: 0.6 });
+        [...neurons, ...particles].forEach(p => {
+            const dx = p.x - e.clientX, dy = p.y - e.clientY;
+            const d = Math.sqrt(dx*dx + dy*dy);
+            if (d < 180 && d > 0) { const f = (180-d)/180*3.5; p.vx += dx/d*f; p.vy += dy/d*f; }
         });
     });
+
+    // ── Draw hex grid (subtle circuit board feel) ─────
+    function drawHexGrid() {
+        const size = 55, w = size * Math.sqrt(3), h = size * 2;
+        ctx.strokeStyle = 'rgba(0,212,255,0.028)';
+        ctx.lineWidth = 0.6;
+        for (let col = -1; col < canvas.width / w + 1; col++) {
+            for (let row = -1; row < canvas.height / (h * 0.75) + 1; row++) {
+                const cx = col * w + (row % 2) * (w / 2);
+                const cy = row * h * 0.75;
+                ctx.beginPath();
+                for (let side = 0; side < 6; side++) {
+                    const angle = Math.PI / 180 * (60 * side - 30);
+                    const px = cx + size * Math.cos(angle);
+                    const py = cy + size * Math.sin(angle);
+                    side === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+                }
+                ctx.closePath();
+                ctx.stroke();
+            }
+        }
+    }
 
     let t = 0;
 
+    function moveNode(p) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0)             { p.x = 0;            p.vx =  Math.abs(p.vx); }
+        if (p.x > canvas.width)  { p.x = canvas.width; p.vx = -Math.abs(p.vx); }
+        if (p.y < 0)             { p.y = 0;            p.vy =  Math.abs(p.vy); }
+        if (p.y > canvas.height) { p.y = canvas.height; p.vy = -Math.abs(p.vy); }
+        if (mouse.x !== null) {
+            const dx = p.x - mouse.x, dy = p.y - mouse.y;
+            const d = Math.sqrt(dx*dx + dy*dy);
+            if (d < REPEL_DIST && d > 0) {
+                const f = ((REPEL_DIST-d)/REPEL_DIST) * (mouse.down ? 0.85 : 0.5);
+                p.vx += dx/d*f; p.vy += dy/d*f;
+            } else if (d < ATTRACT_DIST && d > REPEL_DIST) {
+                const f = ((ATTRACT_DIST-d)/ATTRACT_DIST) * 0.035;
+                p.vx -= dx/d*f; p.vy -= dy/d*f;
+            }
+        }
+        const spd = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
+        if (spd > MAX_SPEED) { p.vx = p.vx/spd*MAX_SPEED; p.vy = p.vy/spd*MAX_SPEED; }
+        if (spd > BASE_SPEED) { p.vx *= DAMPEN; p.vy *= DAMPEN; }
+    }
+
+    function drawGlowDot(p, radiusMult, alphaBoost) {
+        const pulse = Math.sin(t * 1.4 + p.pulsePhase) * 0.35 + 1;
+        const r = p.r * pulse * (radiusMult || 1);
+        const { h, s, l } = p.c;
+        const a = Math.min(1, p.alpha + (alphaBoost || 0));
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 3.5);
+        g.addColorStop(0,   `hsla(${h},${s}%,${l}%,${a})`);
+        g.addColorStop(0.4, `hsla(${h},${s}%,${l}%,${a*0.35})`);
+        g.addColorStop(1,   `hsla(${h},${s}%,${l}%,0)`);
+        ctx.beginPath(); ctx.arc(p.x, p.y, r*3.5, 0, Math.PI*2);
+        ctx.fillStyle = g; ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI*2);
+        ctx.fillStyle = `hsla(${h},${s}%,${l+12}%,${a+0.1})`;
+        ctx.fill();
+    }
+
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        t += 0.012;
+        t += 0.011;
 
-        // Draw click burst rings
+        // 1. Hex grid
+        drawHexGrid();
+
+        // 2. Burst rings
         for (let i = bursts.length - 1; i >= 0; i--) {
             const b = bursts[i];
-            b.r   += 5;
-            b.alpha -= 0.018;
+            b.r += 5; b.alpha -= 0.017;
             if (b.alpha <= 0) { bursts.splice(i, 1); continue; }
-            ctx.beginPath();
-            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-            ctx.strokeStyle = `rgba(0,212,255,${b.alpha})`;
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
+            ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
+            ctx.strokeStyle = `rgba(0,212,255,${b.alpha})`; ctx.lineWidth = 1.5; ctx.stroke();
         }
 
-        particles.forEach((p, i) => {
-            // Natural drift
-            p.x += p.vx;
-            p.y += p.vy;
-
-            // Soft bounce off edges
-            if (p.x < 0)             { p.x = 0;            p.vx = Math.abs(p.vx); }
-            if (p.x > canvas.width)  { p.x = canvas.width; p.vx = -Math.abs(p.vx); }
-            if (p.y < 0)             { p.y = 0;            p.vy = Math.abs(p.vy); }
-            if (p.y > canvas.height) { p.y = canvas.height; p.vy = -Math.abs(p.vy); }
-
-            // Mouse interaction
-            if (mouse.x !== null) {
-                const dx = p.x - mouse.x;
-                const dy = p.y - mouse.y;
-                const d  = Math.sqrt(dx * dx + dy * dy);
-
-                if (d < REPEL_DIST && d > 0) {
-                    // Repel — push away
-                    const force = ((REPEL_DIST - d) / REPEL_DIST) * (mouse.down ? 0.9 : 0.55);
-                    p.vx += (dx / d) * force;
-                    p.vy += (dy / d) * force;
-                } else if (d < ATTRACT_DIST && d > REPEL_DIST) {
-                    // Attract gently — pull toward cursor
-                    const force = ((ATTRACT_DIST - d) / ATTRACT_DIST) * 0.04;
-                    p.vx -= (dx / d) * force;
-                    p.vy -= (dy / d) * force;
+        // 3. Neuron-to-neuron connections (brighter, thicker)
+        for (let i = 0; i < neurons.length; i++) {
+            for (let j = i + 1; j < neurons.length; j++) {
+                const a = neurons[i], b = neurons[j];
+                const dx = a.x - b.x, dy = a.y - b.y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if (d < NEURON_DIST) {
+                    const op = (1 - d/NEURON_DIST) * 0.38;
+                    const lg = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+                    lg.addColorStop(0, `hsla(${a.c.h},${a.c.s}%,${a.c.l}%,${op})`);
+                    lg.addColorStop(1, `hsla(${b.c.h},${b.c.s}%,${b.c.l}%,${op})`);
+                    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+                    ctx.strokeStyle = lg; ctx.lineWidth = 1.1; ctx.stroke();
                 }
             }
+        }
 
-            // Speed cap + natural dampening back to base speed
-            const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-            if (speed > MAX_SPEED) {
-                p.vx = (p.vx / speed) * MAX_SPEED;
-                p.vy = (p.vy / speed) * MAX_SPEED;
-            }
-            if (speed > BASE_SPEED) {
-                p.vx *= DAMPEN;
-                p.vy *= DAMPEN;
-            }
-
-            // Pulsing glow radius
-            const pulse = Math.sin(t * 1.5 + p.pulsePhase) * 0.4 + 1;
-            const radius = p.r * pulse;
-
-            // Glow via radial gradient
-            const { h, s, l } = p.c;
-            const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 3.5);
-            grad.addColorStop(0,   `hsla(${h},${s}%,${l}%,${p.alpha})`);
-            grad.addColorStop(0.4, `hsla(${h},${s}%,${l}%,${p.alpha * 0.4})`);
-            grad.addColorStop(1,   `hsla(${h},${s}%,${l}%,0)`);
-
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, radius * 3.5, 0, Math.PI * 2);
-            ctx.fillStyle = grad;
-            ctx.fill();
-
-            // Solid core dot
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-            ctx.fillStyle = `hsla(${h},${s}%,${l + 10}%,${p.alpha + 0.15})`;
-            ctx.fill();
-
-            // Draw connections — only brand colours, gradient line
+        // 4. Regular particle connections
+        for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
-                const q = particles[j];
-                const dx = p.x - q.x;
-                const dy = p.y - q.y;
-                const d  = Math.sqrt(dx * dx + dy * dy);
+                const a = particles[i], b = particles[j];
+                const dx = a.x - b.x, dy = a.y - b.y;
+                const d = Math.sqrt(dx*dx + dy*dy);
                 if (d < CONNECT_DIST) {
-                    const opacity = (1 - d / CONNECT_DIST) * 0.22;
-                    const linGrad = ctx.createLinearGradient(p.x, p.y, q.x, q.y);
-                    linGrad.addColorStop(0, `hsla(${p.c.h},${p.c.s}%,${p.c.l}%,${opacity})`);
-                    linGrad.addColorStop(1, `hsla(${q.c.h},${q.c.s}%,${q.c.l}%,${opacity})`);
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(q.x, q.y);
-                    ctx.strokeStyle = linGrad;
-                    ctx.lineWidth = 0.7;
-                    ctx.stroke();
+                    const op = (1 - d/CONNECT_DIST) * 0.16;
+                    const lg = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+                    lg.addColorStop(0, `hsla(${a.c.h},${a.c.s}%,${a.c.l}%,${op})`);
+                    lg.addColorStop(1, `hsla(${b.c.h},${b.c.s}%,${b.c.l}%,${op})`);
+                    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+                    ctx.strokeStyle = lg; ctx.lineWidth = 0.5; ctx.stroke();
                 }
             }
+        }
+
+        // 5. Signal pulses along neuron connections
+        maybeSpawnPulse();
+        for (let i = pulses.length - 1; i >= 0; i--) {
+            const p = pulses[i];
+            p.prog += p.spd;
+            if (p.prog >= 1) { pulses.splice(i, 1); continue; }
+            const frac = p.rev ? 1 - p.prog : p.prog;
+            const px = p.from.x + (p.to.x - p.from.x) * frac;
+            const py = p.from.y + (p.to.y - p.from.y) * frac;
+            const ease = Math.sin(p.prog * Math.PI); // fade in/out
+            const { h, s, l } = p.c;
+            const gr = ctx.createRadialGradient(px, py, 0, px, py, 10);
+            gr.addColorStop(0,   `hsla(${h},${s}%,${l+15}%,${0.9*ease})`);
+            gr.addColorStop(0.5, `hsla(${h},${s}%,${l}%,${0.4*ease})`);
+            gr.addColorStop(1,   `hsla(${h},${s}%,${l}%,0)`);
+            ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI*2);
+            ctx.fillStyle = gr; ctx.fill();
+            ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI*2);
+            ctx.fillStyle = `hsla(${h},${s}%,95%,${0.95*ease})`; ctx.fill();
+        }
+
+        // 6. Regular particles
+        particles.forEach(p => { moveNode(p); drawGlowDot(p); });
+
+        // 7. Neuron hubs (on top, with animated ring)
+        neurons.forEach(n => {
+            moveNode(n);
+            // Outer animated ring
+            const rScale = Math.sin(t * 1.1 + n.ringPhase) * 0.3 + 1;
+            const ringR  = n.r * 4.5 * rScale;
+            const ringA  = (Math.sin(t * 1.1 + n.ringPhase) * 0.15 + 0.25);
+            ctx.beginPath(); ctx.arc(n.x, n.y, ringR, 0, Math.PI*2);
+            ctx.strokeStyle = `hsla(${n.c.h},${n.c.s}%,${n.c.l}%,${ringA})`;
+            ctx.lineWidth = 0.8; ctx.stroke();
+            // Core glow (brighter than regular dots)
+            drawGlowDot(n, 1.4, 0.15);
         });
 
         requestAnimationFrame(draw);
