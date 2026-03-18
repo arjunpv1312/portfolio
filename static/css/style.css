@@ -958,19 +958,20 @@ section {
     display: inline-block;
     width: 100%;
     max-width: 310px;
+    margin: 0 auto;
 }
 
 .about-photo {
     width: 100%;
     max-width: 310px;
-    height: 310px;
-    border-radius: 24px;
+    height: 360px;
+    border-radius: 8px;
     object-fit: cover;
     object-position: top center;
-    border: 3px solid transparent;
+    border: 2px solid transparent;
     background: linear-gradient(var(--bg-base), var(--bg-base)) padding-box,
                 var(--accent-grad) border-box;
-    box-shadow: var(--accent-glow);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), var(--accent-glow);
     display: block;
     margin: 0 auto;
 }
@@ -987,12 +988,12 @@ section {
 
 .about-photo-glow {
     position: absolute;
-    inset: -20px;
-    border-radius: 30px;
+    inset: -18px;
+    border-radius: 12px;
     background: var(--accent-grad);
-    opacity: 0.1;
+    opacity: 0.09;
     z-index: -1;
-    filter: blur(24px);
+    filter: blur(28px);
 }
 
 /* Availability badge on photo */
@@ -1303,7 +1304,7 @@ section {
     /* About */
     .about-photo {
         width: 220px !important;
-        height: 220px !important;
+        height: 270px !important;
         max-width: 220px !important;
     }
 

@@ -12,11 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeTypingAnimation() {
     const phrases = [
-        'Artificial Intelligence',
-        'Data Science',
+        'Generative AI',
         'Machine Learning',
-        'Python Development',
-        'AI Innovation'
+        'Data Science & Analytics',
+        'AI Tool Development',
+        'Cloud & AWS',
+        'Python Engineering'
     ];
 
     const heroH1 = document.querySelector('.hero-intro h1');
