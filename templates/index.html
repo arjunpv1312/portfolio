@@ -189,22 +189,36 @@
     <!-- About Me Section -->
     <section id="gallery" class="py-5 bg-animated">
         <div class="container">
+
+            <!-- Section header -->
+            <div class="row mb-5 section-header">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold section-title mb-2">About Me</h2>
+                    <p class="lead opacity-60">The story behind the certifications.</p>
+                </div>
+            </div>
+
             <div class="row align-items-center g-5">
 
                 <!-- Left: Profile Photo -->
                 <div class="col-lg-4 text-center">
-                    <div class="about-photo-wrapper">
+                    <div class="about-photo-wrapper mx-auto">
                         <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}"
-                             alt="Arjun PV"
+                             alt="Arjun PV — AI & Data Science student"
                              class="about-photo"
                              onerror="this.style.display='none'; document.getElementById('about-fallback').style.display='flex';">
                         <div id="about-fallback" class="about-photo about-photo-fallback" style="display:none;">
                             <span>AP</span>
                         </div>
                         <div class="about-photo-glow"></div>
+                        <!-- Availability badge overlaid on photo -->
+                        <div class="about-available-badge">
+                            <span class="about-available-dot"></span> Open to Internships
+                        </div>
                     </div>
-                    <!-- Social quick links -->
-                    <div class="mt-4 d-flex justify-content-center gap-3">
+
+                    <!-- Social links -->
+                    <div class="mt-4 d-flex justify-content-center gap-2 flex-wrap">
                         <a href="mailto:Pvarjun527@gmail.com" class="about-social-btn" title="Email">
                             <i class="fas fa-envelope"></i>
                         </a>
@@ -217,54 +231,64 @@
                         <a href="tel:+919946269473" class="about-social-btn" title="Phone">
                             <i class="fas fa-phone"></i>
                         </a>
+                        <a href="{{ url_for('static', filename='assets/arjun_cv.pdf') }}" download="Arjun_PV_CV.pdf" class="about-social-btn" title="Download CV">
+                            <i class="fas fa-download"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Right: Bio + Skills -->
+                <!-- Right: Bio + Skills + Info -->
                 <div class="col-lg-8">
                     <p class="about-eyebrow mb-2">Professional Profile</p>
-                    <h2 class="display-5 fw-bold section-title mb-1">Arjun PV</h2>
-                    <h3 class="h5 mb-4" style="background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">BTech in Artificial Intelligence & Data Science</h3>
-                    <p class="lead mb-4 opacity-75">
-                        Across my BTech journey so far, I've competed in the India AI Impact Buildathon against 40,000+ participants nationwide, placed <strong>#57</strong> in the Career Readiness Challenge 2026, and earned 12+ verified certifications — with more ahead. I learn by doing, and I'm actively looking for opportunities to contribute to real AI projects.
+                    <h3 class="h4 fw-bold mb-1">BTech · Artificial Intelligence &amp; Data Science</h3>
+                    <p class="small mb-4" style="color: var(--accent-start); font-weight:600; letter-spacing:0.5px;">Class of 2028 · Kerala, India</p>
+
+                    <p class="about-bio mb-4">
+                        Across my BTech journey so far, I've competed in the <strong>India AI Impact Buildathon</strong> against 40,000+ participants nationwide, placed <strong>#57</strong> in the Career Readiness Challenge 2026, and earned <strong>12+ verified certifications</strong> in AI, Cloud, and Data. I learn by doing — and I'm actively looking for opportunities to contribute to real AI projects.
                     </p>
 
-                    <!-- Skills -->
-                    <div class="mb-4">
-                        <p class="small text-muted fw-bold text-uppercase mb-2" style="letter-spacing:1.5px">Core Languages</p>
-                        <span class="badge bg-info me-2 mb-2 p-2">Python</span>
-                        <span class="badge bg-info me-2 mb-2 p-2">HTML / CSS</span>
-                        <span class="badge bg-info me-2 mb-2 p-2">C++</span>
-                    </div>
-                    <div class="mb-4">
-                        <p class="small text-muted fw-bold text-uppercase mb-2" style="letter-spacing:1.5px">Focus Areas</p>
-                        <span class="badge bg-secondary me-2 mb-2 p-2">Machine Learning</span>
-                        <span class="badge bg-secondary me-2 mb-2 p-2">Data Science</span>
-                        <span class="badge bg-secondary me-2 mb-2 p-2">AI Development</span>
-                        <span class="badge bg-secondary me-2 mb-2 p-2">Generative AI</span>
+                    <!-- Skills grid -->
+                    <div class="about-skills-grid mb-4">
+                        <div class="about-skill-group">
+                            <p class="about-skill-label">Languages</p>
+                            <div class="about-skill-tags">
+                                <span class="about-tag about-tag-primary">Python</span>
+                                <span class="about-tag about-tag-primary">HTML / CSS</span>
+                                <span class="about-tag about-tag-primary">C++</span>
+                            </div>
+                        </div>
+                        <div class="about-skill-group">
+                            <p class="about-skill-label">Focus Areas</p>
+                            <div class="about-skill-tags">
+                                <span class="about-tag">Machine Learning</span>
+                                <span class="about-tag">Data Science</span>
+                                <span class="about-tag">Generative AI</span>
+                                <span class="about-tag">AWS Cloud</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Info row -->
-                    <div class="row g-3 mt-1">
-                        <div class="col-sm-4">
+                    <!-- Info cards — 3 across -->
+                    <div class="row g-3">
+                        <div class="col-4">
                             <div class="about-info-card">
-                                <i class="fas fa-graduation-cap mb-2"></i>
-                                <p class="mb-0 fw-semibold">BTech AI & DS</p>
-                                <p class="small text-muted mb-0">2024 – 2028</p>
+                                <i class="fas fa-graduation-cap"></i>
+                                <p class="about-info-title">BTech AI & DS</p>
+                                <p class="about-info-sub">2024 – 2028</p>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-4">
                             <div class="about-info-card">
-                                <i class="fas fa-map-marker-alt mb-2"></i>
-                                <p class="mb-0 fw-semibold">Palakkad, Kerala</p>
-                                <p class="small text-muted mb-0">India</p>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <p class="about-info-title">Palakkad, Kerala</p>
+                                <p class="about-info-sub">India</p>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-4">
                             <div class="about-info-card">
-                                <i class="fas fa-certificate mb-2"></i>
-                                <p class="mb-0 fw-semibold">12+ Certificates</p>
-                                <p class="small text-muted mb-0">Verified credentials</p>
+                                <i class="fas fa-certificate"></i>
+                                <p class="about-info-title">12+ Certs</p>
+                                <p class="about-info-sub">Verified</p>
                             </div>
                         </div>
                     </div>

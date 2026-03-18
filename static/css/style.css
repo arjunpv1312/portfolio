@@ -956,13 +956,17 @@ section {
 .about-photo-wrapper {
     position: relative;
     display: inline-block;
+    width: 100%;
+    max-width: 310px;
 }
 
 .about-photo {
-    width: 260px;
-    height: 260px;
+    width: 100%;
+    max-width: 310px;
+    height: 310px;
     border-radius: 24px;
     object-fit: cover;
+    object-position: top center;
     border: 3px solid transparent;
     background: linear-gradient(var(--bg-base), var(--bg-base)) padding-box,
                 var(--accent-grad) border-box;
@@ -986,16 +990,52 @@ section {
     inset: -20px;
     border-radius: 30px;
     background: var(--accent-grad);
-    opacity: 0.08;
+    opacity: 0.1;
     z-index: -1;
-    filter: blur(20px);
+    filter: blur(24px);
+}
+
+/* Availability badge on photo */
+.about-available-badge {
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 20, 40, 0.92);
+    border: 1px solid rgba(0, 212, 100, 0.4);
+    color: #4ade80;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 0.35em 1em;
+    border-radius: 30px;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.about-available-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    display: inline-block;
+    animation: pulse-green 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulse-green {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+    50%       { opacity: 0.7; box-shadow: 0 0 0 5px rgba(74,222,128,0); }
 }
 
 .about-social-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px; height: 44px;
+    width: 46px; height: 46px;
     border-radius: 12px;
     background: var(--bg-card);
     border: 1px solid rgba(0,212,255,0.2);
@@ -1021,19 +1061,58 @@ section {
     color: var(--accent-start);
 }
 
+.about-bio {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(226,232,240,0.82);
+}
+
+/* Skills grid */
+.about-skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+}
+
+.about-skill-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(148,163,184,0.7);
+    margin-bottom: 0.5rem;
+}
+
+.about-skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.about-tag {
+    padding: 0.3em 0.75em;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #cbd5e1;
+}
+
+.about-tag-primary {
+    background: rgba(0,212,255,0.1);
+    border-color: rgba(0,212,255,0.3);
+    color: var(--accent-start);
+}
+
+/* Info cards */
 .about-info-card {
-    padding: 1rem;
-    border-radius: 12px;
+    padding: 1rem 0.75rem;
+    border-radius: 14px;
     background: var(--bg-card);
     border: 1px solid rgba(255,255,255,0.06);
     text-align: center;
     transition: all 0.3s ease;
-}
-
-.about-info-card:hover {
-    border-color: rgba(0,212,255,0.3);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    transform: translateY(-3px);
 }
 
 .about-info-card i {
@@ -1043,6 +1122,26 @@ section {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: block;
+    margin-bottom: 0.5rem;
+}
+
+.about-info-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin-bottom: 0.15rem;
+}
+
+.about-info-sub {
+    font-size: 0.7rem;
+    color: rgba(148,163,184,0.6);
+    margin: 0;
+}
+
+.about-info-card:hover {
+    border-color: rgba(0,212,255,0.3);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transform: translateY(-3px);
 }
 
 /* ── Certificates Section ───────────────────────────── */
@@ -1203,8 +1302,18 @@ section {
 
     /* About */
     .about-photo {
-        width: 180px;
-        height: 180px;
+        width: 220px !important;
+        height: 220px !important;
+        max-width: 220px !important;
+    }
+
+    .about-photo-wrapper {
+        max-width: 220px !important;
+    }
+
+    .about-skills-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
     }
 
     .hero-intro h4 { font-size: 0.95rem; }
