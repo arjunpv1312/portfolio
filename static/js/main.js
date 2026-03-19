@@ -150,7 +150,7 @@ function initializeNavigation() {
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
-            if (!targetId || !targetId.startsWith('#')) return; // skip external links
+            if (!targetId || !targetId.startsWith('#') || targetId === '#') return; // skip external/bare-hash links
             e.preventDefault();
             const targetSection = document.querySelector(targetId);
             if (targetSection) {
