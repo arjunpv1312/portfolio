@@ -1,8 +1,24 @@
 import os
-from flask import render_template, request, flash, redirect, url_for, jsonify
+from flask import render_template, request, flash, redirect, url_for, jsonify, send_from_directory, abort
 from flask_mail import Message
 from app import app, mail
 import logging
+
+@app.route('/view-cert/<path:filename>')
+def view_cert(filename):
+    """Serve certificate files inline (no download prompt)"""
+    cert_dir = os.path.join(app.root_path, 'static', 'assets', 'certificates')
+    safe_name = os.path.basename(filename)
+    full_path = os.path.join(cert_dir, safe_name)
+    if not os.path.isfile(full_path):
+        abort(404)
+    ext = safe_name.rsplit('.', 1)[-1].lower()
+    mime_types = {'pdf': 'application/pdf', 'png': 'image/png', 'jpg': 'image/jpeg', 'jpeg': 'image/jpeg'}
+    mime = mime_types.get(ext, 'application/octet-stream')
+    response = send_from_directory(cert_dir, safe_name, mimetype=mime)
+    response.headers['Content-Disposition'] = f'inline; filename="{safe_name}"'
+    return response
+
 
 @app.route('/')
 def index():
