@@ -625,6 +625,66 @@ function initializeParticles() {
         if (hexCache) ctx.drawImage(hexCache, 0, 0);
     }
 
+    // ── Scroll-reactive section themes ───────────────────────
+    // 7 sections × 4 properties — all blend smoothly as you scroll.
+    const SECTION_IDS = ['home', 'gallery', 'interests', 'journey', 'certificates', 'projects', 'contact'];
+    const THEMES = [
+        // home       — Neural network: full cyan-violet, crisp, normal
+        { hueShift:   0, connOp: 1.00, ringScale: 1.00, pulseSpd: 1.00 },
+        // gallery    — Data streams: deep violet, slower, expanded rings
+        { hueShift:  45, connOp: 0.65, ringScale: 1.35, pulseSpd: 0.60 },
+        // interests  — Constellation: warm amber, sparse connections, dreamy
+        { hueShift:  90, connOp: 0.42, ringScale: 0.70, pulseSpd: 0.40 },
+        // journey    — Flow: teal-green, strong connections, fast pulses
+        { hueShift: 145, connOp: 0.92, ringScale: 1.20, pulseSpd: 1.40 },
+        // certs      — Achievement: golden amber, huge glowing rings
+        { hueShift:  55, connOp: 1.15, ringScale: 1.75, pulseSpd: 0.80 },
+        // projects   — Code: lime green, fast matrix-like pulses
+        { hueShift: 148, connOp: 0.80, ringScale: 1.00, pulseSpd: 1.65 },
+        // contact    — Convergence: pink-magenta, soft, slow, wide rings
+        { hueShift: -30, connOp: 0.52, ringScale: 1.45, pulseSpd: 0.50 },
+    ];
+
+    // Live theme (drawn) — lerps toward tgt each frame
+    let theme = { hueShift: 0, connOp: 1.0, ringScale: 1.0, pulseSpd: 1.0 };
+    let tgt   = { ...theme };
+
+    function lerpVal(a, b, f) { return a + (b - a) * f; }
+
+    function updateScrollTheme() {
+        const sy  = window.scrollY;
+        const els = SECTION_IDS.map(id => document.getElementById(id));
+        let idx = 0, frac = 0;
+
+        // Find which section the viewport mid-point is in
+        for (let i = 0; i < els.length; i++) {
+            if (!els[i]) continue;
+            const top = els[i].getBoundingClientRect().top + sy;
+            if (sy + window.innerHeight * 0.45 >= top) idx = i;
+        }
+
+        // Compute how far through this section we are (0→1), toward the next
+        const cur = els[idx];
+        const nxt = els[Math.min(idx + 1, els.length - 1)];
+        if (cur && nxt && cur !== nxt) {
+            const curTop = cur.getBoundingClientRect().top + sy;
+            const nxtTop = nxt.getBoundingClientRect().top + sy;
+            frac = Math.max(0, Math.min(1,
+                (sy + window.innerHeight * 0.45 - curTop) / (nxtTop - curTop)
+            ));
+        }
+
+        const A = THEMES[idx];
+        const B = THEMES[Math.min(idx + 1, THEMES.length - 1)];
+        tgt.hueShift  = lerpVal(A.hueShift,  B.hueShift,  frac);
+        tgt.connOp    = lerpVal(A.connOp,    B.connOp,    frac);
+        tgt.ringScale = lerpVal(A.ringScale, B.ringScale, frac);
+        tgt.pulseSpd  = lerpVal(A.pulseSpd,  B.pulseSpd,  frac);
+    }
+
+    window.addEventListener('scroll', updateScrollTheme, { passive: true });
+    updateScrollTheme(); // set initial theme based on current scroll
+
     let t = 0;
 
     function moveNode(p) {
@@ -652,7 +712,8 @@ function initializeParticles() {
     function drawGlowDot(p, radiusMult, alphaBoost) {
         const pulse = Math.sin(t * 1.4 + p.pulsePhase) * 0.35 + 1;
         const r = p.r * pulse * (radiusMult || 1);
-        const { h, s, l } = p.c;
+        const h = (p.c.h + theme.hueShift + 360) % 360;   // scroll-reactive hue
+        const { s, l } = p.c;
         const a = Math.min(1, p.alpha + (alphaBoost || 0));
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 3.5);
         g.addColorStop(0,   `hsla(${h},${s}%,${l}%,${a})`);
@@ -669,6 +730,13 @@ function initializeParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         t += 0.011;
 
+        // Smoothly lerp live theme toward scroll target (0.022 = ~45 frames to settle)
+        const TF = 0.022;
+        theme.hueShift  += (tgt.hueShift  - theme.hueShift)  * TF;
+        theme.connOp    += (tgt.connOp    - theme.connOp)    * TF;
+        theme.ringScale += (tgt.ringScale - theme.ringScale) * TF;
+        theme.pulseSpd  += (tgt.pulseSpd  - theme.pulseSpd)  * TF;
+
         // 1. Hex grid
         drawHexGrid();
 
@@ -678,7 +746,8 @@ function initializeParticles() {
             b.r += 5; b.alpha -= 0.017;
             if (b.alpha <= 0) { bursts.splice(i, 1); continue; }
             ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
-            ctx.strokeStyle = `rgba(0,212,255,${b.alpha})`; ctx.lineWidth = 1.5; ctx.stroke();
+            const brstH = (192 + theme.hueShift + 360) % 360;
+            ctx.strokeStyle = `hsla(${brstH},100%,60%,${b.alpha})`; ctx.lineWidth = 1.5; ctx.stroke();
         }
 
         // 3. Neuron-to-neuron connections (brighter, thicker)
@@ -688,10 +757,12 @@ function initializeParticles() {
                 const dx = a.x - b.x, dy = a.y - b.y;
                 const d = Math.sqrt(dx*dx + dy*dy);
                 if (d < NEURON_DIST) {
-                    const op = (1 - d/NEURON_DIST) * 0.38;
+                    const op = (1 - d/NEURON_DIST) * 0.38 * theme.connOp;
+                    const ah = (a.c.h + theme.hueShift + 360) % 360;
+                    const bh = (b.c.h + theme.hueShift + 360) % 360;
                     const lg = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
-                    lg.addColorStop(0, `hsla(${a.c.h},${a.c.s}%,${a.c.l}%,${op})`);
-                    lg.addColorStop(1, `hsla(${b.c.h},${b.c.s}%,${b.c.l}%,${op})`);
+                    lg.addColorStop(0, `hsla(${ah},${a.c.s}%,${a.c.l}%,${op})`);
+                    lg.addColorStop(1, `hsla(${bh},${b.c.s}%,${b.c.l}%,${op})`);
                     ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
                     ctx.strokeStyle = lg; ctx.lineWidth = 1.1; ctx.stroke();
                 }
@@ -705,10 +776,12 @@ function initializeParticles() {
                 const dx = a.x - b.x, dy = a.y - b.y;
                 const d = Math.sqrt(dx*dx + dy*dy);
                 if (d < CONNECT_DIST) {
-                    const op = (1 - d/CONNECT_DIST) * 0.16;
+                    const op = (1 - d/CONNECT_DIST) * 0.16 * theme.connOp;
+                    const ah = (a.c.h + theme.hueShift + 360) % 360;
+                    const bh = (b.c.h + theme.hueShift + 360) % 360;
                     const lg = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
-                    lg.addColorStop(0, `hsla(${a.c.h},${a.c.s}%,${a.c.l}%,${op})`);
-                    lg.addColorStop(1, `hsla(${b.c.h},${b.c.s}%,${b.c.l}%,${op})`);
+                    lg.addColorStop(0, `hsla(${ah},${a.c.s}%,${a.c.l}%,${op})`);
+                    lg.addColorStop(1, `hsla(${bh},${b.c.s}%,${b.c.l}%,${op})`);
                     ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
                     ctx.strokeStyle = lg; ctx.lineWidth = 0.5; ctx.stroke();
                 }
@@ -719,13 +792,14 @@ function initializeParticles() {
         maybeSpawnPulse();
         for (let i = pulses.length - 1; i >= 0; i--) {
             const p = pulses[i];
-            p.prog += p.spd;
+            p.prog += p.spd * theme.pulseSpd;
             if (p.prog >= 1) { pulses.splice(i, 1); continue; }
             const frac = p.rev ? 1 - p.prog : p.prog;
             const px = p.from.x + (p.to.x - p.from.x) * frac;
             const py = p.from.y + (p.to.y - p.from.y) * frac;
-            const ease = Math.sin(p.prog * Math.PI); // fade in/out
-            const { h, s, l } = p.c;
+            const ease = Math.sin(p.prog * Math.PI);
+            const h = (p.c.h + theme.hueShift + 360) % 360;
+            const { s, l } = p.c;
             const gr = ctx.createRadialGradient(px, py, 0, px, py, 10);
             gr.addColorStop(0,   `hsla(${h},${s}%,${l+15}%,${0.9*ease})`);
             gr.addColorStop(0.5, `hsla(${h},${s}%,${l}%,${0.4*ease})`);
@@ -744,10 +818,11 @@ function initializeParticles() {
             moveNode(n);
             // Outer animated ring
             const rScale = Math.sin(t * 1.1 + n.ringPhase) * 0.3 + 1;
-            const ringR  = n.r * 4.5 * rScale;
+            const ringR  = n.r * 4.5 * rScale * theme.ringScale;
             const ringA  = (Math.sin(t * 1.1 + n.ringPhase) * 0.15 + 0.25);
+            const nh = (n.c.h + theme.hueShift + 360) % 360;
             ctx.beginPath(); ctx.arc(n.x, n.y, ringR, 0, Math.PI*2);
-            ctx.strokeStyle = `hsla(${n.c.h},${n.c.s}%,${n.c.l}%,${ringA})`;
+            ctx.strokeStyle = `hsla(${nh},${n.c.s}%,${n.c.l}%,${ringA})`;
             ctx.lineWidth = 0.8; ctx.stroke();
             // Core glow (brighter than regular dots)
             drawGlowDot(n, 1.4, 0.15);
