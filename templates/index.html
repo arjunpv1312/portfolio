@@ -770,11 +770,85 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-4 bg-body-secondary">
+    <footer class="site-footer">
         <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p class="mb-0">&copy; 2026 Arjun PV. Built with <i class="fas fa-heart text-danger"></i> and a lot of curiosity.</p>
+            <div class="row g-4 footer-top">
+
+                <!-- Brand -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-brand">
+                        <span class="footer-logo">AP</span>
+                        <div>
+                            <p class="footer-name">Arjun PV</p>
+                            <p class="footer-tagline">AI &amp; Data Science Engineer</p>
+                        </div>
+                    </div>
+                    <p class="footer-bio">BTech student passionate about building intelligent systems, exploring data, and pushing the edge of what AI can do.</p>
+                    <div class="footer-socials">
+                        <a href="https://www.linkedin.com/in/arjun-pv1312" target="_blank" class="footer-social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/arjunpv1312" target="_blank" class="footer-social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="mailto:Pvarjun527@gmail.com" class="footer-social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h6 class="footer-heading">Navigate</h6>
+                    <ul class="footer-links">
+                        <li><a href="#gallery">About</a></li>
+                        <li><a href="#interests">Interests</a></li>
+                        <li><a href="#journey">Journey</a></li>
+                        <li><a href="#certificates">Certificates</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Skills -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h6 class="footer-heading">Skills</h6>
+                    <ul class="footer-links">
+                        <li><a href="#gallery">Python</a></li>
+                        <li><a href="#gallery">HTML &amp; CSS</a></li>
+                        <li><a href="#gallery">C++</a></li>
+                        <li><a href="#gallery">Machine Learning</a></li>
+                        <li><a href="#gallery">Generative AI</a></li>
+                        <li><a href="#gallery">AWS Cloud</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-4 col-md-6">
+                    <h6 class="footer-heading">Get in Touch</h6>
+                    <div class="footer-contact-list">
+                        <a href="mailto:Pvarjun527@gmail.com" class="footer-contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>Pvarjun527@gmail.com</span>
+                        </a>
+                        <a href="tel:+919946269473" class="footer-contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 9946269473</span>
+                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Palakkad+Kerala+India" target="_blank" class="footer-contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Palakkad, Kerala, India</span>
+                        </a>
+                        <a href="{{ url_for('static', filename='assets/arjun_cv.pdf') }}" target="_blank" class="footer-contact-item">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Download CV</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Bottom Bar -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    <span>&copy; 2026 Arjun PV. All rights reserved.</span>
+                </div>
+                <div class="footer-bottom-right">
+                    <span>Built with <i class="fas fa-heart footer-heart"></i> in Kerala, India</span>
                 </div>
             </div>
         </div>
