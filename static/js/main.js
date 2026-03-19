@@ -622,6 +622,7 @@ function initializeParticles() {
     // ── Hex grid — baked to offscreen canvas (drawn once, reused every frame) ──
     let hexCache = null;
     function buildHexCache() {
+        if (!canvas.width || !canvas.height) return;  // skip before layout is ready
         hexCache = document.createElement('canvas');
         hexCache.width  = canvas.width;
         hexCache.height = canvas.height;
@@ -649,7 +650,10 @@ function initializeParticles() {
     window.addEventListener('resize', buildHexCache);
 
     function drawHexGrid() {
-        if (hexCache) ctx.drawImage(hexCache, 0, 0);
+        if (!hexCache || !hexCache.width || !hexCache.height) buildHexCache();
+        if (hexCache && hexCache.width > 0 && hexCache.height > 0) {
+            ctx.drawImage(hexCache, 0, 0);
+        }
     }
 
     // ── Scroll-reactive section themes ───────────────────────
