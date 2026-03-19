@@ -89,16 +89,20 @@ function initializeNavigation() {
     const navbar = document.querySelector('.navbar');
     const navLinks = document.querySelectorAll('.nav-link');
     
-    // Add active class to current section
+    // Sections that live inside the "Work" dropdown
+    const WORK_SECTIONS = ['certificates', 'projects'];
+    const workToggle = document.getElementById('workDropdown');
+
+    // Add active class to current section's nav link (or Work dropdown toggle)
     function updateActiveNavLink() {
         const sections = document.querySelectorAll('section[id]');
         const scrollPosition = window.scrollY + 100;
-        
+
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
+            const sectionTop    = section.offsetTop;
             const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
+            const sectionId     = section.getAttribute('id');
+
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 navLinks.forEach(link => {
                     link.classList.remove('active');
@@ -106,9 +110,32 @@ function initializeNavigation() {
                         link.classList.add('active');
                     }
                 });
+                // Highlight "Work" toggle when Certificates or Projects is in view
+                if (workToggle) {
+                    if (WORK_SECTIONS.includes(sectionId)) {
+                        workToggle.classList.add('active');
+                    } else {
+                        workToggle.classList.remove('active');
+                    }
+                }
             }
         });
     }
+
+    // Close mobile navbar & dropdown when a dropdown item is clicked
+    document.querySelectorAll('.nav-dropdown-menu .dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+            // Close mobile navbar collapse
+            const navCollapse = document.getElementById('navbarNav');
+            if (navCollapse && navCollapse.classList.contains('show')) {
+                navCollapse.classList.remove('show');
+            }
+            // Close the dropdown itself
+            const dropMenu = document.querySelector('.nav-dropdown-menu');
+            if (dropMenu) dropMenu.classList.remove('show');
+            if (workToggle) workToggle.setAttribute('aria-expanded', 'false');
+        });
+    });
     
     // Navbar background opacity on scroll
     function updateNavbarBackground() {

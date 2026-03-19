@@ -1764,6 +1764,54 @@ section {
     .footer-top { padding-bottom: 1.5rem; }
 }
 
+/* ── Work Dropdown ──────────────────────────────────── */
+.nav-dropdown-menu {
+    background: rgba(8, 11, 20, 0.97);
+    border: 1px solid rgba(0,212,255,0.18);
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,212,255,0.08);
+    backdrop-filter: blur(20px);
+    padding: 0.4rem;
+    min-width: 160px;
+    margin-top: 0.4rem;
+}
+
+.nav-dropdown-menu .dropdown-item {
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(148,163,184,0.85);
+    padding: 0.5rem 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.nav-dropdown-menu .dropdown-item:hover,
+.nav-dropdown-menu .dropdown-item:focus {
+    background: rgba(0,212,255,0.1);
+    color: #e2e8f0;
+}
+
+.nav-dropdown-menu .dropdown-item i {
+    opacity: 0.8;
+}
+
+/* Keep dropdown toggle arrow subtle */
+.navbar .dropdown-toggle::after {
+    border-top-color: rgba(148,163,184,0.6);
+    vertical-align: 0.18em;
+}
+
+/* Mobile: dropdown renders inline inside hamburger menu */
+@media (max-width: 991px) {
+    .nav-dropdown-menu {
+        background: rgba(0,212,255,0.04);
+        border: 1px solid rgba(0,212,255,0.1);
+        box-shadow: none;
+        margin-top: 0.2rem;
+        margin-left: 0.5rem;
+    }
+}
+
 /* Smooth scrolling enhancement */
 @media (prefers-reduced-motion: no-preference) {
     html {
