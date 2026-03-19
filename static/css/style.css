@@ -1358,12 +1358,6 @@ section {
     /* Contact form */
     .contact-form { padding: 20px 15px; }
 
-    /* Contact cards — 2 per row on mobile */
-    #contact .col-md-3 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-
     .contact-card {
         padding: 1.1rem 0.8rem !important;
         min-height: 110px;
@@ -1399,12 +1393,7 @@ section {
         gap: 0.2rem;
     }
 
-    /* Contact cards — 1 per row on very small */
-    #contact .col-md-3 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-
+    /* Contact cards — horizontal layout on very small screens */
     .contact-card {
         min-height: auto;
         display: flex !important;
@@ -1428,6 +1417,155 @@ section {
     .hero-main-name {
         font-size: 1.6rem !important;
     }
+}
+
+/* ── Projects Section ───────────────────────────────── */
+.project-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    border-color: rgba(0,212,255,0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.15);
+}
+
+.project-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.project-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    color: var(--accent-start);
+}
+
+.project-status {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.25em 0.8em;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-status-progress {
+    background: rgba(251,191,36,0.1);
+    border: 1px solid rgba(251,191,36,0.3);
+    color: #fbbf24;
+}
+
+.project-status-done {
+    background: rgba(74,222,128,0.1);
+    border: 1px solid rgba(74,222,128,0.3);
+    color: #4ade80;
+}
+
+.project-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    color: #e2e8f0;
+}
+
+.project-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(148,163,184,0.85);
+    flex-grow: 1;
+    margin-bottom: 1rem;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.project-tag {
+    padding: 0.22em 0.65em;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(139,92,246,0.12);
+    border: 1px solid rgba(139,92,246,0.25);
+    color: #a78bfa;
+}
+
+.project-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.project-link {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(148,163,184,0.7);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.project-link:hover { color: var(--accent-start); }
+
+.project-link-demo {
+    margin-left: auto;
+    color: var(--accent-start);
+}
+
+/* Coming soon placeholder */
+.projects-coming-soon {
+    text-align: center;
+    padding: 3.5rem 2rem;
+    border: 1px dashed rgba(0,212,255,0.18);
+    border-radius: 20px;
+    background: rgba(0,212,255,0.02);
+}
+
+.projects-soon-icon {
+    width: 64px; height: 64px;
+    border-radius: 18px;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.2rem;
+    font-size: 1.6rem;
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.projects-soon-icon i {
+    font-size: 1.8rem;
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.projects-soon-tags {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 /* Smooth scrolling enhancement */

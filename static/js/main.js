@@ -178,7 +178,9 @@ function initializeAnimations() {
         '.section-header',
         '.stat-pill',
         '.skills-showcase',
-        '.education-highlight'
+        '.education-highlight',
+        '.project-card',
+        '.projects-coming-soon'
     ];
 
     const allElements = document.querySelectorAll(selectors.join(', '));
@@ -590,26 +592,37 @@ function initializeParticles() {
         });
     });
 
-    // ── Draw hex grid (subtle circuit board feel) ─────
-    function drawHexGrid() {
+    // ── Hex grid — baked to offscreen canvas (drawn once, reused every frame) ──
+    let hexCache = null;
+    function buildHexCache() {
+        hexCache = document.createElement('canvas');
+        hexCache.width  = canvas.width;
+        hexCache.height = canvas.height;
+        const hx = hexCache.getContext('2d');
         const size = 55, w = size * Math.sqrt(3), h = size * 2;
-        ctx.strokeStyle = 'rgba(0,212,255,0.028)';
-        ctx.lineWidth = 0.6;
+        hx.strokeStyle = 'rgba(0,212,255,0.028)';
+        hx.lineWidth = 0.6;
         for (let col = -1; col < canvas.width / w + 1; col++) {
             for (let row = -1; row < canvas.height / (h * 0.75) + 1; row++) {
                 const cx = col * w + (row % 2) * (w / 2);
                 const cy = row * h * 0.75;
-                ctx.beginPath();
+                hx.beginPath();
                 for (let side = 0; side < 6; side++) {
                     const angle = Math.PI / 180 * (60 * side - 30);
                     const px = cx + size * Math.cos(angle);
                     const py = cy + size * Math.sin(angle);
-                    side === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+                    side === 0 ? hx.moveTo(px, py) : hx.lineTo(px, py);
                 }
-                ctx.closePath();
-                ctx.stroke();
+                hx.closePath();
+                hx.stroke();
             }
         }
+    }
+    buildHexCache();
+    window.addEventListener('resize', buildHexCache);
+
+    function drawHexGrid() {
+        if (hexCache) ctx.drawImage(hexCache, 0, 0);
     }
 
     let t = 0;
