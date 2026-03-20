@@ -511,14 +511,14 @@ function initializeParticles() {
     const isMobile = window.innerWidth < 600;
 
     // Counts
-    const NEURON_COUNT   = isMobile ? 8  : 14;   // hub nodes
-    const PARTICLE_COUNT = isMobile ? 40 : 80;   // regular drifting nodes
-    const CONNECT_DIST   = isMobile ? 120 : 170; // regular connections
+    const NEURON_COUNT   = isMobile ? 7  : 12;   // hub nodes
+    const PARTICLE_COUNT = isMobile ? 28 : 58;   // regular drifting nodes
+    const CONNECT_DIST   = isMobile ? 120 : 165; // regular connections
     const NEURON_DIST    = isMobile ? 200 : 280; // neuron-to-neuron connections
     const REPEL_DIST     = 110;
-    const ATTRACT_DIST   = 230;
-    const MAX_SPEED      = 2.0;
-    const BASE_SPEED     = 0.38;
+    const ATTRACT_DIST   = 180;
+    const MAX_SPEED      = 1.2;
+    const BASE_SPEED     = 0.36;
     const DAMPEN         = 0.97;
 
     // Brand palette — cyan → violet
