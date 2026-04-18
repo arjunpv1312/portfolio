@@ -661,19 +661,19 @@ function initializeParticles() {
     const SECTION_IDS = ['home', 'gallery', 'interests', 'journey', 'certificates', 'projects', 'contact'];
     const THEMES = [
         // home       — Neural network: full cyan-violet, crisp, normal
-        { hueShift:   0, connOp: 1.00, ringScale: 1.00, pulseSpd: 1.00 },
+        { hueShift:   0, connOp: 0.85, ringScale: 1.00, pulseSpd: 1.00 },
         // gallery    — Data streams: deep violet, slower, expanded rings
-        { hueShift:  45, connOp: 0.65, ringScale: 1.35, pulseSpd: 0.60 },
+        { hueShift:  45, connOp: 0.55, ringScale: 1.20, pulseSpd: 0.55 },
         // interests  — Constellation: warm amber, sparse connections, dreamy
-        { hueShift:  90, connOp: 0.42, ringScale: 0.70, pulseSpd: 0.40 },
-        // journey    — Flow: teal-green, strong connections, fast pulses
-        { hueShift: 145, connOp: 0.92, ringScale: 1.20, pulseSpd: 1.40 },
-        // certs      — Achievement: golden amber, huge glowing rings
-        { hueShift:  55, connOp: 1.15, ringScale: 1.75, pulseSpd: 0.80 },
-        // projects   — Code: lime green, fast matrix-like pulses
-        { hueShift: 148, connOp: 0.80, ringScale: 1.00, pulseSpd: 1.65 },
+        { hueShift:  90, connOp: 0.35, ringScale: 0.75, pulseSpd: 0.40 },
+        // journey    — Flow: teal-green, strong connections, steady pulses
+        { hueShift: 145, connOp: 0.80, ringScale: 1.15, pulseSpd: 1.15 },
+        // certs      — Achievement: golden amber, glowing rings
+        { hueShift:  55, connOp: 0.90, ringScale: 1.45, pulseSpd: 0.80 },
+        // projects   — Code: lime green, crisp pulses
+        { hueShift: 148, connOp: 0.75, ringScale: 1.00, pulseSpd: 1.20 },
         // contact    — Convergence: pink-magenta, soft, slow, wide rings
-        { hueShift: -30, connOp: 0.52, ringScale: 1.45, pulseSpd: 0.50 },
+        { hueShift: -30, connOp: 0.48, ringScale: 1.35, pulseSpd: 0.50 },
     ];
 
     // Live theme (drawn) — lerps toward tgt each frame
