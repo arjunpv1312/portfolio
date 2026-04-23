@@ -922,17 +922,25 @@ window.addEventListener('error', function(e) {
     }
 
     // Trigger on any link that opens a certificate / PDF
+    const OPEN_DELAY = 850; // show animation first, then open PDF tab
     document.addEventListener('click', function (e) {
         const link = e.target.closest('a');
         if (!link) return;
         const href = link.getAttribute('href') || '';
+        if (!href || href === '#') return;
+
         const isCert = href.includes('/certificate/') || href.includes('view_cert');
         const isPdf  = /\.pdf($|\?)/i.test(href);
         const isCvDownload = link.hasAttribute('download'); // skip CV (downloads instantly)
+        if (!(isCert || isPdf) || isCvDownload) return;
 
-        if ((isCert || isPdf) && !isCvDownload) {
-            showLoader();
-        }
+        // Stop the browser from opening the tab instantly so the user sees the animation
+        e.preventDefault();
+        const target = link.getAttribute('target') || '_blank';
+        showLoader();
+        setTimeout(function () {
+            window.open(href, target);
+        }, OPEN_DELAY);
     });
 
     // Hide overlay if user comes back to the tab
