@@ -885,3 +885,46 @@ window.addEventListener('error', function(e) {
     console.error('JavaScript error:', e.error);
     // Could implement error reporting here
 });
+
+/* ─────────── Certificate / PDF Loading Overlay ─────────── */
+(function () {
+    const loader = document.getElementById('pdfLoader');
+    if (!loader) return;
+
+    const SHOW_MS = 1100;     // visible long enough to feel intentional
+    let hideTimer = null;
+
+    function showLoader() {
+        clearTimeout(hideTimer);
+        loader.classList.add('is-active');
+        loader.setAttribute('aria-hidden', 'false');
+        hideTimer = setTimeout(hideLoader, SHOW_MS);
+    }
+    function hideLoader() {
+        loader.classList.remove('is-active');
+        loader.setAttribute('aria-hidden', 'true');
+    }
+
+    // Trigger on any link that opens a certificate / PDF
+    document.addEventListener('click', function (e) {
+        const link = e.target.closest('a');
+        if (!link) return;
+        const href = link.getAttribute('href') || '';
+        const isCert = href.includes('/certificate/') || href.includes('view_cert');
+        const isPdf  = /\.pdf($|\?)/i.test(href);
+        const isCvDownload = link.hasAttribute('download'); // skip CV (downloads instantly)
+
+        if ((isCert || isPdf) && !isCvDownload) {
+            showLoader();
+        }
+    });
+
+    // Hide overlay if user comes back to the tab
+    document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) hideLoader();
+    });
+    // Hide on Escape key
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') hideLoader();
+    });
+})();
