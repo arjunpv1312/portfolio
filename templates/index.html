@@ -25,6 +25,10 @@
     <!-- Theme -->
     <meta name="theme-color" content="#00d4ff">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/favicon.svg') }}">
+
     <!-- Structured Data (Google Rich Results) -->
     <script type="application/ld+json">
     {
@@ -657,6 +661,74 @@
                             <p class="cert-compact-sub">Institution of Green Engineers — SDG 17</p>
                         </div>
                         <a href="{{ url_for('view_cert', filename='igen_green_day.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Currently Learning Section -->
+    <section id="learning" class="py-5">
+        <div class="container">
+            <div class="row section-header">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold section-title mb-3">Currently Learning</h2>
+                    <p class="lead opacity-75">What I'm actively building skills in right now.</p>
+                </div>
+            </div>
+            <div class="row g-4 mt-2 justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="cert-compact-card h-100">
+                        <i class="fas fa-network-wired cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Deep Learning &amp; Neural Networks</p>
+                            <p class="cert-compact-sub">CNNs, RNNs, Transformers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="cert-compact-card h-100">
+                        <i class="fas fa-server cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Full-Stack Web Development</p>
+                            <p class="cert-compact-sub">Flask, REST APIs, Databases</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="cert-compact-card h-100">
+                        <i class="fas fa-comments cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">LLMs &amp; Prompt Engineering</p>
+                            <p class="cert-compact-sub">Building with Gemini, Claude, GPT</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="cert-compact-card h-100">
+                        <i class="fas fa-database cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Data Engineering</p>
+                            <p class="cert-compact-sub">Pandas, NumPy, SQL pipelines</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="cert-compact-card h-100">
+                        <i class="fab fa-git-alt cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">Git &amp; Open Source Workflow</p>
+                            <p class="cert-compact-sub">Version control, collaboration</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="cert-compact-card h-100">
+                        <i class="fas fa-shield-alt cert-compact-icon"></i>
+                        <div>
+                            <p class="cert-compact-title">AI Safety &amp; Ethics</p>
+                            <p class="cert-compact-sub">Responsible AI development</p>
+                        </div>
                     </div>
                 </div>
             </div>
