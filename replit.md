@@ -31,6 +31,9 @@ Preferred communication style: Simple, everyday language.
 - Claude Code: The Coding Assistant (Free Course Completion)
 - Career Readiness Challenge 2026 - Rank 57 (upDt Education Technology)
 - Mindluster Certification (Online Learning Platform)
+- Explore Machine Learning with Python (Infosys Springboard)
+- Professional Career Development (Skillified Mentor — Industry Orientation)
+- IGEN GREENDAY 2024 (Institution of Green Engineers — SDG 17 Pledge)
 
 ## System Architecture
 
