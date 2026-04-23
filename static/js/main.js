@@ -886,16 +886,32 @@ window.addEventListener('error', function(e) {
     // Could implement error reporting here
 });
 
-/* ─────────── Certificate / PDF Loading Overlay ─────────── */
+/* ─────────── Certificate / PDF Loading Overlay (Random Animation) ─────────── */
 (function () {
     const loader = document.getElementById('pdfLoader');
     if (!loader) return;
 
-    const SHOW_MS = 1100;     // visible long enough to feel intentional
+    const stage = document.getElementById('pdfAnimStage');
+    const anims = stage ? stage.querySelectorAll('.pdf-anim') : [];
+    const SHOW_MS = 1200;
     let hideTimer = null;
+    let lastIndex = -1;
+
+    function pickRandomAnim() {
+        if (!anims.length) return;
+        // Avoid repeating the same animation twice in a row
+        let i;
+        do {
+            i = Math.floor(Math.random() * anims.length);
+        } while (anims.length > 1 && i === lastIndex);
+        lastIndex = i;
+        anims.forEach(a => a.classList.remove('is-active'));
+        anims[i].classList.add('is-active');
+    }
 
     function showLoader() {
         clearTimeout(hideTimer);
+        pickRandomAnim();
         loader.classList.add('is-active');
         loader.setAttribute('aria-hidden', 'false');
         hideTimer = setTimeout(hideLoader, SHOW_MS);

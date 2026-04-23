@@ -1014,14 +1014,55 @@
         </div>
     </footer>
 
-    <!-- PDF / Certificate Loading Overlay -->
+    <!-- PDF / Certificate Loading Overlay (6 random animations) -->
     <div id="pdfLoader" class="pdf-loader" aria-hidden="true" role="status" aria-live="polite">
         <div class="pdf-loader-inner">
-            <div class="pdf-loader-spinner">
-                <div class="pdf-loader-ring"></div>
-                <div class="pdf-loader-ring"></div>
-                <div class="pdf-loader-ring"></div>
-                <i class="fas fa-file-pdf pdf-loader-icon"></i>
+            <div id="pdfAnimStage" class="pdf-anim-stage">
+                <!-- 1. Triple Spinning Rings -->
+                <div class="pdf-anim" data-anim="rings">
+                    <div class="pdf-loader-ring"></div>
+                    <div class="pdf-loader-ring"></div>
+                    <div class="pdf-loader-ring"></div>
+                    <i class="fas fa-file-pdf pdf-loader-icon"></i>
+                </div>
+                <!-- 2. Document Scan -->
+                <div class="pdf-anim" data-anim="scan">
+                    <div class="anim-scan-doc">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="anim-scan-line"></div>
+                    </div>
+                </div>
+                <!-- 3. Pulse Wave (Sonar) -->
+                <div class="pdf-anim" data-anim="pulse">
+                    <div class="anim-pulse">
+                        <span></span><span></span><span></span>
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                </div>
+                <!-- 4. Loading Bars -->
+                <div class="pdf-anim" data-anim="bars">
+                    <div class="anim-bars">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+                <!-- 5. Orbit -->
+                <div class="pdf-anim" data-anim="orbit">
+                    <div class="anim-orbit">
+                        <i class="fas fa-file-pdf"></i>
+                        <div class="anim-orbit-dot anim-orbit-dot-1"></div>
+                        <div class="anim-orbit-dot anim-orbit-dot-2"></div>
+                        <div class="anim-orbit-dot anim-orbit-dot-3"></div>
+                    </div>
+                </div>
+                <!-- 6. Flip Card -->
+                <div class="pdf-anim" data-anim="flip">
+                    <div class="anim-flip">
+                        <div class="anim-flip-inner">
+                            <div class="anim-flip-face"><i class="fas fa-file-pdf"></i></div>
+                            <div class="anim-flip-face anim-flip-back"><i class="fas fa-certificate"></i></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <p class="pdf-loader-title">Opening Certificate</p>
             <p class="pdf-loader-sub">Preparing document, please wait…</p>
