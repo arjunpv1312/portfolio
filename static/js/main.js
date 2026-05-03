@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeGallery();
     initializeContactForm();
     initializeScrollEffects();
+    initializeProjectCarousels();
     initializeSkillBars();
     initializeCounters();
     initializeHeroRoleTypewriter();
@@ -607,6 +608,61 @@ function initializeCounters() {
 }
 
 // Skill bars animation
+// Project screenshot carousels
+function initializeProjectCarousels() {
+    document.querySelectorAll('.proj-carousel').forEach(carousel => {
+        const slides = carousel.querySelectorAll('.proj-slide');
+        const dots   = carousel.querySelectorAll('.proj-dot');
+        const prev   = carousel.querySelector('.proj-arrow-prev');
+        const next   = carousel.querySelector('.proj-arrow-next');
+        if (!slides.length) return;
+        let current = 0;
+        let isAnimating = false;
+
+        function goTo(n) {
+            if (isAnimating || n === current) return;
+            isAnimating = true;
+            slides[current].classList.remove('is-active');
+            dots[current].classList.remove('is-active');
+            dots[current].setAttribute('aria-selected', 'false');
+            current = ((n % slides.length) + slides.length) % slides.length;
+            slides[current].classList.add('is-active');
+            dots[current].classList.add('is-active');
+            dots[current].setAttribute('aria-selected', 'true');
+            setTimeout(() => { isAnimating = false; }, 460);
+        }
+
+        if (prev) prev.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); goTo(current - 1); });
+        if (next) next.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); goTo(current + 1); });
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); goTo(i); });
+        });
+
+        // Touch / swipe support
+        let touchStartX = 0;
+        let touchStartY = 0;
+        carousel.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        carousel.addEventListener('touchend', e => {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            const dy = e.changedTouches[0].clientY - touchStartY;
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+                goTo(dx < 0 ? current + 1 : current - 1);
+            }
+        }, { passive: true });
+
+        // Keyboard: left/right arrows when carousel is focused
+        carousel.setAttribute('tabindex', '0');
+        carousel.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+            if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+        });
+    });
+}
+
 function initializeSkillBars() {
     const fills = document.querySelectorAll('.skill-bar-fill');
     if (!fills.length) return;
