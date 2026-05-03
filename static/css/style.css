@@ -3291,3 +3291,233 @@ html[data-theme="light"] .proj-carousel::before { opacity: 0.5; }
 html[data-theme="light"] .proj-arrow { border-color: rgba(255,255,255,0.3); }
 html[data-theme="light"] .proj-dot { background: rgba(255,255,255,0.45); }
 html[data-theme="light"] .proj-dot.is-active { background: #fff; }
+
+/* ═══════════════════════════════════════════════════════════
+   RECOGNITION & AWARDS SECTION
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Scroll Reveal ── */
+.recog-reveal {
+    opacity: 0;
+    transform: translateY(44px);
+    transition:
+        opacity 0.65s ease,
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--recog-delay, 0s);
+}
+.recog-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Achievement Highlight Cards ── */
+.recog-ach-card {
+    border-radius: 20px;
+    padding: 1.8rem 1.6rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.032);
+    display: flex;
+    flex-direction: column;
+    transition:
+        transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.38s ease,
+        border-color 0.38s ease;
+}
+.recog-ach-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Colour-tinted glow blob (top-right corner) */
+.recog-ach-glow {
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 170px; height: 170px;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.16;
+    pointer-events: none;
+    transition: opacity 0.38s ease;
+}
+.recog-ach-card:hover .recog-ach-glow { opacity: 0.28; }
+
+/* Gold variant */
+.recog-ach-card--gold { border-color: rgba(251,191,36,0.22); }
+.recog-ach-card--gold:hover {
+    box-shadow: 0 22px 60px rgba(0,0,0,0.42), 0 0 38px rgba(251,191,36,0.14);
+    border-color: rgba(251,191,36,0.42);
+}
+.recog-ach-card--gold .recog-ach-glow  { background: #fbbf24; }
+.recog-ach-card--gold .recog-ach-icon  { color: #fbbf24; }
+.recog-ach-card--gold .recog-ach-rank  { color: #fbbf24; }
+
+/* Cyan variant */
+.recog-ach-card--cyan { border-color: rgba(0,212,255,0.22); }
+.recog-ach-card--cyan:hover {
+    box-shadow: 0 22px 60px rgba(0,0,0,0.42), 0 0 38px rgba(0,212,255,0.14);
+    border-color: rgba(0,212,255,0.42);
+}
+.recog-ach-card--cyan .recog-ach-glow  { background: #00d4ff; }
+.recog-ach-card--cyan .recog-ach-icon  { color: #00d4ff; }
+.recog-ach-card--cyan .recog-ach-rank  { color: #00d4ff; }
+
+/* Violet variant */
+.recog-ach-card--violet { border-color: rgba(139,92,246,0.22); }
+.recog-ach-card--violet:hover {
+    box-shadow: 0 22px 60px rgba(0,0,0,0.42), 0 0 38px rgba(139,92,246,0.14);
+    border-color: rgba(139,92,246,0.42);
+}
+.recog-ach-card--violet .recog-ach-glow { background: #8b5cf6; }
+.recog-ach-card--violet .recog-ach-icon { color: #8b5cf6; }
+.recog-ach-card--violet .recog-ach-rank { color: #8b5cf6; }
+
+/* Card typography */
+.recog-ach-icon {
+    font-size: 1.65rem;
+    margin-bottom: 0.55rem;
+}
+.recog-ach-rank {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+.recog-ach-rank--sm {
+    font-size: 1.75rem;
+}
+.recog-ach-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    opacity: 0.9;
+}
+.recog-ach-desc {
+    font-size: 0.82rem;
+    opacity: 0.58;
+    flex: 1;
+    margin-bottom: 1.1rem;
+    line-height: 1.58;
+}
+.recog-ach-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+}
+.recog-ach-org {
+    font-size: 0.72rem;
+    opacity: 0.48;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+}
+
+/* ── Star Ratings ── */
+.recog-stars {
+    display: flex;
+    gap: 3px;
+    color: #fbbf24;
+    font-size: 0.68rem;
+}
+
+/* ── Testimonial / Quote Cards ── */
+.recog-quote-card {
+    border-radius: 18px;
+    padding: 1.6rem;
+    background: rgba(255,255,255,0.028);
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition:
+        transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.38s ease,
+        border-color 0.38s ease;
+}
+.recog-quote-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 52px rgba(0,0,0,0.36);
+    border-color: rgba(255,255,255,0.15);
+}
+.recog-quote-mark {
+    font-size: 5rem;
+    line-height: 0.75;
+    color: rgba(0,212,255,0.22);
+    font-family: Georgia, 'Times New Roman', serif;
+    margin-bottom: 0.8rem;
+    pointer-events: none;
+    user-select: none;
+}
+.recog-quote-text {
+    font-size: 0.83rem;
+    line-height: 1.68;
+    opacity: 0.72;
+    flex: 1;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+.recog-quote-source {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+}
+.recog-source-avatar {
+    width: 40px; height: 40px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+.recog-src-guvi  { background: rgba(139,92,246,0.14); color: #a78bfa; border: 1px solid rgba(139,92,246,0.28); }
+.recog-src-updt  { background: rgba(251,191,36,0.12); color: #fbbf24; border: 1px solid rgba(251,191,36,0.28); }
+.recog-src-skill { background: rgba(74,222,128,0.11); color: #4ade80; border: 1px solid rgba(74,222,128,0.28); }
+
+.recog-source-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    opacity: 0.9;
+    line-height: 1.2;
+}
+.recog-source-role {
+    font-size: 0.7rem;
+    opacity: 0.48;
+    margin-top: 2px;
+}
+
+/* ── Placeholder invite note ── */
+.recog-placeholder-note {
+    font-size: 0.82rem;
+    opacity: 0.38;
+    margin: 0;
+}
+.recog-invite-link {
+    color: rgba(0,212,255,0.65);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(0,212,255,0.3);
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+.recog-invite-link:hover {
+    color: #00d4ff;
+    border-bottom-color: #00d4ff;
+    opacity: 1;
+}
+
+/* Light mode overrides */
+html[data-theme="light"] .recog-ach-card,
+html[data-theme="light"] .recog-quote-card {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.1);
+}
+html[data-theme="light"] .recog-quote-mark { color: rgba(0,80,160,0.25); }
+html[data-theme="light"] .recog-ach-meta,
+html[data-theme="light"] .recog-quote-source { border-top-color: rgba(0,0,0,0.08); }
+html[data-theme="light"] .recog-placeholder-note { color: inherit; }

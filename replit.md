@@ -68,7 +68,7 @@ The application follows a simple Flask-based architecture with the following cha
 1. **Single Page Template (`templates/index.html`)**
    - Bootstrap-based responsive design with dark theme
    - Navigation with smooth scrolling
-   - Multiple content sections (home, about, interests, journey, gallery, contact)
+   - Multiple content sections (home, about, interests, journey, experience, certificates, learning, projects, recognition, contact)
 
 2. **Styling (`static/css/style.css`)**
    - Custom CSS variables for consistent theming
@@ -77,8 +77,12 @@ The application follows a simple Flask-based architecture with the following cha
 
 3. **Interactive Features (`static/js/main.js`)**
    - Dynamic navigation highlighting
-   - Scroll-based effects
-   - Gallery and form interactions
+   - Scroll-based effects and IntersectionObserver animations
+   - AJAX contact form with real-time validation
+   - Animated hero counters (17+ certs, #57 national rank, 3 projects)
+   - Interactive skill progress bars
+   - Project screenshot carousels (3 slides per project, swipe/keyboard/dot nav)
+   - Recognition section scroll-reveal animations
 
 ## Data Flow
 

@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeContactForm();
     initializeScrollEffects();
     initializeProjectCarousels();
+    initializeRecognition();
     initializeSkillBars();
     initializeCounters();
     initializeHeroRoleTypewriter();
@@ -608,6 +609,23 @@ function initializeCounters() {
 }
 
 // Skill bars animation
+// Recognition & Awards scroll reveal
+function initializeRecognition() {
+    const items = document.querySelectorAll('.recog-reveal');
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    items.forEach(item => observer.observe(item));
+}
+
 // Project screenshot carousels
 function initializeProjectCarousels() {
     document.querySelectorAll('.proj-carousel').forEach(carousel => {
