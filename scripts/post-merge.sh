@@ -8,7 +8,12 @@ if [ -z "$GITHUB_PAT" ]; then
     exit $UV_EXIT
 fi
 
-git remote set-url github https://github.com/arjunpv1312/portfolio.git
+# Add remote if it doesn't exist, otherwise update its URL
+if git remote get-url github > /dev/null 2>&1; then
+    git remote set-url github https://github.com/arjunpv1312/portfolio.git
+else
+    git remote add github https://github.com/arjunpv1312/portfolio.git
+fi
 
 git -c credential.helper='!f() { echo "username=arjunpv1312"; echo "password=${GITHUB_PAT}"; }; f' \
     push github HEAD:main
