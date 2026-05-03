@@ -28,6 +28,7 @@ Preferred communication style: Simple, everyday language.
 - Generative AI
 - Introduction to Generative AI and Agents
 - India AI Impact Buildathon - Certificate of Participation (HCL GUVI, India AI Impact Summit 2026)
+- HCL GUVI AI Blogathon - Certificate of Participation (HCL GUVI, Chennai 2026)
 - Claude Code: The Coding Assistant (Free Course Completion)
 - Career Readiness Challenge 2026 - Rank 57 (upDt Education Technology)
 - Mindluster Certification (Online Learning Platform)
