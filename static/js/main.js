@@ -227,14 +227,22 @@ function initializeNavigation() {
     }
     
     // Smooth scrolling for navigation links (only internal anchor links)
+    // Also closes the mobile navbar collapse when a link is tapped
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
-            if (!targetId || !targetId.startsWith('#') || targetId === '#') return; // skip external/bare-hash links
+            if (!targetId || !targetId.startsWith('#') || targetId === '#') return;
             e.preventDefault();
+            // Close mobile navbar on link tap
+            const navCollapse = document.getElementById('navbarNav');
+            if (navCollapse && navCollapse.classList.contains('show')) {
+                navCollapse.classList.remove('show');
+                const toggler = document.querySelector('.navbar-toggler');
+                if (toggler) toggler.setAttribute('aria-expanded', 'false');
+            }
             const targetSection = document.querySelector(targetId);
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
+                const offsetTop = targetSection.offsetTop - 70;
                 window.scrollTo({ top: offsetTop, behavior: 'smooth' });
             }
         });
@@ -1185,8 +1193,13 @@ function initializeParticles() {
             drawGlowDot(n, 1.4, 0.15);
         });
 
-        requestAnimationFrame(draw);
+        if (!document.hidden) requestAnimationFrame(draw);
     }
+
+    // Pause canvas loop when tab is in background — saves battery on mobile
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) requestAnimationFrame(draw);
+    });
 
     draw();
 }
