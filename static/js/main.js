@@ -1637,44 +1637,7 @@ window.addEventListener('error', function(e) {
         e.preventDefault();
     });
 
-    // ── 3. DOMContentLoaded retry guard ──────────────────────
-    // Wrap every top-level init call so one failure never
-    // blocks the rest of the feature set.
-    var _orig = document.addEventListener.bind(document);
-    document.addEventListener = function (type, fn, opts) {
-        if (type === 'DOMContentLoaded') {
-            _orig(type, function (e) {
-                try { fn(e); } catch (err) {
-                    console.warn('[Safety] DOMContentLoaded handler threw:', err);
-                }
-            }, opts);
-        } else {
-            _orig(type, fn, opts);
-        }
-    };
-
-    // ── 4. rAF-throttled resize handler ─────────────────────
-    // Replace any future raw resize listeners with rAF-throttled ones
-    var _origWinAdd = window.addEventListener.bind(window);
-    var _rafPending  = {};
-    window.addEventListener = function (type, fn, opts) {
-        if (type === 'resize') {
-            _origWinAdd(type, function () {
-                if (_rafPending[type]) return;
-                _rafPending[type] = true;
-                requestAnimationFrame(function () {
-                    _rafPending[type] = false;
-                    try { fn(); } catch (err) {
-                        console.warn('[Safety] resize handler threw:', err);
-                    }
-                });
-            }, opts);
-        } else {
-            _origWinAdd(type, fn, opts);
-        }
-    };
-
-    // ── 5. Image load error graceful fallback ────────────────
+    // ── 3. Image load error graceful fallback ────────────────
     document.addEventListener('error', function (e) {
         if (e.target && e.target.tagName === 'IMG') {
             if (!e.target.dataset.errHandled) {
