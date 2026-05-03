@@ -2,6 +2,7 @@ import os
 import logging
 from flask import Flask
 from flask_mail import Mail
+from flask_compress import Compress
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -26,6 +27,19 @@ app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'instance', 'uploads')
 
 # Initialize Flask-Mail
 mail = Mail(app)
+
+# Enable gzip/brotli compression for all responses
+app.config['COMPRESS_REGISTER'] = True
+app.config['COMPRESS_LEVEL'] = 6
+app.config['COMPRESS_MIN_SIZE'] = 500
+Compress(app)
+
+# Build minified CSS/JS on startup (only if source is newer than .min)
+try:
+    from build_assets import minify_assets
+    minify_assets()
+except Exception as _e:
+    logging.warning(f"Asset minification skipped: {_e}")
 
 # Import routes
 from routes import *

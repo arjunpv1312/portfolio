@@ -102,6 +102,9 @@ The application follows a simple Flask-based architecture with the following cha
 ### Python Packages
 - **Flask**: Web framework for handling HTTP requests and responses
 - **Flask-Mail**: Email sending functionality with SMTP support
+- **Flask-Compress**: Automatic gzip compression for all HTTP responses (level 6)
+- **rcssmin**: CSS minifier — generates `static/css/style.min.css` at app startup
+- **rjsmin**: JavaScript minifier — generates `static/js/main.min.js` at app startup
 
 ### Frontend Libraries
 - **Bootstrap**: CSS framework with dark theme variant from Replit CDN
