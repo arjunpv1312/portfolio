@@ -2117,3 +2117,177 @@ section {
     0%, 100% { transform: rotateY(0deg);   }
     50%      { transform: rotateY(180deg); }
 }
+
+/* ─────────── Google Gemini Ambassador Card ─────────── */
+.gemini-card-wrap {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.gemini-pulse-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 22px;
+    border: 2px solid rgba(0, 212, 255, 0.35);
+    animation: geminiPulse 3s ease-in-out infinite;
+    pointer-events: none;
+}
+.gemini-ring-2 {
+    inset: -16px;
+    border-color: rgba(139, 92, 246, 0.2);
+    animation-delay: 1.5s;
+}
+@keyframes geminiPulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50%       { opacity: 0.25; transform: scale(1.01); }
+}
+.gemini-card {
+    position: relative;
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 2.2rem;
+    background: linear-gradient(135deg, rgba(13,17,32,0.97) 0%, rgba(20,14,40,0.97) 100%);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 18px;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.12), 0 0 80px rgba(139, 92, 246, 0.1), 0 20px 50px rgba(0,0,0,0.4);
+    overflow: hidden;
+}
+.gemini-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4285F4, #00d4ff, #8b5cf6, #EA4335, #FBBC05, #34A853);
+    background-size: 200% 100%;
+    animation: geminiRainbow 4s linear infinite;
+}
+@keyframes geminiRainbow {
+    0%   { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+.gemini-card-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-width: 90px;
+    padding-right: 1.5rem;
+    border-right: 1px solid rgba(255,255,255,0.07);
+}
+.gemini-google-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+.gemini-gem-icon {
+    filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.5));
+    animation: geminiFloat 3s ease-in-out infinite;
+}
+@keyframes geminiFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-5px); }
+}
+.gemini-live-dot {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #34A853;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+.gemini-live-dot span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #34A853;
+    box-shadow: 0 0 8px #34A853;
+    animation: geminiBlink 1.4s ease-in-out infinite;
+}
+@keyframes geminiBlink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.8); }
+}
+.gemini-card-right { flex: 1; min-width: 0; }
+.gemini-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.6rem;
+}
+.gemini-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, #a0c4ff 60%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0 0 0.3rem;
+    line-height: 1.3;
+}
+.gemini-org {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+    margin: 0;
+}
+.gemini-invite-badge {
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(139,92,246,0.15));
+    border: 1px solid rgba(0,212,255,0.4);
+    color: #00d4ff;
+    white-space: nowrap;
+}
+.gemini-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+}
+.gemini-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.gemini-tags span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.75);
+    transition: all 0.25s;
+}
+.gemini-tags span:hover {
+    background: rgba(0,212,255,0.1);
+    border-color: rgba(0,212,255,0.4);
+    color: #00d4ff;
+}
+/* Timeline Gemini item */
+.timeline-marker-gemini {
+    background: linear-gradient(135deg, #4285F4, #8b5cf6) !important;
+    box-shadow: 0 0 16px rgba(66,133,244,0.5) !important;
+}
+.timeline-content-gemini {
+    border-left: 2px solid rgba(66,133,244,0.4) !important;
+    padding-left: 1rem;
+}
+/* Mobile */
+@media (max-width: 640px) {
+    .gemini-card { flex-direction: column; gap: 1.2rem; padding: 1.5rem; }
+    .gemini-card-left { flex-direction: row; min-width: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding-right: 0; padding-bottom: 1rem; justify-content: flex-start; }
+    .gemini-card-top { flex-direction: column; gap: 0.5rem; }
+    .gemini-title { font-size: 1.1rem; }
+}
