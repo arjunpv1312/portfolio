@@ -4243,3 +4243,122 @@ html[data-theme="light"] .btn-outline-light:hover {
     background: rgba(0,0,0,0.06) !important;
     color: #0f172a !important;
 }
+
+/* ── Project problem statement line ─────────────────────────── */
+.project-problem {
+    font-size: 0.78rem;
+    color: var(--accent);
+    opacity: 0.85;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    font-style: italic;
+}
+html[data-theme="light"] .project-problem {
+    color: #0369a1;
+}
+
+/* ── What's Next banner ──────────────────────────────────────── */
+.whats-next-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    background: linear-gradient(135deg,
+        rgba(0,212,255,0.07) 0%,
+        rgba(139,92,246,0.07) 100%);
+    border: 1px solid rgba(0,212,255,0.25);
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+.whats-next-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(180deg, #00d4ff, #8b5cf6);
+    border-radius: 16px 0 0 16px;
+}
+.whats-next-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(139,92,246,0.15));
+    border: 1px solid rgba(0,212,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+.whats-next-body {
+    flex: 1;
+}
+.whats-next-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.3px;
+}
+.whats-next-text {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 0.85rem;
+    line-height: 1.6;
+}
+.whats-next-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.whats-next-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.25em 0.75em;
+    border-radius: 20px;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.25);
+    color: #00d4ff;
+    letter-spacing: 0.2px;
+}
+.whats-next-cta {
+    flex-shrink: 0;
+    align-self: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(0,212,255,0.35);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: background 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+.whats-next-cta:hover {
+    background: rgba(0,212,255,0.12);
+    border-color: rgba(0,212,255,0.6);
+    color: var(--accent);
+}
+
+/* Light mode overrides */
+html[data-theme="light"] .whats-next-card {
+    background: linear-gradient(135deg, rgba(0,180,216,0.06), rgba(107,70,193,0.06));
+    border-color: rgba(0,150,200,0.3);
+}
+html[data-theme="light"] .whats-next-title { color: #0369a1; }
+html[data-theme="light"] .whats-next-text  { color: #374151; }
+html[data-theme="light"] .whats-next-tag   { color: #0369a1; background: rgba(3,105,161,0.08); border-color: rgba(3,105,161,0.2); }
+html[data-theme="light"] .whats-next-cta   { color: #0369a1; border-color: rgba(3,105,161,0.35); }
+html[data-theme="light"] .whats-next-cta:hover { background: rgba(3,105,161,0.08); border-color: rgba(3,105,161,0.6); }
+html[data-theme="light"] .whats-next-icon  { color: #0369a1; border-color: rgba(3,105,161,0.3); }
+
+/* Mobile: stack What's Next card */
+@media (max-width: 640px) {
+    .whats-next-card {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+    }
+    .whats-next-cta {
+        align-self: flex-start;
+    }
+}

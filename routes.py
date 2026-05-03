@@ -2,7 +2,7 @@ import os
 import json
 import logging
 from datetime import datetime
-from flask import render_template, request, flash, redirect, url_for, jsonify, send_from_directory, abort
+from flask import render_template, request, flash, redirect, url_for, jsonify, send_from_directory, abort, make_response
 from flask_mail import Message
 from werkzeug.utils import secure_filename
 from app import app, mail
@@ -82,6 +82,72 @@ def download_file(filename):
     if not os.path.isfile(os.path.join(uploads_dir, safe_name)):
         abort(404)
     return send_from_directory(uploads_dir, safe_name, as_attachment=True)
+
+
+# ── SEO files ─────────────────────────────────────────────────
+@app.route('/robots.txt')
+def robots_txt():
+    content = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /instance/\n"
+        "Disallow: /files/\n\n"
+        "Sitemap: https://personal-portfolio--serenayt06.replit.app/sitemap.xml\n"
+    )
+    resp = make_response(content)
+    resp.headers['Content-Type'] = 'text/plain'
+    return resp
+
+
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://personal-portfolio--serenayt06.replit.app/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://personal-portfolio--serenayt06.replit.app/#gallery</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://personal-portfolio--serenayt06.replit.app/#interests</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://personal-portfolio--serenayt06.replit.app/#journey</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://personal-portfolio--serenayt06.replit.app/#certificates</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://personal-portfolio--serenayt06.replit.app/#projects</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://personal-portfolio--serenayt06.replit.app/#recognition</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://personal-portfolio--serenayt06.replit.app/#contact</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>"""
+    resp = make_response(content)
+    resp.headers['Content-Type'] = 'application/xml'
+    return resp
 
 
 # ── Pages ─────────────────────────────────────────────────────
