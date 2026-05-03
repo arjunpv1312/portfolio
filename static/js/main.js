@@ -570,17 +570,25 @@ function initializeCounters() {
     const counters = document.querySelectorAll('.stat-counter-num');
     if (!counters.length) return;
 
+    // Reset all counters to their starting display before the animation plays
+    counters.forEach(el => {
+        const prefix = el.dataset.prefix || '';
+        el.textContent = prefix + '0';
+    });
+
     function easeOutQuart(t) {
         return 1 - Math.pow(1 - t, 4);
     }
 
     function animateCounter(el) {
         const target   = parseInt(el.dataset.target, 10);
-        const prefix   = el.dataset.prefix  || '';
-        const suffix   = el.dataset.suffix  || '';
-        const duration = parseInt(el.dataset.duration, 10) || 1500;
+        const prefix   = el.dataset.prefix || '';
+        const suffix   = el.dataset.suffix || '';
+        // Use 2000–2500 ms so the count-up is clearly visible
+        const duration = parseInt(el.dataset.duration, 10) || 2000;
         const bar      = el.closest('.stat-counter-card')?.querySelector('.stat-counter-bar');
         let start      = null;
+        let rafId      = null;
 
         el.classList.add('counting');
 
@@ -589,31 +597,59 @@ function initializeCounters() {
             const elapsed  = timestamp - start;
             const progress = Math.min(elapsed / duration, 1);
             const eased    = easeOutQuart(progress);
-            const current  = Math.floor(eased * target);
+            const current  = Math.round(eased * target);
+
             el.textContent = prefix + current + suffix;
 
             if (progress < 1) {
-                requestAnimationFrame(step);
+                rafId = requestAnimationFrame(step);
             } else {
+                // Guarantee the exact final value is written
                 el.textContent = prefix + target + suffix;
                 el.classList.remove('counting');
                 el.classList.add('done');
                 if (bar) {
-                    // Slight delay so bar fills after number lands
-                    setTimeout(() => bar.classList.add('filled'), 80);
+                    setTimeout(() => bar.classList.add('filled'), 100);
                 }
-                // Remove done class after animation so it can replay on revisit
                 el.addEventListener('animationend', () => el.classList.remove('done'), { once: true });
             }
         }
-        requestAnimationFrame(step);
+        rafId = requestAnimationFrame(step);
     }
 
-    // Fire each counter after its own data-delay
-    counters.forEach(el => {
-        const delay = parseInt(el.dataset.delay, 10) || 0;
-        setTimeout(() => animateCounter(el), delay + 300); // +300ms after page load
-    });
+    let hasRun = false;
+
+    function runCounters() {
+        if (hasRun) return;
+        hasRun = true;
+
+        counters.forEach(el => {
+            // Stagger each counter by its data-delay (default 0 / 200 / 400 ms)
+            const delay = parseInt(el.dataset.delay, 10) || 0;
+            setTimeout(() => animateCounter(el), delay);
+        });
+    }
+
+    // Use IntersectionObserver so animation fires when the section is
+    // actually visible — handles page-load overlays and mid-page visits
+    const target = document.getElementById('heroCounters');
+    if (!target) { runCounters(); return; }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Small buffer so the element has fully painted before we count
+                setTimeout(runCounters, 150);
+                observer.disconnect();
+            }
+        });
+    }, { threshold: 0.25 });
+
+    observer.observe(target);
+
+    // Fallback: if the element never intersects within 4 s (e.g. hidden by CSS),
+    // run the counters anyway so values are never stuck at 0
+    setTimeout(() => { observer.disconnect(); runCounters(); }, 4000);
 }
 
 // Skill bars animation
