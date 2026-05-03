@@ -111,6 +111,16 @@ The application follows a simple Flask-based architecture with the following cha
 - **SMTP Server**: Configurable email server (defaults to Gmail SMTP)
 - **Environment Variables**: Email credentials and configuration stored securely
 
+## GitHub Sync
+
+The project is configured to automatically push to GitHub after every task merge.
+
+- **Repository**: https://github.com/arjunpv1312/portfolio
+- **Mechanism**: `scripts/post-merge.sh` runs after each merge and pushes to the `github` remote
+- **Authentication**: Uses the `GITHUB_PAT` secret (stored in Replit Secrets) — do NOT use the Replit GitHub integration, use this PAT-based approach instead
+- **Remote**: The `github` remote URL is a plain HTTPS URL; the PAT is injected temporarily via a git credential helper at push time and is never stored in the remote URL or git config
+- No manual git push steps are required
+
 ## Deployment Strategy
 
 ### Environment Configuration
