@@ -29,6 +29,8 @@ Preferred communication style: Simple, everyday language.
 - Introduction to Generative AI and Agents
 - India AI Impact Buildathon - Certificate of Participation (HCL GUVI, India AI Impact Summit 2026)
 - HCL GUVI AI Blogathon - Certificate of Participation (HCL GUVI, Chennai 2026)
+- NASSCOM FutureSkills Prime - Yuva AI for All (April 2026)
+- Power BI Certification (Business Intelligence & Data Viz)
 - Claude Code: The Coding Assistant (Free Course Completion)
 - Career Readiness Challenge 2026 - Rank 57 (upDt Education Technology)
 - Mindluster Certification (Online Learning Platform)
