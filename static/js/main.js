@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeContactForm();
     initializeScrollEffects();
     initializeSkillBars();
+    initializeCounters();
     initializeHeroRoleTypewriter();
     initializeTypingAnimation();
 });
@@ -442,6 +443,57 @@ function initializeContactForm() {
             }
         }, 5000);
     }
+}
+
+// Animated achievement counters
+function initializeCounters() {
+    const counters = document.querySelectorAll('.stat-counter-num');
+    if (!counters.length) return;
+
+    function easeOutQuart(t) {
+        return 1 - Math.pow(1 - t, 4);
+    }
+
+    function animateCounter(el) {
+        const target   = parseInt(el.dataset.target, 10);
+        const prefix   = el.dataset.prefix  || '';
+        const suffix   = el.dataset.suffix  || '';
+        const duration = parseInt(el.dataset.duration, 10) || 1500;
+        const bar      = el.closest('.stat-counter-card')?.querySelector('.stat-counter-bar');
+        let start      = null;
+
+        el.classList.add('counting');
+
+        function step(timestamp) {
+            if (!start) start = timestamp;
+            const elapsed  = timestamp - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased    = easeOutQuart(progress);
+            const current  = Math.floor(eased * target);
+            el.textContent = prefix + current + suffix;
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                el.textContent = prefix + target + suffix;
+                el.classList.remove('counting');
+                el.classList.add('done');
+                if (bar) {
+                    // Slight delay so bar fills after number lands
+                    setTimeout(() => bar.classList.add('filled'), 80);
+                }
+                // Remove done class after animation so it can replay on revisit
+                el.addEventListener('animationend', () => el.classList.remove('done'), { once: true });
+            }
+        }
+        requestAnimationFrame(step);
+    }
+
+    // Fire each counter after its own data-delay
+    counters.forEach(el => {
+        const delay = parseInt(el.dataset.delay, 10) || 0;
+        setTimeout(() => animateCounter(el), delay + 300); // +300ms after page load
+    });
 }
 
 // Skill bars animation
