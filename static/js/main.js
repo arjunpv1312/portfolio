@@ -1617,3 +1617,130 @@ window.addEventListener('error', function(e) {
         document.head.appendChild(s);
     }
 })();
+
+// ═══════════════════════════════════════════════════════════
+//  GLOBAL SAFETY NET — catches every unhandled JS error so
+//  a broken animation / feature never crashes the whole page
+// ═══════════════════════════════════════════════════════════
+(function () {
+    'use strict';
+
+    // ── 1. Window-level error catcher ────────────────────────
+    window.onerror = function (msg, src, line, col, err) {
+        console.warn('[Safety] Uncaught error:', msg, 'at', src + ':' + line);
+        return true; // suppress default browser error overlay
+    };
+
+    // ── 2. Unhandled promise rejections ──────────────────────
+    window.addEventListener('unhandledrejection', function (e) {
+        console.warn('[Safety] Unhandled promise rejection:', e.reason);
+        e.preventDefault();
+    });
+
+    // ── 3. DOMContentLoaded retry guard ──────────────────────
+    // Wrap every top-level init call so one failure never
+    // blocks the rest of the feature set.
+    var _orig = document.addEventListener.bind(document);
+    document.addEventListener = function (type, fn, opts) {
+        if (type === 'DOMContentLoaded') {
+            _orig(type, function (e) {
+                try { fn(e); } catch (err) {
+                    console.warn('[Safety] DOMContentLoaded handler threw:', err);
+                }
+            }, opts);
+        } else {
+            _orig(type, fn, opts);
+        }
+    };
+
+    // ── 4. rAF-throttled resize handler ─────────────────────
+    // Replace any future raw resize listeners with rAF-throttled ones
+    var _origWinAdd = window.addEventListener.bind(window);
+    var _rafPending  = {};
+    window.addEventListener = function (type, fn, opts) {
+        if (type === 'resize') {
+            _origWinAdd(type, function () {
+                if (_rafPending[type]) return;
+                _rafPending[type] = true;
+                requestAnimationFrame(function () {
+                    _rafPending[type] = false;
+                    try { fn(); } catch (err) {
+                        console.warn('[Safety] resize handler threw:', err);
+                    }
+                });
+            }, opts);
+        } else {
+            _origWinAdd(type, fn, opts);
+        }
+    };
+
+    // ── 5. Image load error graceful fallback ────────────────
+    document.addEventListener('error', function (e) {
+        if (e.target && e.target.tagName === 'IMG') {
+            if (!e.target.dataset.errHandled) {
+                e.target.dataset.errHandled = '1';
+                e.target.style.opacity = '0.3';
+                e.target.alt = e.target.alt || 'Image unavailable';
+            }
+        }
+    }, true);
+
+    // ── 6. Network reconnect banner ──────────────────────────
+    var _banner = null;
+    function showOfflineBanner() {
+        if (_banner) return;
+        _banner = document.createElement('div');
+        _banner.id = 'offlineBanner';
+        Object.assign(_banner.style, {
+            position: 'fixed', bottom: '1.5rem', left: '50%',
+            transform: 'translateX(-50%)', zIndex: '9999',
+            background: 'rgba(18,24,38,0.96)',
+            border: '1px solid rgba(239,68,68,0.6)',
+            borderRadius: '2rem', padding: '0.6rem 1.4rem',
+            color: '#fca5a5', fontSize: '0.875rem',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 4px 24px rgba(239,68,68,0.18)',
+            display: 'flex', alignItems: 'center', gap: '0.5rem',
+            animation: 'fadeInUp 0.3s ease both',
+        });
+        _banner.innerHTML = '<span style="font-size:1rem">&#9888;</span> You\'re offline — check your connection';
+        document.body.appendChild(_banner);
+    }
+    function hideOfflineBanner() {
+        if (_banner) {
+            _banner.style.animation = 'none';
+            _banner.style.opacity   = '0';
+            _banner.style.transition = 'opacity 0.3s';
+            setTimeout(function () {
+                if (_banner && _banner.parentNode) _banner.parentNode.removeChild(_banner);
+                _banner = null;
+            }, 350);
+        }
+    }
+    window.addEventListener('offline',  showOfflineBanner, { passive: true });
+    window.addEventListener('online',   function () {
+        hideOfflineBanner();
+        // show reconnected toast
+        var t = document.createElement('div');
+        Object.assign(t.style, {
+            position: 'fixed', bottom: '1.5rem', left: '50%',
+            transform: 'translateX(-50%)', zIndex: '9999',
+            background: 'rgba(18,24,38,0.96)',
+            border: '1px solid rgba(0,212,255,0.4)',
+            borderRadius: '2rem', padding: '0.6rem 1.4rem',
+            color: '#67e8f9', fontSize: '0.875rem',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 4px 24px rgba(0,212,255,0.15)',
+            display: 'flex', alignItems: 'center', gap: '0.5rem',
+            animation: 'fadeInUp 0.3s ease both',
+        });
+        t.innerHTML = '<span style="font-size:1rem">&#10003;</span> Back online!';
+        document.body.appendChild(t);
+        setTimeout(function () {
+            t.style.opacity = '0';
+            t.style.transition = 'opacity 0.4s';
+            setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 450);
+        }, 2500);
+    }, { passive: true });
+
+})();

@@ -38,6 +38,23 @@ Preferred communication style: Simple, everyday language.
 - Professional Career Development (Skillified Mentor — Industry Orientation)
 - IGEN GREENDAY 2024 (Institution of Green Engineers — SDG 17 Pledge)
 
+## Reliability & Performance Architecture
+
+### Error Handling (Zero-crash guarantee)
+- **Flask error handlers**: 400, 404, 413, 429, 500 — all render `templates/error.html` (beautiful dark-themed branded page matching portfolio)
+- **JS Global Safety Net** (appended to `main.js`): `window.onerror`, `unhandledrejection`, DOMContentLoaded try-catch wrapper, rAF-throttled resize handlers, image load fallback, offline/reconnect banner
+- **Health endpoint**: `GET /health` → JSON `{status:'ok', timestamp}` — rate-limit exempt, for uptime monitors
+
+### Performance Optimisations
+- **HTTP cache headers** (`app.py` `after_request`): CSS/JS → 1 year immutable; images → 30 days; PDF → 1 day
+- **Resource hints** (`index.html <head>`): `preconnect` to all 5 CDNs, `dns-prefetch` for LinkedIn & GitHub
+- **Gunicorn config** (`gunicorn.conf.py`): timeout 120 s, max_requests 1000 + jitter 100, keepalive 5 s
+
+### Contact Section Layout
+- Cards fully clickable via `<a>` wrapper; hover state propagates correctly from link to inner card
+- Equal-height cards at all breakpoints; last orphaned card centred on mobile
+- `touch-action: manipulation` + `-webkit-tap-highlight-color: transparent` for mobile tap
+
 ## Resume Page
 - **Route**: `/resume` — renders a clean, printable HTML resume page
 - **Features**: Dark header with Open to Work pill, two-column layout (main + sidebar), Education / Projects / Achievements / Skills / Certifications

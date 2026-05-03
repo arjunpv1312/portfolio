@@ -4798,3 +4798,103 @@ html[data-theme="light"] .cmd-hint-keys kbd {
     .floating-cta { font-size: 0.75rem; padding: 0.45rem 0.85rem 0.45rem 0.7rem; }
     .floating-cta.cta-visible { right: 1rem; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT CARDS — Layout fixes & consistency
+   ═══════════════════════════════════════════════════════════ */
+
+/* Ensure every card link fills its column and passes hover */
+.contact-card-link {
+    display: flex !important;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 0.6rem;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Card itself: always equal height, vertically centered */
+.contact-cards-row .contact-card {
+    height: 100% !important;
+    min-height: 140px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 1.25rem 0.75rem !important;
+    border-radius: 0.6rem;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Hover propagates from the <a> wrapper to the inner card */
+.contact-card-link:hover .contact-card,
+.contact-card-link:focus-visible .contact-card {
+    background: rgba(0,212,255,0.08);
+    transform: translateY(-6px) scale(1.02);
+    border-color: rgba(0,212,255,0.5);
+    box-shadow: 0 12px 40px rgba(0,212,255,0.18), 0 0 0 1px rgba(0,212,255,0.2);
+}
+
+.contact-card-link:active .contact-card {
+    transform: translateY(-2px) scale(0.99);
+}
+
+.contact-card-link:hover .contact-card i {
+    transform: scale(1.25) rotate(-5deg);
+    color: #00d4ff !important;
+}
+
+.contact-card-link:hover .contact-card p {
+    color: #fff !important;
+}
+
+/* On mobile: 2-col grid → last odd card centred */
+@media (max-width: 575.98px) {
+    .contact-cards-row {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+    .contact-cards-row .col {
+        width: calc(50% - 0.375rem);
+        flex: 0 0 calc(50% - 0.375rem);
+        max-width: calc(50% - 0.375rem);
+    }
+    .contact-cards-row .col:last-child:nth-child(odd) {
+        width: calc(60% - 0.375rem);
+        flex: 0 0 calc(60% - 0.375rem);
+        max-width: calc(60% - 0.375rem);
+    }
+}
+
+/* On sm-md screens: 3-col grid → last 2 cards centred */
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .contact-cards-row {
+        justify-content: center !important;
+    }
+}
+
+/* Light mode card overrides */
+html[data-theme="light"] .contact-card-link:hover .contact-card,
+html[data-theme="light"] .contact-card-link:focus-visible .contact-card {
+    background: rgba(0,100,200,0.07);
+    border-color: rgba(0,100,200,0.35);
+    box-shadow: 0 12px 40px rgba(0,100,200,0.12), 0 0 0 1px rgba(0,100,200,0.15);
+}
+
+html[data-theme="light"] .contact-card-link:hover .contact-card i {
+    color: #0066cc !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OFFLINE BANNER keyframe (referenced by safety net JS)
+   ═══════════════════════════════════════════════════════════ */
+@keyframes errFadeUp {
+    from { opacity:0; transform:translateX(-50%) translateY(10px); }
+    to   { opacity:1; transform:translateX(-50%) translateY(0);    }
+}

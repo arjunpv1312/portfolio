@@ -1,6 +1,6 @@
 import os
 import logging
-from flask import Flask
+from flask import Flask, request, render_template, jsonify
 from flask_mail import Mail
 from flask_compress import Compress
 from flask_talisman import Talisman, DENY
@@ -119,6 +119,63 @@ try:
     minify_assets()
 except Exception as _e:
     logging.warning(f"Asset minification skipped: {_e}")
+
+# ── Static-file cache headers ─────────────────────────────────
+@app.after_request
+def add_cache_headers(response):
+    path = request.path
+    if path.startswith('/static/'):
+        ext = path.rsplit('.', 1)[-1].lower() if '.' in path else ''
+        if ext in ('css', 'js', 'woff', 'woff2', 'ttf', 'eot'):
+            response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+        elif ext in ('png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'ico'):
+            response.headers['Cache-Control'] = 'public, max-age=2592000'
+        elif ext == 'pdf':
+            response.headers['Cache-Control'] = 'public, max-age=86400'
+    return response
+
+# ── Global error handlers ─────────────────────────────────────
+@app.errorhandler(400)
+def bad_request(e):
+    if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
+        return jsonify(error='Bad request', code=400), 400
+    return render_template('error.html', code=400,
+                           title='Bad Request',
+                           message='Something in your request could not be processed.',
+                           hint='Try refreshing the page or going back home.'), 400
+
+@app.errorhandler(404)
+def not_found(e):
+    if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
+        return jsonify(error='Not found', code=404), 404
+    return render_template('error.html', code=404,
+                           title='Page Not Found',
+                           message="The page you're looking for doesn't exist or was moved.",
+                           hint='Check the URL, or head back to the portfolio.'), 404
+
+@app.errorhandler(413)
+def too_large(e):
+    return render_template('error.html', code=413,
+                           title='File Too Large',
+                           message='Your attachment exceeds the 16 MB limit.',
+                           hint='Please compress the file and try again.'), 413
+
+@app.errorhandler(429)
+def rate_limited(e):
+    return render_template('error.html', code=429,
+                           title='Slow Down',
+                           message="You're sending requests too fast.",
+                           hint='Wait a moment and try again.'), 429
+
+@app.errorhandler(500)
+def server_error(e):
+    logging.error(f"Internal server error: {e}")
+    if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
+        return jsonify(error='Server error', code=500), 500
+    return render_template('error.html', code=500,
+                           title='Server Error',
+                           message="Something went wrong on our end. This is temporary.",
+                           hint='Refresh in a moment or go back home.'), 500
 
 # ── Routes & Admin ────────────────────────────────────────────
 from routes import *   # noqa: F401, E402

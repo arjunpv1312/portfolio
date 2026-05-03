@@ -396,3 +396,15 @@ def download_file(filename):
     if not os.path.isfile(os.path.join(uploads_dir, safe_name)):
         abort(404)
     return send_from_directory(uploads_dir, safe_name, as_attachment=True)
+
+
+# ─── Health check (uptime monitors, load balancers) ───────────────────────────
+@app.route('/health')
+@limiter.exempt
+def health():
+    from datetime import timezone
+    return jsonify(
+        status='ok',
+        service='arjunpv-portfolio',
+        timestamp=datetime.now(timezone.utc).isoformat()
+    ), 200
