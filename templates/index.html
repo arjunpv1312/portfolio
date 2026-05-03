@@ -132,6 +132,11 @@
                                     <i class="fas fa-trophy me-2 text-info"></i>Recognition
                                 </a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" href="#resume">
+                                    <i class="fas fa-file-alt me-2 text-info"></i>Résumé
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -295,8 +300,8 @@
                         <a href="tel:+919946269473" class="about-social-btn" title="Phone">
                             <i class="fas fa-phone"></i>
                         </a>
-                        <a href="{{ url_for('static', filename='assets/arjun_cv.pdf') }}" download="Arjun_PV_CV.pdf" class="about-social-btn" title="Download CV">
-                            <i class="fas fa-download"></i>
+                        <a href="{{ url_for('download_cv') }}" class="about-social-btn" title="Download CV" aria-label="Download Arjun PV's CV as PDF">
+                            <i class="fas fa-download" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -1500,6 +1505,166 @@
         </div>
     </section>
 
+    <!-- Résumé Section -->
+    <section id="resume" class="py-5" aria-labelledby="resumeHeading">
+        <div class="container">
+            <div class="row section-header">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold section-title mb-3" id="resumeHeading">Résumé</h2>
+                    <p class="lead opacity-75">A snapshot of my education, experience, and skills.</p>
+                </div>
+            </div>
+
+            <!-- Cards grid -->
+            <div class="row g-4" id="resumeGrid">
+
+                <!-- Education -->
+                <div class="col-lg-6 resume-reveal">
+                    <div class="resume-card h-100">
+                        <div class="resume-card-header">
+                            <div class="resume-card-icon" aria-hidden="true"><i class="fas fa-graduation-cap"></i></div>
+                            <h5 class="resume-card-title">Education</h5>
+                        </div>
+                        <div class="resume-card-body">
+                            <div class="resume-item">
+                                <div class="resume-item-dot resume-item-dot--active"></div>
+                                <div>
+                                    <p class="resume-item-title">BTech — Artificial Intelligence &amp; Data Science</p>
+                                    <p class="resume-item-org">JCT College of Engineering and Technology</p>
+                                    <p class="resume-item-date">2024 – 2028 (Current)</p>
+                                    <p class="resume-item-desc">Competing nationally, earning certifications, and building real-world AI projects alongside the curriculum.</p>
+                                </div>
+                            </div>
+                            <div class="resume-item">
+                                <div class="resume-item-dot"></div>
+                                <div>
+                                    <p class="resume-item-title">Plus Two — Science Stream</p>
+                                    <p class="resume-item-org">Kerala State Board</p>
+                                    <p class="resume-item-date">2022 – 2024</p>
+                                </div>
+                            </div>
+                            <div class="resume-item">
+                                <div class="resume-item-dot"></div>
+                                <div>
+                                    <p class="resume-item-title">SSLC</p>
+                                    <p class="resume-item-org">Kerala State Board</p>
+                                    <p class="resume-item-date">2021 – 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="col-lg-6 resume-reveal" style="--resume-delay:0.1s">
+                    <div class="resume-card h-100">
+                        <div class="resume-card-header">
+                            <div class="resume-card-icon" aria-hidden="true"><i class="fab fa-google"></i></div>
+                            <h5 class="resume-card-title">Experience</h5>
+                        </div>
+                        <div class="resume-card-body">
+                            <div class="resume-item">
+                                <div class="resume-item-dot resume-item-dot--active"></div>
+                                <div>
+                                    <p class="resume-item-title">Google Gemini Student Ambassador 2026</p>
+                                    <p class="resume-item-org">Communique × Google</p>
+                                    <p class="resume-item-date">May 2026 – Present · Hybrid</p>
+                                    <p class="resume-item-desc">Invite-only. Running AI workshops and representing Google Gemini on campus at JCT College.</p>
+                                </div>
+                            </div>
+                            <div class="resume-item">
+                                <div class="resume-item-dot"></div>
+                                <div>
+                                    <p class="resume-item-title">India AI Impact Buildathon Participant</p>
+                                    <p class="resume-item-org">HCL GUVI · India AI Impact Summit 2026</p>
+                                    <p class="resume-item-date">2026</p>
+                                    <p class="resume-item-desc">Competed among 40,000+ participants in a nationwide AI innovation challenge.</p>
+                                </div>
+                            </div>
+                            <div class="resume-item">
+                                <div class="resume-item-dot"></div>
+                                <div>
+                                    <p class="resume-item-title">Career Readiness Challenge 2026</p>
+                                    <p class="resume-item-org">upDt Education Technology</p>
+                                    <p class="resume-item-date">2026</p>
+                                    <p class="resume-item-desc">Achieved <strong>#57 National Rank</strong> among thousands of participants.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Skills -->
+                <div class="col-lg-6 resume-reveal" style="--resume-delay:0.2s">
+                    <div class="resume-card h-100">
+                        <div class="resume-card-header">
+                            <div class="resume-card-icon" aria-hidden="true"><i class="fas fa-code"></i></div>
+                            <h5 class="resume-card-title">Technical Skills</h5>
+                        </div>
+                        <div class="resume-card-body">
+                            <div class="resume-skills-grid" role="list" aria-label="Technical skills">
+                                <span class="resume-skill-tag" role="listitem"><i class="fab fa-python me-1" aria-hidden="true"></i>Python</span>
+                                <span class="resume-skill-tag" role="listitem"><i class="fas fa-code me-1" aria-hidden="true"></i>HTML / CSS</span>
+                                <span class="resume-skill-tag" role="listitem"><i class="fas fa-terminal me-1" aria-hidden="true"></i>C++</span>
+                                <span class="resume-skill-tag" role="listitem"><i class="fas fa-brain me-1" aria-hidden="true"></i>Machine Learning</span>
+                                <span class="resume-skill-tag" role="listitem"><i class="fas fa-robot me-1" aria-hidden="true"></i>Generative AI</span>
+                                <span class="resume-skill-tag" role="listitem"><i class="fab fa-aws me-1" aria-hidden="true"></i>AWS Cloud</span>
+                                <span class="resume-skill-tag" role="listitem"><i class="fas fa-chart-bar me-1" aria-hidden="true"></i>Data Science</span>
+                                <span class="resume-skill-tag" role="listitem"><i class="fas fa-server me-1" aria-hidden="true"></i>Flask</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Certifications -->
+                <div class="col-lg-6 resume-reveal" style="--resume-delay:0.3s">
+                    <div class="resume-card h-100">
+                        <div class="resume-card-header">
+                            <div class="resume-card-icon" aria-hidden="true"><i class="fas fa-certificate"></i></div>
+                            <h5 class="resume-card-title">Certifications (17+)</h5>
+                        </div>
+                        <div class="resume-card-body">
+                            <div class="resume-certs-list" role="list" aria-label="Top certifications">
+                                <div class="resume-cert-item" role="listitem"><i class="fas fa-check-circle me-2 text-info" aria-hidden="true"></i>Google AI Studio App Deployment (GUVI / HCL)</div>
+                                <div class="resume-cert-item" role="listitem"><i class="fas fa-check-circle me-2 text-info" aria-hidden="true"></i>AWS Cloud Foundations</div>
+                                <div class="resume-cert-item" role="listitem"><i class="fas fa-check-circle me-2 text-info" aria-hidden="true"></i>Microsoft Data Analytics</div>
+                                <div class="resume-cert-item" role="listitem"><i class="fas fa-check-circle me-2 text-info" aria-hidden="true"></i>Generative AI &amp; Agents</div>
+                                <div class="resume-cert-item" role="listitem"><i class="fas fa-check-circle me-2 text-info" aria-hidden="true"></i>Explore ML with Python (Infosys Springboard)</div>
+                                <div class="resume-cert-item" role="listitem"><i class="fas fa-check-circle me-2 text-info" aria-hidden="true"></i>Kaggle Python Coder</div>
+                                <div class="resume-cert-more resume-cert-item" role="listitem"><a href="#certificates" aria-label="View all 17+ certifications">+ 11 more certifications →</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /row -->
+
+            <!-- Download CTA -->
+            <div class="row mt-5">
+                <div class="col text-center resume-reveal" style="--resume-delay:0.35s">
+                    <div class="resume-download-cta">
+                        <p class="resume-download-label">Get the full picture</p>
+                        <div class="d-flex gap-3 justify-content-center flex-wrap">
+                            <a href="{{ url_for('download_cv') }}"
+                               class="btn btn-info btn-lg px-5 resume-download-btn"
+                               aria-label="Download Arjun PV's CV as a PDF file">
+                                <i class="fas fa-download me-2" aria-hidden="true"></i>Download CV
+                            </a>
+                            <a href="{{ url_for('static', filename='assets/arjun_cv.pdf') }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn btn-outline-light btn-lg px-4"
+                               aria-label="View Arjun PV's CV in a new browser tab">
+                                <i class="fas fa-eye me-2" aria-hidden="true"></i>View Online
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-3">
         <div class="container">
@@ -1548,7 +1713,7 @@
                     </div>
 
                     <!-- The actual form -->
-                    <form method="POST" action="{{ url_for('contact') }}" class="contact-form" id="contactForm" novalidate>
+                    <form method="POST" action="{{ url_for('contact') }}" class="contact-form" id="contactForm" novalidate enctype="multipart/form-data">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="name" class="form-label cf-label">Your Name</label>
@@ -1586,8 +1751,32 @@
                                 </div>
                                 <div class="cf-feedback" id="messageFeedback"></div>
                             </div>
+                            <div class="col-12">
+                                <label for="attachment" class="form-label cf-label">
+                                    Attachment
+                                    <span class="cf-optional">(optional — PDF, image, or video · max 16 MB)</span>
+                                </label>
+                                <div class="cf-file-wrap">
+                                    <input type="file" class="cf-file-input" id="attachment" name="attachment"
+                                           accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.gif,.mp4,.mov,.txt"
+                                           aria-describedby="attachmentHint">
+                                    <label for="attachment" class="cf-file-label" id="cfFileLabel"
+                                           role="button" tabindex="0"
+                                           onkeydown="if(event.key==='Enter'||event.key===' ')this.previousElementSibling.click()">
+                                        <i class="fas fa-paperclip me-2" aria-hidden="true"></i>
+                                        <span id="cfFileName">Choose a file…</span>
+                                    </label>
+                                    <button type="button" class="cf-file-clear" id="cfFileClear"
+                                            style="display:none"
+                                            aria-label="Remove attached file">
+                                        <i class="fas fa-times" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <div class="cf-feedback" id="attachmentHint" role="status" aria-live="polite"></div>
+                            </div>
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-info btn-lg px-5 cf-submit-btn" id="cfSubmitBtn">
+                                <button type="submit" class="btn btn-info btn-lg px-5 cf-submit-btn" id="cfSubmitBtn"
+                                        aria-label="Send contact message">
                                     <span class="cf-btn-label">Send Message</span>
                                     <span class="cf-btn-loader" aria-hidden="true">
                                         <span class="cf-spinner"></span>
@@ -1601,40 +1790,61 @@
             </div>
             
             <!-- Contact Information Grid -->
-            <div class="row mt-5 g-4 justify-content-center">
-                <div class="col-6 col-md-4 col-lg">
-                    <a href="mailto:Pvarjun527@gmail.com" class="text-decoration-none h-100 d-block">
+            <div class="row mt-5 g-4 justify-content-center contact-cards-row">
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="mailto:Pvarjun527@gmail.com"
+                       class="contact-card-link text-decoration-none h-100 d-block"
+                       aria-label="Send an email to Arjun PV">
                         <div class="contact-card p-4 rounded text-center h-100">
-                            <i class="fas fa-envelope text-info mb-3 fa-2x"></i>
+                            <i class="fas fa-envelope text-info mb-3 fa-2x" aria-hidden="true"></i>
                             <h6 class="text-light">Email</h6>
                             <p class="small text-info mb-0">Pvarjun527@gmail.com</p>
                         </div>
                     </a>
                 </div>
-                <div class="col-6 col-md-4 col-lg">
-                    <a href="tel:+919946269473" class="text-decoration-none h-100 d-block">
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="tel:+919946269473"
+                       class="contact-card-link text-decoration-none h-100 d-block"
+                       aria-label="Call Arjun PV">
                         <div class="contact-card p-4 rounded text-center h-100">
-                            <i class="fas fa-phone text-info mb-3 fa-2x"></i>
+                            <i class="fas fa-phone text-info mb-3 fa-2x" aria-hidden="true"></i>
                             <h6 class="text-light">Phone</h6>
                             <p class="small text-info mb-0">+91 9946269473</p>
                         </div>
                     </a>
                 </div>
-                <div class="col-6 col-md-4 col-lg">
-                    <a href="https://www.linkedin.com/in/arjun-pv1312" target="_blank" class="text-decoration-none h-100 d-block">
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="https://www.linkedin.com/in/arjun-pv1312"
+                       target="_blank" rel="noopener noreferrer"
+                       class="contact-card-link text-decoration-none h-100 d-block"
+                       aria-label="Visit Arjun PV's LinkedIn profile (opens in new tab)">
                         <div class="contact-card p-4 rounded text-center h-100">
-                            <i class="fab fa-linkedin text-info mb-3 fa-2x"></i>
+                            <i class="fab fa-linkedin text-info mb-3 fa-2x" aria-hidden="true"></i>
                             <h6 class="text-light">LinkedIn</h6>
-                            <p class="small text-info mb-0">linkedin.com/in/arjun-pv1312</p>
+                            <p class="small text-info mb-0">arjun-pv1312</p>
                         </div>
                     </a>
                 </div>
-                <div class="col-6 col-md-4 col-lg">
-                    <a href="https://github.com/arjunpv1312" target="_blank" class="text-decoration-none h-100 d-block">
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="https://github.com/arjunpv1312"
+                       target="_blank" rel="noopener noreferrer"
+                       class="contact-card-link text-decoration-none h-100 d-block"
+                       aria-label="Visit Arjun PV's GitHub profile (opens in new tab)">
                         <div class="contact-card p-4 rounded text-center h-100">
-                            <i class="fab fa-github text-info mb-3 fa-2x"></i>
+                            <i class="fab fa-github text-info mb-3 fa-2x" aria-hidden="true"></i>
                             <h6 class="text-light">GitHub</h6>
                             <p class="small text-info mb-0">@arjunpv1312</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <a href="{{ url_for('download_cv') }}"
+                       class="contact-card-link text-decoration-none h-100 d-block"
+                       aria-label="Download Arjun PV's CV as a PDF">
+                        <div class="contact-card p-4 rounded text-center h-100">
+                            <i class="fas fa-file-download text-info mb-3 fa-2x" aria-hidden="true"></i>
+                            <h6 class="text-light">Download CV</h6>
+                            <p class="small text-info mb-0">PDF · 88 KB</p>
                         </div>
                     </a>
                 </div>
@@ -1675,6 +1885,7 @@
                         <li><a href="#certificates">Certificates</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#recognition">Recognition</a></li>
+                        <li><a href="#resume">Résumé</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -1704,8 +1915,8 @@
                             <i class="fas fa-phone"></i>
                             <span>+91 9946269473</span>
                         </a>
-                        <a href="{{ url_for('static', filename='assets/arjun_cv.pdf') }}" download="Arjun_PV_CV.pdf" class="footer-contact-item">
-                            <i class="fas fa-file-alt"></i>
+                        <a href="{{ url_for('download_cv') }}" class="footer-contact-item" aria-label="Download Arjun PV's CV as PDF">
+                            <i class="fas fa-file-alt" aria-hidden="true"></i>
                             <span>Download CV</span>
                         </a>
                     </div>

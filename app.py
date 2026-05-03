@@ -26,6 +26,10 @@ app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'Pvarjun527@gmail.com')
 app.config['MAIL_FORWARD_TO'] = os.environ.get('MAIL_FORWARD_TO', 'Pvarjun527@gmail.com')
 
+# Upload / file settings
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB max upload
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'instance', 'uploads')
+
 # Initialize Flask-Mail
 mail = Mail(app)
 

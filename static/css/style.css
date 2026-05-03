@@ -3752,3 +3752,383 @@ section { overflow-x: hidden; }
     .skill-bar-fill { transition: none !important; }
     .fade-in { opacity: 1 !important; animation: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   RÉSUMÉ SECTION
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Reveal animation ─────────────────────────────────── */
+.resume-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1),
+                transform 0.55s cubic-bezier(0.22,1,0.36,1);
+}
+.resume-reveal.resume-is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Card base ────────────────────────────────────────── */
+.resume-card {
+    background: rgba(255,255,255,0.035);
+    border: 1.5px solid rgba(255,255,255,0.09);
+    border-radius: 18px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.resume-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent-grad);
+    border-radius: 0 0 0 18px;
+}
+.resume-card:hover {
+    border-color: rgba(0,212,255,0.22);
+    box-shadow: 0 8px 32px rgba(0,212,255,0.07);
+}
+
+/* ── Card header ─────────────────────────────────────── */
+.resume-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.resume-card-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    background: linear-gradient(135deg,rgba(0,212,255,0.15),rgba(139,92,246,0.15));
+    flex-shrink: 0;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #00d4ff;
+}
+.resume-card-icon i {
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.resume-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin: 0;
+    color: #e2e8f0;
+}
+
+/* ── Timeline items ──────────────────────────────────── */
+.resume-item {
+    display: flex;
+    gap: 0.85rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: flex-start;
+}
+.resume-item:last-child { border-bottom: none; padding-bottom: 0; }
+.resume-item-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(0,212,255,0.35);
+    border: 2px solid rgba(0,212,255,0.55);
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+.resume-item-dot--active {
+    background: #00d4ff;
+    border-color: #00d4ff;
+    box-shadow: 0 0 8px rgba(0,212,255,0.6);
+    animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 6px rgba(0,212,255,0.5); }
+    50%       { box-shadow: 0 0 14px rgba(0,212,255,0.9); }
+}
+.resume-item-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin: 0 0 2px;
+}
+.resume-item-org {
+    font-size: 0.78rem;
+    color: #00d4ff;
+    margin: 0 0 2px;
+    font-weight: 500;
+}
+.resume-item-date {
+    font-size: 0.73rem;
+    color: rgba(226,232,240,0.4);
+    margin: 0 0 4px;
+}
+.resume-item-desc {
+    font-size: 0.78rem;
+    color: rgba(226,232,240,0.55);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ── Skills grid ─────────────────────────────────────── */
+.resume-skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 0.25rem;
+}
+.resume-skill-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.2);
+    color: rgba(226,232,240,0.85);
+    transition: background 0.2s, border-color 0.2s;
+}
+.resume-skill-tag:hover {
+    background: rgba(0,212,255,0.15);
+    border-color: rgba(0,212,255,0.4);
+}
+
+/* ── Cert list ───────────────────────────────────────── */
+.resume-cert-item {
+    font-size: 0.82rem;
+    color: rgba(226,232,240,0.75);
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+}
+.resume-cert-item:last-child { border-bottom: none; }
+.resume-cert-more a {
+    color: #00d4ff;
+    text-decoration: none;
+    font-weight: 500;
+}
+.resume-cert-more a:hover { text-decoration: underline; }
+
+/* ── Download CTA ────────────────────────────────────── */
+.resume-download-cta {
+    padding: 2.5rem;
+    background: rgba(0,212,255,0.04);
+    border: 1.5px solid rgba(0,212,255,0.15);
+    border-radius: 20px;
+    max-width: 540px;
+    margin: 0 auto;
+}
+.resume-download-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(0,212,255,0.7);
+    margin-bottom: 1.1rem;
+}
+/* Pulsing download button */
+.resume-download-btn {
+    position: relative;
+    overflow: hidden;
+    animation: btnGlow 3s ease-in-out infinite;
+}
+@keyframes btnGlow {
+    0%, 100% { box-shadow: 0 0 12px rgba(0,212,255,0.3); }
+    50%       { box-shadow: 0 0 28px rgba(0,212,255,0.65), 0 0 50px rgba(0,212,255,0.25); }
+}
+.resume-download-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: background 0.35s ease;
+}
+.resume-download-btn:hover::after {
+    background: rgba(255,255,255,0.08);
+}
+
+/* ── Light theme overrides ───────────────────────────── */
+html[data-theme="light"] .resume-card {
+    background: rgba(255,255,255,0.85);
+    border-color: rgba(0,0,0,0.09);
+}
+html[data-theme="light"] .resume-card-title { color: #1e293b; }
+html[data-theme="light"] .resume-item-title { color: #1e293b; }
+html[data-theme="light"] .resume-item-desc  { color: rgba(30,41,59,0.6); }
+html[data-theme="light"] .resume-item-date  { color: rgba(30,41,59,0.4); }
+html[data-theme="light"] .resume-cert-item  { color: rgba(30,41,59,0.75); }
+html[data-theme="light"] .resume-skill-tag  { color: #1e293b; }
+html[data-theme="light"] .resume-download-cta { background: rgba(0,212,255,0.06); }
+
+/* ── Mobile ──────────────────────────────────────────── */
+@media (max-width: 576px) {
+    .resume-card { padding: 1.2rem; }
+    .resume-download-cta { padding: 1.5rem 1.1rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT FORM — FILE ATTACHMENT WIDGET
+   ═══════════════════════════════════════════════════════════ */
+
+.cf-optional {
+    font-weight: 400;
+    opacity: 0.55;
+    font-size: 0.7rem;
+}
+.cf-file-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+/* Hide the native input but keep it accessible */
+.cf-file-input {
+    position: absolute;
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    overflow: hidden;
+    z-index: -1;
+}
+.cf-file-input:focus + .cf-file-label {
+    border-color: rgba(0,212,255,0.55);
+    box-shadow: 0 0 0 3px rgba(0,212,255,0.12);
+    outline: none;
+}
+.cf-file-label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px dashed rgba(255,255,255,0.18);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: rgba(226,232,240,0.55);
+    transition: border-color 0.25s, background 0.25s, color 0.25s;
+    min-height: 48px;
+}
+.cf-file-label:hover {
+    border-color: rgba(0,212,255,0.4);
+    background: rgba(0,212,255,0.05);
+    color: rgba(226,232,240,0.8);
+}
+.cf-file-label.cf-file-ready {
+    border-color: rgba(34,197,94,0.5);
+    border-style: solid;
+    background: rgba(34,197,94,0.04);
+    color: #4ade80;
+}
+.cf-file-label.cf-file-error {
+    border-color: rgba(239,68,68,0.5);
+    border-style: solid;
+    color: #f87171;
+}
+.cf-file-clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.35);
+    color: #f87171;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+.cf-file-clear:hover { background: rgba(239,68,68,0.28); }
+
+/* Light theme */
+html[data-theme="light"] .cf-file-label {
+    background: rgba(0,0,0,0.03);
+    border-color: rgba(0,0,0,0.18);
+    color: rgba(30,41,59,0.55);
+}
+html[data-theme="light"] .cf-file-label:hover {
+    border-color: rgba(0,146,176,0.5);
+    background: rgba(0,146,176,0.05);
+    color: rgba(30,41,59,0.8);
+}
+html[data-theme="light"] .cf-file-label.cf-file-ready { color: #16a34a; }
+
+/* Mobile */
+@media (max-width: 480px) {
+    .cf-file-label { font-size: 0.82rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ACCESSIBILITY — visible focus rings for keyboard nav
+   ═══════════════════════════════════════════════════════════ */
+:focus-visible {
+    outline: 2px solid rgba(0,212,255,0.7);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+.btn:focus-visible,
+.about-social-btn:focus-visible,
+.resume-download-btn:focus-visible {
+    outline: 2px solid rgba(0,212,255,0.8);
+    outline-offset: 4px;
+}
+.cf-file-label:focus-visible {
+    outline: 2px solid rgba(0,212,255,0.7);
+    outline-offset: 2px;
+}
+
+/* ── Contact cards — 5-up layout & focus fixes ─────────────── */
+.contact-cards-row {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Equal-height cards link wrapper — ensure the whole tile is the tap target */
+.contact-card-link {
+    display: block;
+    border-radius: 0.5rem;
+    outline: none;
+}
+
+.contact-card-link:focus-visible .contact-card,
+.contact-card-link:focus-visible .contact-card {
+    outline: 2px solid var(--accent-start, #00d4ff);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0,212,255,0.25);
+}
+
+/* Keep equal height on all breakpoints */
+.contact-cards-row .contact-card {
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* On exactly medium screens: 3 per row = last row has 2 centred */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .contact-cards-row .col-md-4:nth-child(4),
+    .contact-cards-row .col-md-4:nth-child(5) {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Light-mode overrides */
+html[data-theme="light"] .contact-card-link:focus-visible .contact-card {
+    outline-color: var(--accent-start, #0080cc);
+}

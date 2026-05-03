@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollEffects();
     initializeProjectCarousels();
     initializeRecognition();
+    initializeResume();
     initializeSkillBars();
     initializeCounters();
     initializeHeroRoleTypewriter();
@@ -551,6 +552,51 @@ function initializeContactForm() {
         });
     }
 
+    // ── File attachment widget ────────────────────────────────
+    const fileInput  = document.getElementById('attachment');
+    const fileLabel  = document.getElementById('cfFileLabel');
+    const fileNameEl = document.getElementById('cfFileName');
+    const fileClear  = document.getElementById('cfFileClear');
+    const attachHint = document.getElementById('attachmentHint');
+
+    if (fileInput && fileLabel) {
+        fileInput.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                const MAX  = 16 * 1024 * 1024;
+                if (file.size > MAX) {
+                    fileNameEl.textContent = 'File too large (max 16 MB)';
+                    fileLabel.classList.add('cf-file-error');
+                    fileLabel.classList.remove('cf-file-ready');
+                    if (attachHint) {
+                        attachHint.textContent = 'Please choose a file under 16 MB.';
+                        attachHint.className = 'cf-feedback cf-fb-error';
+                    }
+                    this.value = '';
+                    if (fileClear) fileClear.style.display = 'none';
+                    return;
+                }
+                fileNameEl.textContent = file.name;
+                fileLabel.classList.remove('cf-file-error');
+                fileLabel.classList.add('cf-file-ready');
+                if (attachHint) {
+                    attachHint.textContent = `${(file.size / 1024).toFixed(1)} KB — ready to send`;
+                    attachHint.className = 'cf-feedback cf-fb-ok';
+                }
+                if (fileClear) fileClear.style.display = 'inline-flex';
+            }
+        });
+        if (fileClear) {
+            fileClear.addEventListener('click', () => {
+                fileInput.value = '';
+                fileNameEl.textContent = 'Choose a file…';
+                fileLabel.classList.remove('cf-file-ready', 'cf-file-error');
+                if (attachHint) { attachHint.textContent = ''; attachHint.className = 'cf-feedback'; }
+                fileClear.style.display = 'none';
+            });
+        }
+    }
+
     // ── Inline form-level error banner ─────────────────────────
     function showFormError(msg) {
         let banner = form.querySelector('.cf-form-error');
@@ -666,6 +712,27 @@ function initializeRecognition() {
             }
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    items.forEach(item => observer.observe(item));
+}
+
+// Résumé section — scroll-reveal via IntersectionObserver
+function initializeResume() {
+    const items = document.querySelectorAll('.resume-reveal');
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Read per-item delay from inline CSS custom property
+                const styleText = entry.target.getAttribute('style') || '';
+                const match = styleText.match(/--resume-delay:\s*([\d.]+)s/);
+                const ms = match ? parseFloat(match[1]) * 1000 : 0;
+                setTimeout(() => entry.target.classList.add('resume-is-visible'), ms);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
 
     items.forEach(item => observer.observe(item));
 }
