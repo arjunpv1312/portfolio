@@ -4132,3 +4132,114 @@ html[data-theme="light"] .cf-file-label.cf-file-ready { color: #16a34a; }
 html[data-theme="light"] .contact-card-link:focus-visible .contact-card {
     outline-color: var(--accent-start, #0080cc);
 }
+
+/* ─────────── Navbar: Theme Toggle Always-Visible Wrapper ─────────── */
+/* Wrapper holds the toggle switch + hamburger together at the right */
+.navbar > .container > .d-flex.align-items-center {
+    order: 3;
+}
+/* On desktop (lg+): hamburger is hidden by Bootstrap, toggle sits at end of nav */
+@media (min-width: 992px) {
+    .navbar > .container > .d-flex.align-items-center {
+        /* Move toggle to the right end after nav links */
+        order: 3;
+        margin-left: 0;
+    }
+    /* The collapse takes up the middle, so toggle goes at the far right */
+    .navbar > .container {
+        display: flex;
+        align-items: center;
+    }
+    .navbar-collapse {
+        order: 2;
+    }
+    .navbar > .container > .d-flex.align-items-center .navbar-toggler {
+        /* Hidden on desktop via Bootstrap's navbar-expand-lg */
+        display: none;
+    }
+    .navbar > .container > .d-flex.align-items-center {
+        margin-left: 1rem;
+    }
+}
+/* On mobile: toggle + hamburger are both visible, side by side */
+@media (max-width: 991.98px) {
+    .navbar > .container > .d-flex.align-items-center {
+        gap: 0.5rem;
+        margin-left: auto;
+    }
+    /* Hamburger stays its default size, toggle is compact */
+    .theme-toggle-btn {
+        flex-shrink: 0;
+    }
+}
+
+/* Light mode: navbar toggler icon uses dark lines */
+html[data-theme="light"] .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280%2C0%2C0%2C0.6%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+html[data-theme="light"] .navbar-toggler {
+    border-color: rgba(0,0,0,0.2);
+}
+/* Light mode: github icon in nav */
+html[data-theme="light"] .nav-link .fa-github { color: #334155; }
+
+/* ─────────── Light mode: missing section overrides ─────────── */
+
+/* Featured cert cards */
+html[data-theme="light"] .cert-featured {
+    background: rgba(255,255,255,0.95) !important;
+    border-color: rgba(0,150,220,0.25) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+html[data-theme="light"] .cert-featured:hover {
+    border-color: rgba(0,150,220,0.5) !important;
+}
+html[data-theme="light"] .cert-category-label { color: #475569 !important; }
+
+/* text-info (cyan) — darken slightly for readability on light bg */
+html[data-theme="light"] .text-info { color: #0284c7 !important; }
+html[data-theme="light"] .text-muted { color: #64748b !important; }
+html[data-theme="light"] small.text-muted,
+html[data-theme="light"] p.text-muted { color: #64748b !important; }
+
+/* Footer */
+html[data-theme="light"] .site-footer {
+    background: #e2e8f3 !important;
+    border-top: 1px solid rgba(0,0,0,0.07) !important;
+}
+html[data-theme="light"] .footer-top { border-bottom-color: rgba(0,0,0,0.07) !important; }
+html[data-theme="light"] .footer-name { color: #1e293b !important; }
+html[data-theme="light"] .footer-tagline { color: #475569 !important; }
+html[data-theme="light"] .footer-links a { color: #475569 !important; }
+html[data-theme="light"] .footer-links a:hover { color: #0284c7 !important; }
+html[data-theme="light"] .footer-bottom { color: #64748b !important; border-top-color: rgba(0,0,0,0.07) !important; }
+html[data-theme="light"] .footer-bottom a { color: #0284c7 !important; }
+
+/* Gemini card in light mode - text contrast fixes */
+html[data-theme="light"] .gemini-org { color: rgba(30,41,59,0.55) !important; }
+html[data-theme="light"] .gemini-desc { color: rgba(30,41,59,0.8) !important; }
+html[data-theme="light"] .gemini-tags span {
+    background: rgba(0,0,0,0.05) !important;
+    border-color: rgba(0,0,0,0.1) !important;
+    color: #334155 !important;
+}
+html[data-theme="light"] .gemini-tags span:hover {
+    background: rgba(0,150,220,0.1) !important;
+    border-color: rgba(0,150,220,0.35) !important;
+    color: #0284c7 !important;
+}
+
+/* Section alternating background in light mode */
+html[data-theme="light"] section:nth-child(odd).py-5 {
+    background: rgba(255,255,255,0.4);
+}
+
+/* Btn outline-light → becomes outline-dark in light mode */
+html[data-theme="light"] .btn-outline-light {
+    color: #1e293b !important;
+    border-color: rgba(0,0,0,0.25) !important;
+}
+html[data-theme="light"] .btn-outline-light:hover {
+    background: rgba(0,0,0,0.06) !important;
+    color: #0f172a !important;
+}
