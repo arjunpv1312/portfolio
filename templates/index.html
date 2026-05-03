@@ -183,6 +183,11 @@
                 <!-- Left: Text Content -->
                 <div class="col-lg-6">
                     <div class="hero-intro">
+                        <!-- Open to Work badge -->
+                        <div class="otw-badge fade-in mb-3">
+                            <span class="otw-dot"></span>
+                            <span class="otw-text">Open to Work &mdash; Internships &amp; Collaborations</span>
+                        </div>
                         <h1 class="hero-main-name fw-bold fade-in mb-1">Arjun PV</h1>
                         <p class="hero-role fade-in mb-3"><span id="hero-role-typed"></span><span class="hero-role-cursor">|</span></p>
                         <div class="hero-typed-row fade-in mb-3">
@@ -193,6 +198,9 @@
                             Competing nationally, building intelligent systems, and turning cutting-edge AI knowledge into real-world impact.
                         </p>
                         <div class="hero-buttons fade-in d-flex gap-3 flex-wrap">
+                            <a href="{{ url_for('resume') }}" target="_blank" class="btn btn-hero-cv btn-lg px-4">
+                                <i class="fas fa-file-arrow-down me-2"></i>Download Resume
+                            </a>
                             <a href="#gallery" class="btn btn-info btn-lg px-4">About Me</a>
                             <a href="#contact" class="btn btn-outline-light btn-lg px-4">Let's Connect</a>
                         </div>

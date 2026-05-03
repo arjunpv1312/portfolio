@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arjun PV — Resume</title>
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Reset ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --ink:    #0f172a;
+            --muted:  #475569;
+            --light:  #94a3b8;
+            --rule:   #e2e8f0;
+            --accent: #0ea5e9;
+            --accent2:#6366f1;
+            --green:  #16a34a;
+            --page-w: 820px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 9.5pt;
+            line-height: 1.55;
+            color: var(--ink);
+            background: #f8fafc;
+        }
+
+        /* ── Print button (screen only) ── */
+        .print-bar {
+            background: var(--ink);
+            color: #fff;
+            padding: 0.65rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .print-bar-left {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.55);
+        }
+        .print-bar-left strong { color: #fff; }
+        .print-bar-actions { display: flex; gap: 0.6rem; }
+        .btn-print {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.4rem 1rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'Inter', sans-serif;
+            transition: opacity 0.2s;
+        }
+        .btn-print:hover { opacity: 0.85; }
+        .btn-back {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.7);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 6px;
+            padding: 0.4rem 1rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-back:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+        /* ── Page ── */
+        .page {
+            max-width: var(--page-w);
+            margin: 1.5rem auto;
+            background: #fff;
+            box-shadow: 0 1px 24px rgba(0,0,0,0.10);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* ── Header ── */
+        .resume-header {
+            background: linear-gradient(135deg, var(--ink) 0%, #1e293b 100%);
+            color: #fff;
+            padding: 2rem 2.25rem 1.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .resume-header::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 220px; height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%);
+        }
+        .header-name {
+            font-size: 26pt;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(90deg, #fff 60%, #7dd3fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header-title {
+            font-size: 10.5pt;
+            font-weight: 500;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 1.1rem;
+            letter-spacing: 0.02em;
+        }
+        .header-contacts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem 1.6rem;
+        }
+        .header-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 8.5pt;
+            color: rgba(255,255,255,0.72);
+            text-decoration: none;
+        }
+        .header-contact-item i {
+            font-size: 9pt;
+            color: var(--accent);
+            width: 14px;
+            text-align: center;
+        }
+        .header-contact-item:hover { color: #fff; }
+        .otw-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(22,163,74,0.18);
+            border: 1px solid rgba(22,163,74,0.4);
+            border-radius: 20px;
+            padding: 0.2em 0.8em;
+            font-size: 7.5pt;
+            font-weight: 700;
+            color: #4ade80;
+            margin-bottom: 0.85rem;
+            letter-spacing: 0.02em;
+        }
+        .otw-dot-small {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #4ade80;
+            display: inline-block;
+        }
+
+        /* ── Body layout ── */
+        .resume-body {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 0;
+        }
+
+        /* ── Main column ── */
+        .col-main {
+            padding: 1.6rem 1.8rem 1.6rem 2.25rem;
+            border-right: 1px solid var(--rule);
+        }
+
+        /* ── Sidebar ── */
+        .col-side {
+            padding: 1.6rem 1.5rem;
+            background: #f8fafc;
+        }
+
+        /* ── Section ── */
+        .section { margin-bottom: 1.4rem; }
+        .section:last-child { margin-bottom: 0; }
+
+        .section-title {
+            font-size: 7pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            margin-bottom: 0.65rem;
+            padding-bottom: 0.35rem;
+            border-bottom: 1.5px solid var(--rule);
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        /* ── Education ── */
+        .edu-item { margin-bottom: 0.75rem; }
+        .edu-item:last-child { margin-bottom: 0; }
+        .edu-degree {
+            font-size: 9.5pt;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.1rem;
+        }
+        .edu-school {
+            font-size: 8.5pt;
+            color: var(--muted);
+            font-weight: 500;
+            margin-bottom: 0.1rem;
+        }
+        .edu-meta {
+            font-size: 7.5pt;
+            color: var(--light);
+        }
+
+        /* ── Projects ── */
+        .project-item { margin-bottom: 0.85rem; }
+        .project-item:last-child { margin-bottom: 0; }
+        .project-name {
+            font-size: 9.5pt;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.15rem;
+        }
+        .project-stack {
+            font-size: 7.5pt;
+            color: var(--accent2);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .project-desc {
+            font-size: 8.5pt;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ── Achievements ── */
+        .achievement-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.55rem;
+            font-size: 8.5pt;
+            color: var(--muted);
+        }
+        .achievement-item:last-child { margin-bottom: 0; }
+        .achievement-item i {
+            font-size: 8pt;
+            color: var(--accent);
+            margin-top: 0.15rem;
+            flex-shrink: 0;
+        }
+        .achievement-bold { font-weight: 700; color: var(--ink); }
+
+        /* ── Skills ── */
+        .skill-group { margin-bottom: 0.75rem; }
+        .skill-group:last-child { margin-bottom: 0; }
+        .skill-group-title {
+            font-size: 7pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--muted);
+            margin-bottom: 0.35rem;
+        }
+        .skill-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .chip {
+            background: #f1f5f9;
+            border: 1px solid var(--rule);
+            border-radius: 4px;
+            padding: 0.15em 0.55em;
+            font-size: 7.5pt;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        /* ── Certifications (sidebar) ── */
+        .cert-item {
+            font-size: 7.5pt;
+            color: var(--muted);
+            padding: 0.3rem 0;
+            border-bottom: 1px solid var(--rule);
+            line-height: 1.4;
+        }
+        .cert-item:last-child { border-bottom: none; }
+        .cert-issuer {
+            font-size: 7pt;
+            color: var(--light);
+            display: block;
+            margin-top: 0.1rem;
+        }
+
+        /* ── Summary ── */
+        .summary-text {
+            font-size: 9pt;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+        .summary-text strong { color: var(--ink); }
+
+        /* ── Print media ── */
+        @media print {
+            body { background: #fff; font-size: 9pt; }
+            .print-bar { display: none !important; }
+            .page {
+                max-width: 100%;
+                margin: 0;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            a { color: inherit !important; text-decoration: none !important; }
+            @page {
+                margin: 0.4in 0.45in;
+                size: A4 portrait;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .resume-body { grid-template-columns: 1fr; }
+            .col-main { border-right: none; border-bottom: 1px solid var(--rule); }
+            .page { margin: 0; border-radius: 0; box-shadow: none; }
+            .print-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Print bar (screen only) -->
+<div class="print-bar">
+    <div class="print-bar-left">
+        <strong>Arjun PV — Resume</strong> &nbsp;·&nbsp; Use your browser's Print dialog to save as PDF
+    </div>
+    <div class="print-bar-actions">
+        <a href="/" class="btn-back"><i class="fas fa-arrow-left"></i> Portfolio</a>
+        <button class="btn-print" onclick="window.print()">
+            <i class="fas fa-file-arrow-down"></i> Save as PDF
+        </button>
+    </div>
+</div>
+
+<div class="page">
+
+    <!-- ═══ HEADER ═══ -->
+    <div class="resume-header">
+        <div class="otw-pill">
+            <span class="otw-dot-small"></span>
+            Open to Work — Internships &amp; Collaborations
+        </div>
+        <div class="header-name">Arjun PV</div>
+        <div class="header-title">BTech Student · Artificial Intelligence &amp; Data Science · SNGCE (2024–2028)</div>
+        <div class="header-contacts">
+            <a href="mailto:Pvarjun527@gmail.com" class="header-contact-item">
+                <i class="fas fa-envelope"></i>Pvarjun527@gmail.com
+            </a>
+            <a href="https://www.linkedin.com/in/arjun-pv1312" class="header-contact-item" target="_blank">
+                <i class="fab fa-linkedin"></i>linkedin.com/in/arjun-pv1312
+            </a>
+            <span class="header-contact-item">
+                <i class="fas fa-map-pin"></i>Kerala, India
+            </span>
+            <span class="header-contact-item">
+                <i class="fas fa-graduation-cap"></i>Year 1 of 4 · Batch 2028
+            </span>
+        </div>
+    </div>
+
+    <!-- ═══ BODY ═══ -->
+    <div class="resume-body">
+
+        <!-- ── MAIN COLUMN ── -->
+        <div class="col-main">
+
+            <!-- Summary -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-user"></i> Profile</div>
+                <p class="summary-text">
+                    First-year AI &amp; Data Science engineering student with a <strong>national competitive rank of #57</strong>
+                    (Career Readiness Challenge 2026, upDt Education Technology), <strong>20+ industry certifications</strong>,
+                    and hands-on project experience spanning AI chatbots, ML systems, and data analytics dashboards.
+                    Passionate about applying machine learning and generative AI to solve real-world problems.
+                    Actively pursuing internships, research collaborations, and open-source contributions.
+                </p>
+            </div>
+
+            <!-- Education -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-graduation-cap"></i> Education</div>
+
+                <div class="edu-item">
+                    <div class="edu-degree">BTech — Artificial Intelligence &amp; Data Science</div>
+                    <div class="edu-school">Sree Narayana Guru College of Engineering (SNGCE), Kerala</div>
+                    <div class="edu-meta">2024 – 2028 · Currently in First Year</div>
+                </div>
+
+                <div class="edu-item">
+                    <div class="edu-degree">Plus Two (Higher Secondary)</div>
+                    <div class="edu-school">Kerala State Board</div>
+                    <div class="edu-meta">2022 – 2024</div>
+                </div>
+
+                <div class="edu-item">
+                    <div class="edu-degree">SSLC (Secondary School)</div>
+                    <div class="edu-school">Kerala State Board</div>
+                    <div class="edu-meta">2021 – 2022</div>
+                </div>
+            </div>
+
+            <!-- Projects -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-rocket"></i> Projects</div>
+
+                <div class="project-item">
+                    <div class="project-name">AI Resume Screener</div>
+                    <div class="project-stack">Python · NLP · Streamlit · Scikit-learn</div>
+                    <div class="project-desc">
+                        Automated resume screening tool that parses uploaded PDFs, extracts key skills and
+                        experience using NLP techniques, and ranks candidates against a job description
+                        — reducing manual screening time by an estimated 70%.
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-name">Sentiment Analysis Dashboard</div>
+                    <div class="project-stack">Python · VADER · Pandas · Matplotlib · Flask</div>
+                    <div class="project-desc">
+                        Real-time sentiment classification system for social media text. Achieved 87% accuracy
+                        on a 10,000-sample benchmark. Includes an interactive web dashboard for filtering
+                        and visualizing sentiment trends across time.
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-name">Personal Portfolio Website</div>
+                    <div class="project-stack">Flask · Python · Bootstrap · JavaScript · Gunicorn</div>
+                    <div class="project-desc">
+                        Production-deployed portfolio featuring triple-layer security (CSRF, rate limiting,
+                        HMAC integrity seals), admin panel for contact submissions, CSS/JS minification,
+                        gzip compression, and a full SEO implementation.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-trophy"></i> Achievements &amp; Recognition</div>
+
+                <div class="achievement-item">
+                    <i class="fas fa-medal"></i>
+                    <span><span class="achievement-bold">National Rank #57</span> — Career Readiness Challenge 2026 (upDt Education Technology)</span>
+                </div>
+                <div class="achievement-item">
+                    <i class="fas fa-users"></i>
+                    <span><span class="achievement-bold">India AI Impact Buildathon Participant</span> — HCL GUVI &amp; India AI Impact Summit 2026</span>
+                </div>
+                <div class="achievement-item">
+                    <i class="fas fa-pen-nib"></i>
+                    <span><span class="achievement-bold">HCL GUVI AI Blogathon Participant</span> — Chennai 2026</span>
+                </div>
+                <div class="achievement-item">
+                    <i class="fas fa-leaf"></i>
+                    <span><span class="achievement-bold">IGEN GREENDAY 2024</span> — SDG 17 Pledge (Institution of Green Engineers)</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── SIDEBAR ── -->
+        <div class="col-side">
+
+            <!-- Skills -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-code"></i> Skills</div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">Languages</div>
+                    <div class="skill-chips">
+                        <span class="chip">Python</span>
+                        <span class="chip">HTML5</span>
+                        <span class="chip">CSS3</span>
+                        <span class="chip">C++</span>
+                        <span class="chip">SQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">AI / ML</div>
+                    <div class="skill-chips">
+                        <span class="chip">Scikit-learn</span>
+                        <span class="chip">Pandas</span>
+                        <span class="chip">NumPy</span>
+                        <span class="chip">NLP</span>
+                        <span class="chip">Generative AI</span>
+                        <span class="chip">LangChain</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">Web &amp; Cloud</div>
+                    <div class="skill-chips">
+                        <span class="chip">Flask</span>
+                        <span class="chip">Bootstrap</span>
+                        <span class="chip">AWS</span>
+                        <span class="chip">Git</span>
+                        <span class="chip">Gunicorn</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <div class="skill-group-title">Data &amp; BI</div>
+                    <div class="skill-chips">
+                        <span class="chip">Power BI</span>
+                        <span class="chip">Matplotlib</span>
+                        <span class="chip">Streamlit</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Certifications -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-certificate"></i> Certifications (20+)</div>
+
+                <div class="cert-item">
+                    Google AI Studio App Deployment
+                    <span class="cert-issuer">GUVI / HCL</span>
+                </div>
+                <div class="cert-item">
+                    NASSCOM Yuva AI for All
+                    <span class="cert-issuer">FutureSkills Prime · April 2026</span>
+                </div>
+                <div class="cert-item">
+                    AWS Cloud Foundations
+                    <span class="cert-issuer">Amazon Web Services</span>
+                </div>
+                <div class="cert-item">
+                    Microsoft Data Analytics
+                    <span class="cert-issuer">Microsoft</span>
+                </div>
+                <div class="cert-item">
+                    Power BI Certification
+                    <span class="cert-issuer">Business Intelligence &amp; Data Viz</span>
+                </div>
+                <div class="cert-item">
+                    Explore ML with Python
+                    <span class="cert-issuer">Infosys Springboard</span>
+                </div>
+                <div class="cert-item">
+                    Generative AI &amp; Agents
+                    <span class="cert-issuer">Online Certification</span>
+                </div>
+                <div class="cert-item">
+                    Kaggle Python Coder
+                    <span class="cert-issuer">Kaggle</span>
+                </div>
+                <div class="cert-item">
+                    AI Tool Creation
+                    <span class="cert-issuer">SkillEcted</span>
+                </div>
+                <div class="cert-item">
+                    Claude Code: The Coding Assistant
+                    <span class="cert-issuer">Anthropic (Free Course)</span>
+                </div>
+                <div class="cert-item">
+                    Career Readiness Challenge 2026
+                    <span class="cert-issuer">upDt Education Technology · Rank 57</span>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-language"></i> Languages</div>
+                <div class="skill-chips">
+                    <span class="chip">English</span>
+                    <span class="chip">Malayalam</span>
+                    <span class="chip">Hindi</span>
+                </div>
+            </div>
+
+            <!-- Contact quick ref -->
+            <div class="section" style="margin-top:auto;">
+                <div class="section-title"><i class="fas fa-link"></i> Portfolio</div>
+                <div style="font-size:7.5pt;color:var(--muted);line-height:1.7;">
+                    <div><i class="fas fa-globe" style="color:var(--accent);width:14px;text-align:center;margin-right:4px;"></i>arjunpv.replit.app</div>
+                    <div><i class="fab fa-linkedin" style="color:var(--accent);width:14px;text-align:center;margin-right:4px;"></i>linkedin.com/in/arjun-pv1312</div>
+                </div>
+            </div>
+
+        </div>
+    </div><!-- /resume-body -->
+
+</div><!-- /page -->
+
+</body>
+</html>

@@ -350,6 +350,11 @@ def contact():
 #  Static file routes
 # ═══════════════════════════════════════════════════════════════
 
+@app.route('/resume')
+def resume():
+    return render_template('resume.html')
+
+
 @app.route('/download-cv')
 def download_cv():
     assets_dir = os.path.join(app.root_path, 'static', 'assets')

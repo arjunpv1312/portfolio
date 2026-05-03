@@ -38,6 +38,12 @@ Preferred communication style: Simple, everyday language.
 - Professional Career Development (Skillified Mentor — Industry Orientation)
 - IGEN GREENDAY 2024 (Institution of Green Engineers — SDG 17 Pledge)
 
+## Resume Page
+- **Route**: `/resume` — renders a clean, printable HTML resume page
+- **Features**: Dark header with Open to Work pill, two-column layout (main + sidebar), Education / Projects / Achievements / Skills / Certifications
+- **PDF export**: "Save as PDF" button triggers browser print dialog; `@page` CSS set for A4
+- **Hero integration**: "Download Resume" button in the hero links here; "Open to Work" pulsing green badge sits above the hero name
+
 ## System Architecture
 
 The application follows a simple Flask-based architecture with the following characteristics:
