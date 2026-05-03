@@ -1447,6 +1447,9 @@ window.addEventListener('error', function(e) {
     var navBtn     = document.getElementById('cmdPaletteBtn');
     var activeIdx  = -1;
 
+    // Only initialise on pages that contain the palette HTML
+    if (!overlay || !inputEl || !resultsEl) return;
+
     // All commands
     var CMD = [
         // Navigate
