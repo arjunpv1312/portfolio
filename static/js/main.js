@@ -351,97 +351,155 @@ function initializeGallery() {
 
 // Contact form functionality
 function initializeContactForm() {
-    const contactForm = document.querySelector('.contact-form');
-    
-    if (contactForm) {
-        // Form validation enhancement
-        const inputs = contactForm.querySelectorAll('input, textarea');
-        
-        inputs.forEach(input => {
-            // Real-time validation feedback
-            input.addEventListener('blur', function() {
-                validateField(this);
-            });
-            
-            input.addEventListener('input', function() {
-                if (this.classList.contains('is-invalid')) {
-                    validateField(this);
-                }
+    const form        = document.getElementById('contactForm');
+    const successCard = document.getElementById('contactSuccess');
+    const sendAnother = document.getElementById('contactSendAnother');
+    const submitBtn   = document.getElementById('cfSubmitBtn');
+    if (!form) return;
+
+    // ── Validation rules per field ────────────────────────────
+    const RULES = {
+        name:    { min: 2, label: 'Name',    msg: v => !v ? 'Please enter your name.' : v.length < 2 ? 'Name must be at least 2 characters.' : '' },
+        email:   { label: 'Email',   msg: v => !v ? 'Please enter your email.' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? 'Enter a valid email address.' : '' },
+        subject: { min: 3, label: 'Subject', msg: v => !v ? 'Please enter a subject.' : v.length < 3 ? 'Subject must be at least 3 characters.' : '' },
+        message: { min: 10, label: 'Message', msg: v => !v ? 'Please write a message.' : v.length < 10 ? 'Message must be at least 10 characters.' : '' }
+    };
+
+    // ── Validate a single field, return true if OK ────────────
+    function validateField(input, showFeedback) {
+        const id   = input.id;
+        const rule = RULES[id];
+        if (!rule) return true;
+        const val  = input.value.trim();
+        const err  = rule.msg(val);
+        const fb   = document.getElementById(id + 'Feedback');
+
+        input.classList.remove('cf-valid', 'cf-invalid', 'cf-shake');
+
+        if (err) {
+            input.classList.add('cf-invalid');
+            if (fb && showFeedback) {
+                fb.textContent = err;
+                fb.className   = 'cf-feedback cf-fb-error';
+            }
+            return false;
+        } else {
+            input.classList.add('cf-valid');
+            if (fb) {
+                fb.textContent = val ? '✓ Looks good' : '';
+                fb.className   = val ? 'cf-feedback cf-fb-ok' : 'cf-feedback';
+            }
+            return true;
+        }
+    }
+
+    // ── Attach live validation listeners ─────────────────────
+    Object.keys(RULES).forEach(id => {
+        const input = document.getElementById(id);
+        if (!input) return;
+        let touched = false;
+
+        // Show feedback only after first blur (not while fresh)
+        input.addEventListener('blur', () => {
+            touched = true;
+            validateField(input, true);
+        });
+        input.addEventListener('input', () => {
+            if (touched) validateField(input, true);
+        });
+    });
+
+    // ── Submit handler ────────────────────────────────────────
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Validate all fields and collect results
+        let allValid = true;
+        let firstInvalid = null;
+        Object.keys(RULES).forEach(id => {
+            const input = document.getElementById(id);
+            if (!input) return;
+            const ok = validateField(input, true);
+            if (!ok) {
+                allValid = false;
+                if (!firstInvalid) firstInvalid = input;
+                // Shake animation — re-trigger by removing and re-adding
+                input.classList.remove('cf-shake');
+                void input.offsetWidth;
+                input.classList.add('cf-shake');
+                input.addEventListener('animationend', () => input.classList.remove('cf-shake'), { once: true });
+            }
+        });
+
+        if (!allValid) {
+            if (firstInvalid) firstInvalid.focus();
+            return;
+        }
+
+        // ── Show loading state ────────────────────────────────
+        submitBtn.classList.add('is-loading');
+
+        const data = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            body: data
+        })
+        .then(res => res.json())
+        .then(json => {
+            submitBtn.classList.remove('is-loading');
+            if (json.success) {
+                // Show success card, hide form
+                form.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                form.style.opacity = '0';
+                form.style.transform = 'translateY(-8px)';
+                setTimeout(() => {
+                    form.style.display = 'none';
+                    successCard.style.display = 'block';
+                    successCard.style.animation = 'none';
+                    void successCard.offsetWidth;
+                    successCard.style.animation = '';
+                    successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            } else {
+                showFormError(json.error || 'Something went wrong. Please try again.');
+            }
+        })
+        .catch(() => {
+            submitBtn.classList.remove('is-loading');
+            showFormError('Network error. Please check your connection and try again.');
+        });
+    });
+
+    // ── "Send another" button resets the form ─────────────────
+    if (sendAnother) {
+        sendAnother.addEventListener('click', () => {
+            successCard.style.display = 'none';
+            form.style.display = '';
+            form.style.opacity = '1';
+            form.style.transform = '';
+            form.reset();
+            Object.keys(RULES).forEach(id => {
+                const input = document.getElementById(id);
+                const fb    = document.getElementById(id + 'Feedback');
+                if (input) input.classList.remove('cf-valid', 'cf-invalid');
+                if (fb)    { fb.textContent = ''; fb.className = 'cf-feedback'; }
             });
         });
-        
-        // Form submission handling
-        contactForm.addEventListener('submit', function(e) {
-            let isValid = true;
-            
-            inputs.forEach(input => {
-                if (!validateField(input)) {
-                    isValid = false;
-                }
-            });
-            
-            if (!isValid) {
-                e.preventDefault();
-                showNotification('Please fix the errors in the form before submitting.', 'error');
-            } else {
-                showNotification('Sending your message...', 'info');
-            }
-        });
     }
-    
-    function validateField(field) {
-        const value = field.value.trim();
-        let isValid = true;
-        
-        // Remove existing validation classes
-        field.classList.remove('is-valid', 'is-invalid');
-        
-        // Check if field is required and empty
-        if (field.hasAttribute('required') && !value) {
-            field.classList.add('is-invalid');
-            isValid = false;
+
+    // ── Inline form-level error banner ─────────────────────────
+    function showFormError(msg) {
+        let banner = form.querySelector('.cf-form-error');
+        if (!banner) {
+            banner = document.createElement('div');
+            banner.className = 'cf-form-error alert alert-danger mt-3 mb-0';
+            form.appendChild(banner);
         }
-        // Email validation
-        else if (field.type === 'email' && value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                field.classList.add('is-invalid');
-                isValid = false;
-            } else {
-                field.classList.add('is-valid');
-            }
-        }
-        // Text fields validation
-        else if (value && value.length > 0) {
-            field.classList.add('is-valid');
-        }
-        
-        return isValid;
-    }
-    
-    function showNotification(message, type) {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show`;
-        notification.style.position = 'fixed';
-        notification.style.top = '100px';
-        notification.style.right = '20px';
-        notification.style.zIndex = '9999';
-        notification.style.minWidth = '300px';
-        
-        notification.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        // Auto-remove after 5 seconds
-        setTimeout(() => {
-            if (notification.parentElement) {
-                notification.remove();
-            }
-        }, 5000);
+        banner.textContent = msg;
+        banner.style.display = 'block';
+        setTimeout(() => { if (banner) banner.style.display = 'none'; }, 6000);
     }
 }
 

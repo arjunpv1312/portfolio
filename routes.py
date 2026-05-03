@@ -27,13 +27,17 @@ def index():
 
 @app.route('/contact', methods=['POST'])
 def contact():
-    """Handle contact form submission"""
+    """Handle contact form submission — returns JSON for AJAX, redirect for plain POST"""
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+
     name    = request.form.get('name', '').strip()
     email   = request.form.get('email', '').strip()
     subject = request.form.get('subject', '').strip()
     message = request.form.get('message', '').strip()
 
     if not all([name, email, subject, message]):
+        if is_ajax:
+            return jsonify(success=False, error='Please fill in all fields.'), 400
         flash('Please fill in all fields.', 'error')
         return redirect(url_for('index') + '#contact')
 
@@ -48,8 +52,9 @@ def contact():
 
     mail_password = os.environ.get('MAIL_PASSWORD')
     if not mail_password:
-        # Email not configured yet — submission is logged but not emailed
         logging.warning("MAIL_PASSWORD not set — message logged only, not emailed.")
+        if is_ajax:
+            return jsonify(success=True, message="Thank you! I'll get back to you soon.")
         flash("Thank you for your message! I'll get back to you soon.", 'success')
         return redirect(url_for('index') + '#contact')
 
@@ -74,10 +79,11 @@ Reply to this email to respond directly to {name} at {email}.
         )
         mail.send(msg)
         logging.info(f"Contact email sent to {recipient}")
-        flash("Thank you for your message! I'll get back to you soon.", 'success')
 
     except Exception as e:
         logging.error(f"Failed to send contact email: {str(e)}")
-        flash("Thank you for reaching out! I received your message and will reply shortly.", 'success')
 
+    if is_ajax:
+        return jsonify(success=True, message="Thank you! I'll get back to you soon.")
+    flash("Thank you for your message! I'll get back to you soon.", 'success')
     return redirect(url_for('index') + '#contact')

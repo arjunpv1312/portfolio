@@ -1054,26 +1054,72 @@
             
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <form method="POST" action="{{ url_for('contact') }}" class="contact-form">
+                    <!-- Contact success state (hidden until sent) -->
+                    <div id="contactSuccess" class="contact-success-card" style="display:none" aria-live="polite">
+                        <div class="contact-success-icon">
+                            <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="cs-circle" cx="26" cy="26" r="24" stroke="url(#csGrad)" stroke-width="2.5"/>
+                                <polyline class="cs-check" points="14,27 22,35 38,18" stroke="url(#csGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <defs>
+                                    <linearGradient id="csGrad" x1="0" y1="0" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#00d4ff"/>
+                                        <stop offset="100%" stop-color="#7c3aed"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <h4 class="contact-success-title">Message Sent!</h4>
+                        <p class="contact-success-sub">Thanks for reaching out — I'll get back to you soon.</p>
+                        <button class="btn btn-outline-info btn-sm mt-2" id="contactSendAnother">Send another message</button>
+                    </div>
+
+                    <!-- The actual form -->
+                    <form method="POST" action="{{ url_for('contact') }}" class="contact-form" id="contactForm" novalidate>
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="name" class="form-label">Your Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <label for="name" class="form-label cf-label">Your Name</label>
+                                <div class="cf-input-wrap">
+                                    <input type="text" class="form-control cf-input" id="name" name="name" placeholder="e.g. John Smith" autocomplete="name">
+                                    <span class="cf-icon cf-icon-valid"><i class="fas fa-check-circle"></i></span>
+                                    <span class="cf-icon cf-icon-invalid"><i class="fas fa-times-circle"></i></span>
+                                </div>
+                                <div class="cf-feedback" id="nameFeedback"></div>
                             </div>
                             <div class="col-md-6">
-                                <label for="email" class="form-label">Your Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <label for="email" class="form-label cf-label">Your Email</label>
+                                <div class="cf-input-wrap">
+                                    <input type="email" class="form-control cf-input" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+                                    <span class="cf-icon cf-icon-valid"><i class="fas fa-check-circle"></i></span>
+                                    <span class="cf-icon cf-icon-invalid"><i class="fas fa-times-circle"></i></span>
+                                </div>
+                                <div class="cf-feedback" id="emailFeedback"></div>
                             </div>
                             <div class="col-12">
-                                <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" id="subject" name="subject" required>
+                                <label for="subject" class="form-label cf-label">Subject</label>
+                                <div class="cf-input-wrap">
+                                    <input type="text" class="form-control cf-input" id="subject" name="subject" placeholder="What's this about?">
+                                    <span class="cf-icon cf-icon-valid"><i class="fas fa-check-circle"></i></span>
+                                    <span class="cf-icon cf-icon-invalid"><i class="fas fa-times-circle"></i></span>
+                                </div>
+                                <div class="cf-feedback" id="subjectFeedback"></div>
                             </div>
                             <div class="col-12">
-                                <label for="message" class="form-label">Your Message</label>
-                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                                <label for="message" class="form-label cf-label">Your Message</label>
+                                <div class="cf-input-wrap">
+                                    <textarea class="form-control cf-input" id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
+                                    <span class="cf-icon cf-icon-valid cf-icon-ta"><i class="fas fa-check-circle"></i></span>
+                                    <span class="cf-icon cf-icon-invalid cf-icon-ta"><i class="fas fa-times-circle"></i></span>
+                                </div>
+                                <div class="cf-feedback" id="messageFeedback"></div>
                             </div>
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-info btn-lg px-5">Send Message</button>
+                                <button type="submit" class="btn btn-info btn-lg px-5 cf-submit-btn" id="cfSubmitBtn">
+                                    <span class="cf-btn-label">Send Message</span>
+                                    <span class="cf-btn-loader" aria-hidden="true">
+                                        <span class="cf-spinner"></span>
+                                        Sending…
+                                    </span>
+                                </button>
                             </div>
                         </div>
                     </form>
