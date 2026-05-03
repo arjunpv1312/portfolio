@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
+    <!-- Anti-flash: apply saved theme before any CSS renders -->
+    <script>
+        (function(){
+            var t = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', t);
+            document.documentElement.setAttribute('data-bs-theme', t);
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arjun PV | AI & Data Science Engineer</title>
@@ -126,6 +134,16 @@
                     </li>
                     <li class="nav-item ms-2">
                         <a class="nav-link" href="https://github.com/arjunpv1312" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <button class="theme-toggle-btn" id="themeToggleBtn" title="Switch to light mode" aria-label="Toggle theme">
+                            <span class="theme-toggle-track">
+                                <span class="theme-toggle-thumb">
+                                    <i class="fas fa-sun theme-icon-sun"></i>
+                                    <i class="fas fa-moon theme-icon-moon"></i>
+                                </span>
+                            </span>
+                        </button>
                     </li>
                 </ul>
             </div>

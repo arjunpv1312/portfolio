@@ -1,7 +1,15 @@
 // Main JavaScript file for the personal introduction website
 
+// ── Theme: apply immediately before DOM renders to avoid flash ──
+(function() {
+    const saved = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    document.documentElement.setAttribute('data-bs-theme', saved);
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all interactive features
+    initializeThemeToggle();
     initializeNavigation();
     initializeAnimations();
     initializeGallery();
@@ -12,6 +20,47 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeHeroRoleTypewriter();
     initializeTypingAnimation();
 });
+
+// Theme toggle
+function initializeThemeToggle() {
+    const btn  = document.getElementById('themeToggleBtn');
+    const html = document.documentElement;
+    if (!btn) return;
+
+    // Apply a theme and persist it
+    function applyTheme(theme, save) {
+        html.setAttribute('data-theme', theme);
+        html.setAttribute('data-bs-theme', theme);
+        if (save) localStorage.setItem('theme', theme);
+
+        // Update button tooltip
+        btn.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+        btn.setAttribute('aria-label', btn.title);
+
+        // Update navbar background immediately
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            if (theme === 'light') {
+                navbar.style.background = 'rgba(240,244,251,0.97)';
+            } else {
+                navbar.style.background = window.scrollY > 50
+                    ? 'rgba(8,11,20,0.98)'
+                    : 'rgba(8,11,20,0.85)';
+            }
+        }
+    }
+
+    // Set initial state from localStorage (already set by inline script, just sync UI)
+    const initial = localStorage.getItem('theme') || 'dark';
+    applyTheme(initial, false);
+
+    // Toggle on click
+    btn.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme') || 'dark';
+        const next    = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next, true);
+    });
+}
 
 function initializeHeroRoleTypewriter() {
     const el     = document.getElementById('hero-role-typed');
@@ -163,12 +212,15 @@ function initializeNavigation() {
         });
     });
     
-    // Navbar background opacity on scroll
+    // Navbar background opacity on scroll — theme-aware
     function updateNavbarBackground() {
-        if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(33, 37, 41, 0.98)';
+        const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+        if (theme === 'light') {
+            navbar.style.background = 'rgba(240,244,251,0.97)';
+        } else if (window.scrollY > 50) {
+            navbar.style.background = 'rgba(8,11,20,0.98)';
         } else {
-            navbar.style.background = 'rgba(33, 37, 41, 0.95)';
+            navbar.style.background = 'rgba(8,11,20,0.85)';
         }
     }
     
