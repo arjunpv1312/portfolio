@@ -394,8 +394,7 @@ function initializeGallery() {
         if (img) {
             // Add click event for potential modal or lightbox
             item.addEventListener('click', function() {
-                // Could implement a lightbox here in the future
-                console.log('Gallery item clicked:', img.alt);
+                // Reserved for future lightbox implementation
             });
             
             // Add loading animation
