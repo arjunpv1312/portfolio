@@ -180,95 +180,120 @@ function initializeNavigation() {
 
 // Animation functionality
 function initializeAnimations() {
-    const observerOptions = {
-        threshold: 0.08,
-        rootMargin: '0px 0px -40px 0px'
-    };
+    // Skip reduced-motion users
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('scroll-visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+    const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'; // smooth decelerate
 
-    // All elements that animate on scroll
-    const selectors = [
-        '.interest-card',
-        '.timeline-item',
-        '.cert-compact-card',
-        '.cert-featured',
-        '.about-info-card',
-        '.contact-card',
-        '.section-header',
-        '.stat-pill',
-        '.skills-showcase',
-        '.education-highlight',
-        '.project-card',
-        '.projects-coming-soon'
+    // Each group: selector, animation type, stagger-ms, duration-ms, threshold
+    const groups = [
+        // Section headings — fade up, no stagger
+        { sel: '.section-header',      type: 'up',    dur: 650, stag: 0,   thresh: 0.1 },
+
+        // Hero stat pills — scale up, tight stagger
+        { sel: '.stat-pill',           type: 'scale', dur: 550, stag: 80,  thresh: 0.2 },
+
+        // About photo — slide from left
+        { sel: '.about-photo-wrapper', type: 'left',  dur: 700, stag: 0,   thresh: 0.15 },
+
+        // About bio + skills — slide from right
+        { sel: '.about-bio',           type: 'right', dur: 650, stag: 0,   thresh: 0.1 },
+        { sel: '.about-skills-grid',   type: 'up',    dur: 600, stag: 0,   thresh: 0.1 },
+
+        // About info cards — scale up with stagger
+        { sel: '.about-info-card',     type: 'scale', dur: 500, stag: 90,  thresh: 0.15 },
+
+        // Interest cards — slide up, staggered
+        { sel: '.interest-card',       type: 'up',    dur: 560, stag: 80,  thresh: 0.1 },
+
+        // Timeline — slide from left, staggered
+        { sel: '.timeline-item',       type: 'left',  dur: 580, stag: 110, thresh: 0.08 },
+
+        // Gemini card — scale in
+        { sel: '.gemini-card-wrap',    type: 'scale', dur: 700, stag: 0,   thresh: 0.1 },
+
+        // Cert category labels — fade only
+        { sel: '.cert-category-label', type: 'fade',  dur: 500, stag: 0,   thresh: 0.2 },
+
+        // Featured cert cards — slide up, staggered
+        { sel: '.cert-featured',       type: 'up',    dur: 580, stag: 100, thresh: 0.08 },
+
+        // Compact cert cards — slide up, staggered
+        { sel: '.cert-compact-card',   type: 'up',    dur: 500, stag: 70,  thresh: 0.06 },
+
+        // Currently-learning cards — slide up
+        { sel: '#learning .cert-compact-card', type: 'up', dur: 520, stag: 75, thresh: 0.06 },
+
+        // Project cards — slide up, staggered
+        { sel: '.project-card',        type: 'up',    dur: 580, stag: 100, thresh: 0.08 },
+
+        // Contact cards — scale up, staggered
+        { sel: '.contact-card',        type: 'scale', dur: 520, stag: 80,  thresh: 0.1 },
+
+        // Contact form
+        { sel: '.contact-form-wrap',   type: 'up',    dur: 600, stag: 0,   thresh: 0.08 },
     ];
 
-    const allElements = document.querySelectorAll(selectors.join(', '));
+    // Starting transforms for each type
+    const startTransform = {
+        up:    'translateY(32px)',
+        left:  'translateX(-30px)',
+        right: 'translateX(30px)',
+        scale: 'translateY(20px) scale(0.96)',
+        fade:  'translateY(10px)',
+    };
 
-    // Group siblings by parent — apply stagger within each row
-    const parentMap = new Map();
-    allElements.forEach(el => {
-        const key = el.parentElement;
-        if (!parentMap.has(key)) parentMap.set(key, []);
-        parentMap.get(key).push(el);
+    // Build a single <style> block with all hidden states
+    const selectorsByType = {};
+    groups.forEach(g => {
+        const t = g.type;
+        if (!selectorsByType[t]) selectorsByType[t] = [];
+        selectorsByType[t].push(g.sel);
     });
 
-    parentMap.forEach((siblings) => {
-        siblings.forEach((el, i) => {
-            el.style.setProperty('--stagger', i);
-            observer.observe(el);
+    let css = '';
+    Object.entries(selectorsByType).forEach(([type, sels]) => {
+        css += `${sels.join(', ')} { opacity: 0; transform: ${startTransform[type]}; will-change: opacity, transform; }\n`;
+    });
+    css += `.reveal-done { opacity: 1 !important; transform: none !important; }\n`;
+
+    const styleTag = document.createElement('style');
+    styleTag.textContent = css;
+    document.head.appendChild(styleTag);
+
+    // Create one observer per group (different thresholds)
+    const seenEls = new Set(); // avoid double-observing same element
+
+    groups.forEach(({ sel, dur, stag, thresh }) => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const delay = parseFloat(el.dataset.revealDelay || 0);
+                el.style.transition = `opacity ${dur}ms ${EASE} ${delay}ms, transform ${dur}ms ${EASE} ${delay}ms`;
+                el.classList.add('reveal-done');
+                observer.unobserve(el);
+            });
+        }, { threshold: thresh, rootMargin: '0px 0px -30px 0px' });
+
+        // Group siblings within same parent for stagger
+        const elements = document.querySelectorAll(sel);
+        const parentMap = new Map();
+        elements.forEach(el => {
+            if (seenEls.has(el)) return;
+            seenEls.add(el);
+            const parent = el.parentElement;
+            if (!parentMap.has(parent)) parentMap.set(parent, []);
+            parentMap.get(parent).push(el);
+        });
+
+        parentMap.forEach(siblings => {
+            siblings.forEach((el, i) => {
+                el.dataset.revealDelay = i * stag;
+                observer.observe(el);
+            });
         });
     });
-
-    // Add CSS for scroll animations
-    const style = document.createElement('style');
-    style.textContent = `
-        .interest-card,
-        .cert-compact-card,
-        .cert-featured,
-        .about-info-card,
-        .contact-card,
-        .skills-showcase,
-        .education-highlight {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.55s ease calc(var(--stagger, 0) * 90ms),
-                        transform 0.55s ease calc(var(--stagger, 0) * 90ms);
-        }
-
-        .timeline-item {
-            opacity: 0;
-            transform: translateX(-24px);
-            transition: opacity 0.55s ease calc(var(--stagger, 0) * 100ms),
-                        transform 0.55s ease calc(var(--stagger, 0) * 100ms);
-        }
-
-        .stat-pill {
-            opacity: 0;
-            transform: translateY(16px) scale(0.95);
-            transition: opacity 0.5s ease calc(var(--stagger, 0) * 80ms),
-                        transform 0.5s ease calc(var(--stagger, 0) * 80ms);
-        }
-
-        .section-header {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .scroll-visible {
-            opacity: 1 !important;
-            transform: none !important;
-        }
-    `;
-    document.head.appendChild(style);
 }
 
 // Gallery functionality
