@@ -253,7 +253,7 @@ function initializeNavigation() {
     window.addEventListener('scroll', function() {
         updateActiveNavLink();
         updateNavbarBackground();
-    });
+    }, { passive: true });
     
     // Close mobile menu when link is clicked
     navLinks.forEach(link => {
@@ -848,29 +848,10 @@ function initializeScrollEffects() {
                     content.style.opacity = 1 - (scrolled / window.innerHeight);
                 }
             }
-        });
+        }, { passive: true });
     }
 
-    // Scroll progress bar
-    const progressBar = document.createElement('div');
-    progressBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #00d4ff, #8b5cf6);
-        z-index: 9999;
-        transition: width 0.1s ease;
-        box-shadow: 0 0 8px rgba(0,212,255,0.6);
-    `;
-    document.body.appendChild(progressBar);
-
-    window.addEventListener('scroll', () => {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        progressBar.style.width = scrolled + "%";
-    });
+    // Scroll progress bar is handled by the dedicated #scroll-progress-bar element (see bottom IIFE)
     
     // Back to top button
     createBackToTopButton();
@@ -906,7 +887,7 @@ function initializeScrollEffects() {
             } else {
                 backToTopBtn.style.display = 'none';
             }
-        });
+        }, { passive: true });
         
         document.body.appendChild(backToTopBtn);
     }
@@ -930,7 +911,7 @@ const debouncedScrollHandler = debounce(function() {
     // Any expensive scroll operations can go here
 }, 10);
 
-window.addEventListener('scroll', debouncedScrollHandler);
+window.addEventListener('scroll', debouncedScrollHandler, { passive: true });
 
 // ── Neural Network Particle Background ───────────────
 function initializeParticles() {
