@@ -134,6 +134,9 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
+        <div class="hero-bg-orb hero-orb-1"></div>
+        <div class="hero-bg-orb hero-orb-2"></div>
+        <div class="hero-bg-orb hero-orb-3"></div>
         <div class="container">
             <div class="row align-items-center min-vh-100 g-5">
 
@@ -141,7 +144,7 @@
                 <div class="col-lg-6">
                     <div class="hero-intro">
                         <h1 class="hero-main-name fw-bold fade-in mb-1">Arjun PV</h1>
-                        <p class="hero-role fade-in mb-3">AI &amp; Data Science Engineer</p>
+                        <p class="hero-role fade-in mb-3"><span id="hero-role-typed"></span><span class="hero-role-cursor">|</span></p>
                         <div class="hero-typed-row fade-in mb-3">
                             <span class="hero-typed-label">Expert in</span>
                             <span id="typed-text" class="hero-typed-word"></span><span class="typed-cursor">|</span>
@@ -177,6 +180,8 @@
                         <div class="hero-orbit-wrapper">
                             <div class="orbit-ring orbit-ring-1"></div>
                             <div class="orbit-ring orbit-ring-2"></div>
+                            <div class="hero-avatar-pulse"></div>
+                            <div class="hero-avatar-pulse hero-avatar-pulse-2"></div>
                             <div class="hero-avatar-ring">
                                 <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}"
                                      alt="Arjun PV"

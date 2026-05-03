@@ -2291,3 +2291,103 @@ section {
     .gemini-card-top { flex-direction: column; gap: 0.5rem; }
     .gemini-title { font-size: 1.1rem; }
 }
+
+/* ─────────── Hero: Animated Gradient Background Orbs ─────────── */
+.hero-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(72px);
+    z-index: 0;
+    will-change: transform;
+}
+.hero-orb-1 {
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, rgba(0,212,255,0.09) 0%, transparent 70%);
+    top: -140px; left: -120px;
+    animation: heroOrb1 18s ease-in-out infinite alternate;
+}
+.hero-orb-2 {
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(139,92,246,0.11) 0%, transparent 70%);
+    bottom: -100px; right: -100px;
+    animation: heroOrb2 22s ease-in-out infinite alternate;
+}
+.hero-orb-3 {
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(79,142,247,0.07) 0%, transparent 70%);
+    top: 40%; left: 40%;
+    animation: heroOrb3 14s ease-in-out infinite alternate;
+}
+@keyframes heroOrb1 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(120px, 80px) scale(1.15); }
+    100% { transform: translate(60px, 160px) scale(0.9); }
+}
+@keyframes heroOrb2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-100px, -60px) scale(1.2); }
+    100% { transform: translate(-50px, -140px) scale(0.85); }
+}
+@keyframes heroOrb3 {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-80px, 60px) scale(1.3); }
+}
+
+/* ─────────── Hero: Profile Picture Pulsing Glow ─────────── */
+.hero-avatar-pulse {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 220px; height: 220px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid rgba(0,212,255,0.4);
+    animation: avatarPulse 3s ease-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+.hero-avatar-pulse-2 {
+    width: 260px; height: 260px;
+    border-color: rgba(139,92,246,0.3);
+    animation: avatarPulse 3s ease-out infinite 1.5s;
+}
+@keyframes avatarPulse {
+    0%   { transform: translate(-50%,-50%) scale(1);   opacity: 0.8; }
+    100% { transform: translate(-50%,-50%) scale(1.35); opacity: 0; }
+}
+
+/* Enhanced glow on the avatar ring itself */
+.hero-avatar-ring {
+    box-shadow:
+        0 0 0 3px rgba(0,212,255,0.2),
+        0 0 30px rgba(0,212,255,0.35),
+        0 0 60px rgba(139,92,246,0.25),
+        0 0 100px rgba(0,212,255,0.12);
+    animation: avatarGlow 4s ease-in-out infinite alternate;
+}
+@keyframes avatarGlow {
+    0%   { box-shadow: 0 0 0 3px rgba(0,212,255,0.2), 0 0 30px rgba(0,212,255,0.35), 0 0 60px rgba(139,92,246,0.25), 0 0 100px rgba(0,212,255,0.12); }
+    100% { box-shadow: 0 0 0 3px rgba(139,92,246,0.3), 0 0 40px rgba(139,92,246,0.45), 0 0 80px rgba(0,212,255,0.3), 0 0 120px rgba(139,92,246,0.15); }
+}
+
+/* ─────────── Hero Role Typewriter ─────────── */
+#hero-role-typed {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(226,232,240,0.55);
+    letter-spacing: 0.02em;
+}
+.hero-role-cursor {
+    display: inline-block;
+    color: var(--accent-start);
+    font-weight: 300;
+    font-size: 1rem;
+    margin-left: 1px;
+    animation: heroRoleBlink 0.75s step-end infinite;
+    opacity: 0; /* hidden until typing starts */
+}
+@keyframes heroRoleBlink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}

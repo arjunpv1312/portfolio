@@ -7,8 +7,32 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeGallery();
     initializeContactForm();
     initializeScrollEffects();
+    initializeHeroRoleTypewriter();
     initializeTypingAnimation();
 });
+
+function initializeHeroRoleTypewriter() {
+    const el     = document.getElementById('hero-role-typed');
+    const cursor = document.querySelector('.hero-role-cursor');
+    if (!el || !cursor) return;
+
+    const text    = 'AI & Data Science Engineer';
+    const speed   = 55;   // ms per character
+    const startAt = 600;  // delay before typing begins (ms)
+
+    let i = 0;
+    cursor.style.opacity = '1'; // show cursor as soon as we start
+
+    function tick() {
+        if (i <= text.length) {
+            el.textContent = text.slice(0, i);
+            i++;
+            setTimeout(tick, speed);
+        }
+        // cursor keeps blinking via CSS after typing ends
+    }
+    setTimeout(tick, startAt);
+}
 
 function initializeTypingAnimation() {
     const phrases = [
