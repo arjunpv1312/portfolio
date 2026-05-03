@@ -200,7 +200,7 @@
                                           data-suffix="+"
                                           data-prefix=""
                                           data-duration="2200"
-                                          data-delay="0">0</span>
+                                          data-delay="0">20+</span>
                                 </div>
                                 <span class="stat-counter-label">Certifications</span>
                                 <div class="stat-counter-bar"></div>
@@ -214,7 +214,7 @@
                                           data-suffix=""
                                           data-prefix="#"
                                           data-duration="2500"
-                                          data-delay="200">#0</span>
+                                          data-delay="200">#57</span>
                                 </div>
                                 <span class="stat-counter-label">National Rank</span>
                                 <div class="stat-counter-bar"></div>
@@ -228,7 +228,7 @@
                                           data-suffix=""
                                           data-prefix=""
                                           data-duration="2000"
-                                          data-delay="400">0</span>
+                                          data-delay="400">3</span>
                                 </div>
                                 <span class="stat-counter-label">Live Projects</span>
                                 <div class="stat-counter-bar"></div>
@@ -249,6 +249,9 @@
                                 <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}"
                                      alt="Arjun PV"
                                      class="hero-avatar-img"
+                                     loading="eager"
+                                     fetchpriority="high"
+                                     decoding="sync"
                                      onerror="this.parentElement.innerHTML='<div class=\'avatar-placeholder\'><i class=\'fas fa-user fa-4x\'></i></div>'">
                             </div>
                             <!-- Floating tech icons on orbit -->
@@ -285,6 +288,8 @@
                         <img src="{{ url_for('static', filename='images/arjun_profile.jpg') }}"
                              alt="Arjun PV — AI & Data Science student"
                              class="about-photo"
+                             loading="lazy"
+                             decoding="async"
                              onerror="this.style.display='none'; document.getElementById('about-fallback').style.display='flex';">
                         <div id="about-fallback" class="about-photo about-photo-fallback" style="display:none;">
                             <span>AP</span>

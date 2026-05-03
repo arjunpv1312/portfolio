@@ -616,12 +616,6 @@ function initializeCounters() {
     const counters = document.querySelectorAll('.stat-counter-num');
     if (!counters.length) return;
 
-    // Reset all counters to their starting display before the animation plays
-    counters.forEach(el => {
-        const prefix = el.dataset.prefix || '';
-        el.textContent = prefix + '0';
-    });
-
     function easeOutQuart(t) {
         return 1 - Math.pow(1 - t, 4);
     }
@@ -636,6 +630,8 @@ function initializeCounters() {
         let start      = null;
         let rafId      = null;
 
+        // Reset to zero just before animating (HTML shows final value until then)
+        el.textContent = prefix + '0';
         el.classList.add('counting');
 
         function step(timestamp) {
