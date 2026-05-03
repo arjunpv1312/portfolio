@@ -36,6 +36,9 @@
     <meta name="twitter:description" content="BTech AI & Data Science student. Ranked #57 nationally, 20+ certifications. Open to opportunities worldwide.">
     <meta name="twitter:image" content="https://personal-portfolio--serenayt06.replit.app/static/images/arjun_profile.jpg">
 
+    <!-- CSRF token for AJAX requests (Layer 2 security) -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://personal-portfolio--serenayt06.replit.app">
 
@@ -1793,6 +1796,11 @@
 
                     <!-- The actual form -->
                     <form method="POST" action="{{ url_for('contact') }}" class="contact-form" id="contactForm" novalidate enctype="multipart/form-data">
+                        <!-- Honeypot: hidden field that only bots fill in (Layer 2) -->
+                        <input type="text" name="_hp_field" value="" tabindex="-1"
+                               autocomplete="off" aria-hidden="true"
+                               style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="name" class="form-label cf-label">Your Name</label>

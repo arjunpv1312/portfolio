@@ -504,9 +504,13 @@ function initializeContactForm() {
 
         const data = new FormData(form);
 
+        const csrfToken = document.querySelector('meta[name="csrf-token"]');
         fetch(form.action, {
             method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrfToken ? csrfToken.getAttribute('content') : ''
+            },
             body: data
         })
         .then(res => res.json())

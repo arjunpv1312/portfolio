@@ -105,6 +105,15 @@ The application follows a simple Flask-based architecture with the following cha
 - **Flask-Compress**: Automatic gzip compression for all HTTP responses (level 6)
 - **rcssmin**: CSS minifier — generates `static/css/style.min.css` at app startup
 - **rjsmin**: JavaScript minifier — generates `static/js/main.min.js` at app startup
+- **Flask-Talisman**: Layer 1 security headers — CSP, HSTS, X-Frame-Options: DENY, nosniff, Referrer-Policy, Permissions-Policy
+- **Flask-Limiter**: Rate limiting — contact form capped at 5/min, 20/hr, 50/day per IP
+- **Flask-WTF**: CSRF protection — token in meta tag, validated via X-CSRFToken header on all POST requests
+- **bleach**: Layer 2 input sanitization — strips all HTML tags and control characters from form fields
+
+### Security Architecture (Triple-Layer)
+- **Layer 1 — Transport**: HSTS (1 year), X-Frame-Options: DENY, nosniff, CSP, Referrer-Policy, Permissions-Policy
+- **Layer 2 — Application**: CSRF tokens, rate limiting, bleach sanitization, honeypot field, email regex validation, file magic-byte verification
+- **Layer 3 — Data Integrity**: Per-submission 128-bit random salt + HMAC-SHA-256 digest stored with every JSON record; SHA-256 hash of every uploaded file
 
 ### Frontend Libraries
 - **Bootstrap**: CSS framework with dark theme variant from Replit CDN

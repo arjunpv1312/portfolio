@@ -17,4 +17,8 @@ dependencies = [
     "rjsmin>=1.2.5",
     "flask-compress>=1.24",
     "rcssmin>=1.2.2",
+    "bleach>=6.3.0",
+    "flask-wtf>=1.3.0",
+    "flask-talisman>=1.1.0",
+    "flask-limiter>=4.1.1",
 ]
