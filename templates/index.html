@@ -98,6 +98,8 @@
     </style>
 </head>
 <body>
+    <!-- Neon scroll progress bar -->
+    <div id="scroll-progress-bar" aria-hidden="true"></div>
     <!-- Dynamic Particle Background -->
     <canvas id="particle-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
     <!-- Navigation -->
@@ -112,6 +114,11 @@
                             <i class="fas fa-moon theme-icon-moon"></i>
                         </span>
                     </span>
+                </button>
+                <!-- Command palette keyboard hint -->
+                <button id="cmdPaletteBtn" class="cmd-palette-nav-hint" title="Command Palette (Ctrl+K)" aria-label="Open command palette">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <span class="cmd-hint-keys"><kbd>⌘</kbd><kbd>K</kbd></span>
                 </button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -2084,6 +2091,33 @@
             <p class="pdf-loader-title">Opening Certificate</p>
             <p class="pdf-loader-sub">Preparing document, please wait…</p>
             <div class="pdf-loader-bar"><div class="pdf-loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- Floating "Available" CTA -->
+    <a href="#contact" id="floatingCta" class="floating-cta" aria-label="Available for work — contact me">
+        <span class="floating-cta-dot"></span>
+        <span class="floating-cta-text">Available</span>
+        <i class="fas fa-arrow-right floating-cta-arrow"></i>
+    </a>
+
+    <!-- Command Palette Overlay -->
+    <div id="cmdPalette" class="cmd-palette-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Command palette">
+        <div class="cmd-palette-dialog">
+            <div class="cmd-palette-input-wrap">
+                <i class="fas fa-magnifying-glass cmd-search-icon"></i>
+                <input type="text" id="cmdInput" class="cmd-input"
+                       placeholder="Search sections &amp; actions…"
+                       autocomplete="off" spellcheck="false" aria-autocomplete="list">
+                <kbd class="cmd-esc-label">ESC</kbd>
+            </div>
+            <div class="cmd-palette-results" id="cmdResults" role="listbox"></div>
+            <div class="cmd-palette-footer">
+                <span><kbd class="cmd-kbd">↑</kbd><kbd class="cmd-kbd">↓</kbd> navigate</span>
+                <span><kbd class="cmd-kbd">↵</kbd> open</span>
+                <span><kbd class="cmd-kbd">ESC</kbd> close</span>
+                <span style="margin-left:auto;opacity:0.5;">Arjun PV Portfolio</span>
+            </div>
         </div>
     </div>
 
