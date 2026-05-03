@@ -1,0 +1,105 @@
+{% extends 'admin/base.html' %}
+{% block title %}Setup{% endblock %}
+
+{% block body %}
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;">
+    <div style="width:100%;max-width:420px;">
+
+        <!-- Brand -->
+        <div style="text-align:center;margin-bottom:2rem;">
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(124,58,237,0.15));border:1px solid rgba(0,212,255,0.3);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+                <i class="fas fa-shield-halved" style="font-size:1.5rem;color:#00d4ff;"></i>
+            </div>
+            <h1 style="font-size:1.35rem;font-weight:800;color:#e2e8f0;margin-bottom:0.25rem;">First-Time Setup</h1>
+            <p style="font-size:0.82rem;color:rgba(255,255,255,0.45);">Create your admin credentials. This page is disabled after setup.</p>
+        </div>
+
+        <!-- One-time warning -->
+        <div class="admin-alert admin-alert-warning" style="margin-bottom:1.5rem;">
+            <i class="fas fa-triangle-exclamation"></i>
+            <span>These credentials are stored as a salted PBKDF2-SHA256 hash and cannot be recovered. Save your password securely.</span>
+        </div>
+
+        {% if error %}
+        <div class="admin-alert admin-alert-danger">
+            <i class="fas fa-circle-xmark"></i>
+            <span>{{ error }}</span>
+        </div>
+        {% endif %}
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for cat, msg in messages %}
+            <div class="admin-alert admin-alert-{{ 'success' if cat == 'success' else 'info' }}">
+                <i class="fas fa-circle-check"></i><span>{{ msg }}</span>
+            </div>
+            {% endfor %}
+        {% endwith %}
+
+        <div class="admin-card">
+            <form method="POST" action="{{ url_for('admin_setup') }}" autocomplete="off">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div style="margin-bottom:1rem;">
+                    <label class="admin-label">Username</label>
+                    <input class="admin-input" type="text" name="username"
+                           minlength="3" maxlength="32" required
+                           placeholder="e.g. arjun"
+                           autocomplete="username">
+                </div>
+
+                <div style="margin-bottom:1rem;">
+                    <label class="admin-label">Password <span style="color:#f59e0b;font-size:0.7rem;">(min 10 characters)</span></label>
+                    <div style="position:relative;">
+                        <input class="admin-input" type="password" name="password"
+                               id="pw1" minlength="10" maxlength="128" required
+                               autocomplete="new-password"
+                               style="padding-right:2.5rem;">
+                        <button type="button" onclick="togglePw('pw1',this)"
+                                style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:0.85rem;">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:1.5rem;">
+                    <label class="admin-label">Confirm Password</label>
+                    <div style="position:relative;">
+                        <input class="admin-input" type="password" name="confirm_password"
+                               id="pw2" minlength="10" maxlength="128" required
+                               autocomplete="new-password"
+                               style="padding-right:2.5rem;">
+                        <button type="button" onclick="togglePw('pw2',this)"
+                                style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:0.85rem;">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Security summary -->
+                <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:0.85rem 1rem;margin-bottom:1.25rem;font-size:0.73rem;color:rgba(255,255,255,0.45);">
+                    <div style="color:#67e8f9;font-weight:700;margin-bottom:0.4rem;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.4px;">Storage algorithm</div>
+                    <div>· Password → PBKDF2-SHA256 (werkzeug default rounds)</div>
+                    <div>· Username → SHA-256 one-way hash</div>
+                    <div>· Config integrity → HMAC-SHA256 with 192-bit salt</div>
+                    <div>· Plain credentials are never stored</div>
+                </div>
+
+                <button type="submit" class="btn-admin-primary">
+                    <i class="fas fa-lock me-2"></i>Create Admin Account
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function togglePw(id, btn) {
+    const f = document.getElementById(id);
+    const showing = f.type === 'text';
+    f.type = showing ? 'password' : 'text';
+    btn.innerHTML = showing ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+}
+</script>
+{% endblock %}

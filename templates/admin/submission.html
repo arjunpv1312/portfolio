@@ -1,0 +1,156 @@
+{% extends 'admin/base.html' %}
+{% block title %}Submission · {{ rec.name }}{% endblock %}
+
+{% block body %}
+<!-- Top bar -->
+<div class="admin-topbar">
+    <a class="admin-brand" href="{{ url_for('admin_dashboard') }}">
+        <div class="admin-brand-icon"><i class="fas fa-shield-halved"></i></div>
+        Admin Panel
+    </a>
+    <div class="admin-topbar-right">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn-admin-sm">
+            <i class="fas fa-arrow-left me-1"></i>Back
+        </a>
+        <form method="POST" action="{{ url_for('admin_logout') }}" style="margin:0;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn-admin-danger">
+                <i class="fas fa-right-from-bracket me-1"></i>Logout
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="admin-page">
+
+    <!-- Page header -->
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;flex-wrap:wrap;">
+        <div>
+            <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:0.2rem;">
+                Submission from {{ rec.name }}
+            </h2>
+            <p style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin:0;">
+                {{ rec.timestamp[:19].replace('T',' ') if rec.timestamp else 'Unknown time' }} UTC
+                {% if rec.id %} · ID: <code style="font-size:0.75rem;">{{ rec.id }}</code>{% endif %}
+            </p>
+        </div>
+        <!-- HMAC status badge -->
+        <div style="margin-left:auto;">
+            {% if rec._hmac_status is true %}
+                <span class="hmac-badge hmac-ok" style="font-size:0.8rem;padding:0.35em 0.9em;">
+                    <i class="fas fa-shield-check"></i>&nbsp;HMAC Verified — Record Intact
+                </span>
+            {% elif rec._hmac_status is false %}
+                <span class="hmac-badge hmac-bad" style="font-size:0.8rem;padding:0.35em 0.9em;">
+                    <i class="fas fa-triangle-exclamation"></i>&nbsp;HMAC Mismatch — Record Tampered
+                </span>
+            {% else %}
+                <span class="hmac-badge hmac-legacy" style="font-size:0.8rem;padding:0.35em 0.9em;">
+                    <i class="fas fa-circle-minus"></i>&nbsp;Legacy — No Integrity Seal
+                </span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Two-column layout -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+
+        <!-- Contact details -->
+        <div class="admin-card">
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.35);margin-bottom:1rem;">
+                <i class="fas fa-address-card me-1"></i>Contact Details
+            </div>
+            <div style="margin-bottom:0.85rem;">
+                <div class="admin-label">Name</div>
+                <div style="font-weight:600;">{{ rec.name or '—' }}</div>
+            </div>
+            <div style="margin-bottom:0.85rem;">
+                <div class="admin-label">Email</div>
+                <a href="mailto:{{ rec.email }}" style="color:#67e8f9;text-decoration:none;">{{ rec.email or '—' }}</a>
+            </div>
+            <div>
+                <div class="admin-label">Subject</div>
+                <div>{{ rec.subject or '—' }}</div>
+            </div>
+        </div>
+
+        <!-- Attachment -->
+        <div class="admin-card">
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.35);margin-bottom:1rem;">
+                <i class="fas fa-paperclip me-1"></i>Attachment
+            </div>
+            {% if rec.attachment %}
+            <div style="margin-bottom:0.75rem;">
+                <div class="admin-label">Filename</div>
+                <div style="font-size:0.82rem;word-break:break-all;">{{ rec.attachment }}</div>
+            </div>
+            {% if rec.file_sha256 %}
+            <div style="margin-bottom:0.75rem;">
+                <div class="admin-label">SHA-256 Hash</div>
+                <div class="crypto-box" style="padding:0.5rem 0.75rem;">
+                    <span class="value">{{ rec.file_sha256 }}</span>
+                </div>
+            </div>
+            {% endif %}
+            <a href="{{ url_for('download_file', filename=rec.attachment) }}"
+               class="btn-admin-sm" style="margin-top:0.5rem;">
+                <i class="fas fa-download me-1"></i>Download
+            </a>
+            {% else %}
+            <div style="color:rgba(255,255,255,0.3);font-size:0.85rem;">No attachment</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Message -->
+    <div class="admin-card" style="margin-bottom:1.25rem;">
+        <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.35);margin-bottom:0.85rem;">
+            <i class="fas fa-message me-1"></i>Message
+        </div>
+        <div style="white-space:pre-wrap;font-size:0.88rem;line-height:1.7;color:#cbd5e1;">{{ rec.message or '—' }}</div>
+    </div>
+
+    <!-- Cryptographic proof -->
+    <div class="admin-card" style="border-color:rgba(0,212,255,0.15);">
+        <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#67e8f9;margin-bottom:1rem;">
+            <i class="fas fa-fingerprint me-1"></i>Cryptographic Integrity Proof
+        </div>
+
+        {% if rec.integrity_salt and rec.integrity_hmac %}
+        <p style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-bottom:1rem;line-height:1.6;">
+            Each submission is sealed with a unique 128-bit random salt and a HMAC-SHA256 digest.
+            The key is derived as <code>SHA256(SESSION_SECRET ∥ salt)</code>, then
+            <code>HMAC-SHA256(derived_key, payload)</code> is computed.
+            If any field was altered after submission, the digest here will no longer match.
+        </p>
+
+        <div class="crypto-box" style="margin-bottom:0.85rem;">
+            <div style="margin-bottom:0.4rem;"><span class="key">algorithm  : </span><span class="value">HMAC-SHA256 with 128-bit per-submission salt</span></div>
+            <div style="margin-bottom:0.4rem;"><span class="key">key-derive : </span><span class="value">SHA256( SESSION_SECRET || salt )</span></div>
+            <div style="margin-bottom:0.4rem;"><span class="key">payload    : </span><span class="value">name|email|subject|message|attachment</span></div>
+            <div style="margin-bottom:0.4rem;"><span class="key">salt       : </span><span class="value">{{ rec.integrity_salt }}</span></div>
+            <div><span class="key">digest     : </span><span class="value">{{ rec.integrity_hmac }}</span></div>
+        </div>
+
+        {% if rec._hmac_status is true %}
+        <div class="admin-alert admin-alert-success" style="margin-bottom:0;">
+            <i class="fas fa-shield-check"></i>
+            <span>Digest verified in constant time using <code>hmac.compare_digest()</code>. This record has not been altered since submission.</span>
+        </div>
+        {% elif rec._hmac_status is false %}
+        <div class="admin-alert admin-alert-danger" style="margin-bottom:0;">
+            <i class="fas fa-triangle-exclamation"></i>
+            <span>Digest mismatch. The computed HMAC does not match the stored digest. One or more fields in this record may have been modified after submission.</span>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="admin-alert admin-alert-warning" style="margin-bottom:0;">
+            <i class="fas fa-circle-minus"></i>
+            <span>This is a legacy record submitted before the integrity system was added. No HMAC is stored — authenticity cannot be verified.</span>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
