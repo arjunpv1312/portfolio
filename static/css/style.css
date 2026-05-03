@@ -2585,3 +2585,107 @@ section {
     box-shadow: 0 0 16px rgba(0,212,255,0.25);
     transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* ─────────── Interactive Skills Progress Bars ─────────── */
+.skills-bars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1.6rem;
+}
+.skills-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+.skill-bar-item { display: flex; flex-direction: column; gap: 5px; }
+.skill-bar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+}
+.skill-bar-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(226,232,240,0.85);
+    white-space: nowrap;
+}
+.skill-bar-name i { opacity: 0.7; }
+
+/* Level badges */
+.skill-bar-level {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.skill-level-expert {
+    background: rgba(0,212,255,0.15);
+    border: 1px solid rgba(0,212,255,0.4);
+    color: #00d4ff;
+}
+.skill-level-advanced {
+    background: rgba(79,142,247,0.15);
+    border: 1px solid rgba(79,142,247,0.4);
+    color: #4f8ef7;
+}
+.skill-level-intermediate {
+    background: rgba(139,92,246,0.15);
+    border: 1px solid rgba(139,92,246,0.35);
+    color: #a78bfa;
+}
+.skill-level-beginner {
+    background: rgba(148,163,184,0.1);
+    border: 1px solid rgba(148,163,184,0.25);
+    color: #94a3b8;
+}
+
+/* Track + fill */
+.skill-bar-track {
+    height: 6px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+.skill-bar-fill {
+    height: 100%;
+    width: 0;                 /* starts at 0, JS animates to --pct */
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+    box-shadow: 0 0 8px rgba(0,212,255,0.4);
+    transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+}
+/* Shimmer sweep on fill */
+.skill-bar-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: skillShimmer 2s linear infinite;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.6s;
+}
+.skill-bar-fill.is-filled::after { opacity: 1; }
+@keyframes skillShimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Glow on track when active */
+.skill-bar-item:hover .skill-bar-track {
+    background: rgba(255,255,255,0.11);
+}
+.skill-bar-item:hover .skill-bar-fill {
+    box-shadow: 0 0 14px rgba(0,212,255,0.55);
+}
+
+@media (max-width: 640px) {
+    .skills-bars-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+}

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeGallery();
     initializeContactForm();
     initializeScrollEffects();
+    initializeSkillBars();
     initializeHeroRoleTypewriter();
     initializeTypingAnimation();
 });
@@ -440,6 +441,46 @@ function initializeContactForm() {
                 notification.remove();
             }
         }, 5000);
+    }
+}
+
+// Skill bars animation
+function initializeSkillBars() {
+    const fills = document.querySelectorAll('.skill-bar-fill');
+    if (!fills.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, idx) => {
+            if (!entry.isIntersecting) return;
+            const fill = entry.target;
+            const pct  = fill.style.getPropertyValue('--pct') || '0%';
+            // Stagger each bar by 80ms
+            const delay = idx * 80;
+            setTimeout(() => {
+                fill.style.width = pct;
+                fill.classList.add('is-filled');
+            }, delay);
+            observer.unobserve(fill);
+        });
+    }, { threshold: 0.3, rootMargin: '0px 0px -40px 0px' });
+
+    // Observe all fills together so stagger is relative to the grid entering view
+    const grid = document.getElementById('skillsBarsGrid');
+    if (grid) {
+        const gridObserver = new IntersectionObserver((entries) => {
+            if (!entries[0].isIntersecting) return;
+            fills.forEach((fill, i) => {
+                const pct = fill.style.getPropertyValue('--pct') || '0%';
+                setTimeout(() => {
+                    fill.style.width = pct;
+                    fill.classList.add('is-filled');
+                }, i * 100);
+            });
+            gridObserver.unobserve(grid);
+        }, { threshold: 0.25 });
+        gridObserver.observe(grid);
+    } else {
+        fills.forEach(f => observer.observe(f));
     }
 }
 
