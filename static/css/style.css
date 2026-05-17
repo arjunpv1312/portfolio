@@ -5177,3 +5177,60 @@ html[data-theme="light"] .skip-to-content        { background: #0369a1 !importan
 html[data-theme="light"] .cf-input {
     border-color: rgba(0,0,0,0.20) !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   CONTACT CARDS — Light-mode contrast fixes (WCAG 2.1 AA)
+   ---------------------------------------------------------------
+   text-light (#f8f9fa) on white card = 1.05:1 ❌ → #1e293b ✅ AAA
+   text-info  (#0dcaf0) on white card = 1.96:1 ❌ → #0369a1 ✅ AA
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Card titles (h6.text-light overridden) */
+html[data-theme="light"] .contact-card h6,
+html[data-theme="light"] .contact-card .text-light {
+    color: #1e293b !important;
+}
+
+/* Card sub-labels and icon (p.text-info, i.text-info overridden) */
+html[data-theme="light"] .contact-card p,
+html[data-theme="light"] .contact-card i {
+    color: #0369a1 !important;
+}
+
+/* On hover: dark bg hint → keep text readable */
+html[data-theme="light"] .contact-card-link:hover .contact-card h6,
+html[data-theme="light"] .contact-card-link:focus-visible .contact-card h6 {
+    color: #0f172a !important;
+}
+html[data-theme="light"] .contact-card-link:hover .contact-card p,
+html[data-theme="light"] .contact-card-link:focus-visible .contact-card p {
+    color: #0369a1 !important;   /* keep blue, NOT white on light hover bg */
+}
+html[data-theme="light"] .contact-card-link:hover .contact-card i,
+html[data-theme="light"] .contact-card-link:focus-visible .contact-card i {
+    color: #0369a1 !important;
+}
+
+/* External-link indicator (::after pseudo cyan) */
+html[data-theme="light"] .contact-card::after {
+    color: rgba(3,105,161,0.4) !important;
+}
+html[data-theme="light"] .contact-card:hover::after,
+html[data-theme="light"] .contact-card-link:hover .contact-card::after {
+    color: rgba(3,105,161,0.9) !important;
+}
+
+/* ── proj-arrow: white border is invisible on light bg ── */
+html[data-theme="light"] .proj-arrow {
+    border-color: rgba(0,0,0,0.15) !important;
+    color: #334155 !important;
+}
+html[data-theme="light"] .proj-arrow:hover {
+    border-color: rgba(3,105,161,0.5) !important;
+    color: #0369a1 !important;
+    background: rgba(3,105,161,0.06) !important;
+}
+
+/* ── #64748b subtle text: 4.31:1 on #f0f4fb (large text ✅, small ⚠️) ──
+   Used only for timestamps / metadata — these are always ≥14px bold
+   or ≥18px regular so AA Large threshold (3:1) applies → no change needed */
