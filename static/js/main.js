@@ -1722,3 +1722,41 @@ window.addEventListener('error', function(e) {
         tagProjectCards();
     }
 })();
+
+/* ── Certificate category filter ─────────────────────── */
+(function () {
+    var bar = document.querySelector('.cert-filter-bar');
+    if (!bar) return;
+    var groups = document.querySelectorAll('.cert-group');
+    var btns   = bar.querySelectorAll('.cert-filter-btn');
+
+    btns.forEach(function (b) {
+        b.setAttribute('role', 'button');
+        b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false');
+        b.setAttribute('tabindex', '0');
+    });
+
+    function applyFilter(filter) {
+        btns.forEach(function (b) {
+            var on = b.dataset.filter === filter;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        groups.forEach(function (g) {
+            var show = filter === 'all' || g.dataset.cat === filter;
+            g.classList.toggle('cert-hidden', !show);
+        });
+    }
+
+    bar.addEventListener('click', function (e) {
+        var btn = e.target.closest('.cert-filter-btn');
+        if (btn) applyFilter(btn.dataset.filter);
+    });
+
+    bar.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            var btn = e.target.closest('.cert-filter-btn');
+            if (btn) { e.preventDefault(); applyFilter(btn.dataset.filter); }
+        }
+    });
+})();

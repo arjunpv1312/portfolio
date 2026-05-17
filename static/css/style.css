@@ -5049,3 +5049,90 @@ html[data-theme="light"] .contact-card-link:hover .contact-card i {
 @media (prefers-reduced-motion: reduce) {
     * { scroll-behavior: auto !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   CERTIFICATE FILTER BAR
+   ═══════════════════════════════════════════════════════════════ */
+.cert-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.cert-filter-btn {
+    background: transparent;
+    border: 1.5px solid rgba(0,212,255,0.3);
+    color: var(--text-secondary, #a0aec0);
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    font-family: inherit;
+    line-height: 1.4;
+}
+.cert-filter-btn:hover {
+    border-color: var(--accent-cyan, #00d4ff);
+    color: var(--accent-cyan, #00d4ff);
+    background: rgba(0,212,255,0.07);
+}
+.cert-filter-btn.active {
+    background: var(--accent-cyan, #00d4ff);
+    border-color: var(--accent-cyan, #00d4ff);
+    color: #080b14;
+    font-weight: 700;
+}
+.cert-group { transition: opacity 0.25s ease; }
+.cert-group.cert-hidden { display: none !important; }
+
+@media (max-width: 480px) {
+    .cert-filter-bar { gap: 0.35rem; }
+    .cert-filter-btn { font-size: 0.78rem; padding: 0.32rem 0.7rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SKIP-TO-CONTENT  (WCAG 2.1 AA)
+   ═══════════════════════════════════════════════════════════════ */
+.skip-to-content {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 99999;
+    background: var(--accent-cyan, #00d4ff);
+    color: #080b14;
+    padding: 0.55rem 1.2rem;
+    border-radius: 0 0 8px 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    white-space: nowrap;
+}
+.skip-to-content:focus {
+    top: 0;
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOCUS-VISIBLE  (WCAG 2.1 AA keyboard navigation)
+   ═══════════════════════════════════════════════════════════════ */
+:focus-visible {
+    outline: 2.5px solid var(--accent-cyan, #00d4ff) !important;
+    outline-offset: 3px !important;
+    border-radius: 4px;
+}
+:focus:not(:focus-visible) { outline: none !important; }
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2.5px solid var(--accent-cyan, #00d4ff) !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 5px rgba(0,212,255,0.18) !important;
+}
+@media (forced-colors: active) {
+    :focus-visible { outline: 3px solid ButtonText !important; }
+}

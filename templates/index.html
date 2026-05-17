@@ -176,6 +176,7 @@
     </style>
 </head>
 <body>
+    <a href="#gallery" class="skip-to-content">Skip to main content</a>
     <!-- Neon scroll progress bar -->
     <div id="scroll-progress-bar" aria-hidden="true"></div>
     <!-- Dynamic Particle Background -->
@@ -750,7 +751,17 @@
                 </div>
             </div>
 
+            <!-- Cert filter bar -->
+            <div class="cert-filter-bar" role="group" aria-label="Filter certificates by category">
+                <button class="cert-filter-btn active" data-filter="all">All</button>
+                <button class="cert-filter-btn" data-filter="featured">🏆 Featured</button>
+                <button class="cert-filter-btn" data-filter="ai">🤖 AI &amp; Tech</button>
+                <button class="cert-filter-btn" data-filter="cloud">☁️ Cloud &amp; Data</button>
+                <button class="cert-filter-btn" data-filter="professional">🌱 Professional</button>
+            </div>
+
             <!-- Featured Achievements -->
+            <div class="cert-group" data-cat="featured">
             <p class="cert-category-label">🏆 Featured Achievements</p>
             <div class="row g-4 mb-4">
                 <div class="col-md-6 col-lg-4">
@@ -800,7 +811,10 @@
                 </div>
             </div>
 
+            </div><!-- /cert-group featured -->
+
             <!-- AI & Technology -->
+            <div class="cert-group" data-cat="ai">
             <p class="cert-category-label">🤖 AI & Technology</p>
             <div class="row g-3 mb-4">
                 <div class="col-md-4">
@@ -905,7 +919,10 @@
                 </div>
             </div>
 
+            </div><!-- /cert-group ai -->
+
             <!-- Cloud & Data -->
+            <div class="cert-group" data-cat="cloud">
             <p class="cert-category-label">☁️ Cloud & Data</p>
             <div class="row g-3">
                 <div class="col-md-4">
@@ -960,7 +977,10 @@
                 </div>
             </div>
 
+            </div><!-- /cert-group cloud -->
+
             <!-- Professional & Recognition -->
+            <div class="cert-group" data-cat="professional">
             <p class="cert-category-label mt-4">🌱 Professional &amp; Recognition</p>
             <div class="row g-3">
                 <div class="col-md-4">
@@ -984,6 +1004,7 @@
                     </div>
                 </div>
             </div>
+            </div><!-- /cert-group professional -->
         </div>
     </section>
 
