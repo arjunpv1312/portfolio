@@ -93,8 +93,8 @@ _CSP = {
 Talisman(
     app,
     force_https=False,                              # Replit proxy handles TLS
-    strict_transport_security=True,
-    strict_transport_security_max_age=31536000,     # 1 year HSTS
+    strict_transport_security=False,                # Replit infrastructure already sends HSTS — avoid duplicate header
+    strict_transport_security_max_age=31536000,
     strict_transport_security_include_subdomains=True,
     x_content_type_options=True,                    # nosniff
     frame_options=DENY,                             # X-Frame-Options: DENY

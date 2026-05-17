@@ -143,62 +143,38 @@ def robots_txt():
         "User-agent: *\n"
         "Allow: /\n"
         "Disallow: /instance/\n"
-        "Disallow: /files/\n\n"
+        "Disallow: /files/\n"
+        "Disallow: /view-cert/\n\n"   # raw image/PDF files — not HTML pages
         "Sitemap: https://personal-portfolio--serenayt06.replit.app/sitemap.xml\n"
     )
     resp = make_response(content)
-    resp.headers['Content-Type'] = 'text/plain'
+    resp.headers['Content-Type'] = 'text/plain; charset=utf-8'
     return resp
 
 
 @app.route('/sitemap.xml')
 def sitemap_xml():
+    # Only real HTML pages — fragment (#) URLs are ignored by search engines
     content = """<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+          http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://personal-portfolio--serenayt06.replit.app/</loc>
-    <lastmod>2026-05-03</lastmod>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://personal-portfolio--serenayt06.replit.app/#gallery</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://personal-portfolio--serenayt06.replit.app/#interests</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://personal-portfolio--serenayt06.replit.app/#journey</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://personal-portfolio--serenayt06.replit.app/#certificates</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://personal-portfolio--serenayt06.replit.app/#projects</loc>
+    <loc>https://personal-portfolio--serenayt06.replit.app/resume</loc>
+    <lastmod>2026-05-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  <url>
-    <loc>https://personal-portfolio--serenayt06.replit.app/#recognition</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://personal-portfolio--serenayt06.replit.app/#contact</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
 </urlset>"""
     resp = make_response(content)
-    resp.headers['Content-Type'] = 'application/xml'
+    resp.headers['Content-Type'] = 'application/xml; charset=utf-8'
     return resp
 
 
@@ -386,6 +362,8 @@ def view_cert(filename):
     }.get(ext, 'application/octet-stream')
     response = send_from_directory(cert_dir, safe_name, mimetype=mime)
     response.headers['Content-Disposition'] = f'inline; filename="{safe_name}"'
+    # Tell crawlers these are raw asset files, not indexable pages
+    response.headers['X-Robots-Tag'] = 'noindex, nofollow'
     return response
 
 
