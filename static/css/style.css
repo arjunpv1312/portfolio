@@ -5136,3 +5136,44 @@ button:focus-visible,
 @media (forced-colors: active) {
     :focus-visible { outline: 3px solid ButtonText !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTRAST FIXES — WCAG 2.1 AA compliance
+   ---------------------------------------------------------------
+   Failures corrected:
+   • #00b5d8 on #f0f4fb = 2.33:1 ❌  →  #0369a1 = 5.38:1 ✅
+   • #0ea5e9 on #f0f4fb = 2.77:1 ❌  →  #0369a1 = 5.38:1 ✅
+   • Input border rgba(255,255,255,0.10) ❌ 1.4.11  →  0.20 ✅
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Light-mode interactive text — all cyan interactive elements */
+html[data-theme="light"] .nav-link:hover,
+html[data-theme="light"] .nav-link.active        { color: #0369a1 !important; }
+html[data-theme="light"] .dropdown-item:hover    { color: #0369a1 !important; }
+html[data-theme="light"] .cert-compact-btn       { color: #0369a1 !important; border-color: #0369a1 !important; }
+html[data-theme="light"] .about-social-btn       { color: #0369a1 !important; border-color: #0369a1 !important; }
+html[data-theme="light"] .project-link,
+html[data-theme="light"] .proj-link              { color: #0369a1 !important; }
+html[data-theme="light"] .section-title          { color: #0369a1 !important; }
+html[data-theme="light"] .cert-filter-btn.active {
+    background: #0369a1 !important;
+    border-color: #0369a1 !important;
+    color: #fff !important;
+}
+html[data-theme="light"] .cert-filter-btn:hover  {
+    border-color: #0369a1 !important;
+    color: #0369a1 !important;
+}
+html[data-theme="light"] .skip-to-content        { background: #0369a1 !important; color: #fff !important; }
+
+/* Dark-mode form input borders — WCAG 1.4.11 Non-text Contrast */
+.cf-input {
+    border-color: rgba(255,255,255,0.20) !important;
+}
+.cf-input:focus {
+    border-color: rgba(0,212,255,0.65) !important;
+}
+/* Only override in dark mode — light mode already has solid borders */
+html[data-theme="light"] .cf-input {
+    border-color: rgba(0,0,0,0.20) !important;
+}
