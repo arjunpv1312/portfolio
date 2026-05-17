@@ -5322,3 +5322,97 @@ html[data-theme="light"] .proj-arrow:hover {
         height: 150px !important;
     }
 }
+
+/* ─────────── Project Card — Action Buttons (proj-btn) ─────────── */
+.project-links {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.proj-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.48rem 1.05rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1;
+    white-space: nowrap;
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                background 0.22s ease,
+                border-color 0.22s ease,
+                box-shadow 0.22s ease,
+                color 0.22s ease;
+}
+
+/* Ghost / GitHub button */
+.proj-btn-github {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(226,232,240,0.85);
+}
+.proj-btn-github:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.28);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Glowing accent / View Live button */
+.proj-btn-live {
+    background: linear-gradient(135deg, rgba(0,212,255,0.13) 0%, rgba(139,92,246,0.13) 100%);
+    border: 1px solid rgba(0,212,255,0.38);
+    color: #7ee8fa;
+    margin-left: auto;
+}
+.proj-btn-live:hover {
+    background: linear-gradient(135deg, rgba(0,212,255,0.26) 0%, rgba(139,92,246,0.26) 100%);
+    border-color: rgba(0,212,255,0.65);
+    color: #b9f0ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,212,255,0.22);
+}
+
+/* CSS3 tech tag colour */
+.project-tag[data-color="css"] {
+    background: rgba(56,122,248,0.1);
+    border-color: rgba(56,122,248,0.3);
+    color: #7eb3ff;
+}
+
+/* Light mode overrides */
+[data-theme="light"] .project-links { border-top-color: rgba(15,23,42,0.08); }
+[data-theme="light"] .proj-btn-github {
+    background: rgba(15,23,42,0.05);
+    border-color: rgba(15,23,42,0.14);
+    color: #334155;
+}
+[data-theme="light"] .proj-btn-github:hover {
+    background: rgba(15,23,42,0.1);
+    border-color: rgba(15,23,42,0.28);
+    color: #0f172a;
+}
+[data-theme="light"] .proj-btn-live {
+    background: rgba(3,105,161,0.07);
+    border-color: rgba(3,105,161,0.35);
+    color: #0369a1;
+    margin-left: auto;
+}
+[data-theme="light"] .proj-btn-live:hover {
+    background: rgba(3,105,161,0.14);
+    border-color: rgba(3,105,161,0.6);
+    color: #024e78;
+    box-shadow: 0 4px 20px rgba(3,105,161,0.18);
+}
+[data-theme="light"] .project-tag[data-color="css"] {
+    background: rgba(37,99,235,0.08);
+    border-color: rgba(37,99,235,0.28);
+    color: #1d4ed8;
+}
