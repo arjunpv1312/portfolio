@@ -1760,3 +1760,60 @@ window.addEventListener('error', function(e) {
         }
     });
 })();
+
+/* ── Certificate lightbox ────────────────────────────────────── */
+(function () {
+    var lb      = document.getElementById('certLightbox');
+    var lbImg   = lb && lb.querySelector('.cert-lightbox-img');
+    var lbClose = lb && lb.querySelector('.cert-lightbox-close');
+    if (!lb || !lbImg) return;
+
+    function openLightbox(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || 'Certificate';
+        lb.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        if (lbClose) lbClose.focus();
+    }
+    function closeLightbox() {
+        lb.classList.remove('is-open');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+    }
+
+    document.addEventListener('click', function (e) {
+        /* Enlarge button */
+        var btn = e.target.closest('.cert-enlarge-btn');
+        if (btn) {
+            var card = btn.closest('.cert-grid-card');
+            if (card && card.dataset.img) {
+                e.preventDefault();
+                openLightbox(card.dataset.img, card.dataset.alt);
+            }
+            return;
+        }
+        /* Click directly on the image thumbnail */
+        var img = e.target.closest('.cert-thumb--img');
+        if (img) {
+            var card2 = img.closest('.cert-grid-card');
+            if (card2 && card2.dataset.img) {
+                e.preventDefault();
+                openLightbox(card2.dataset.img, card2.dataset.alt);
+            }
+        }
+    });
+
+    /* Close on overlay click or close button */
+    lb.addEventListener('click', function (e) {
+        if (e.target === lb || e.target.closest('.cert-lightbox-close')) {
+            closeLightbox();
+        }
+    });
+
+    /* Close on Escape */
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lb.classList.contains('is-open')) {
+            closeLightbox();
+        }
+    });
+})();

@@ -786,252 +786,308 @@
                 <button class="cert-filter-btn" data-filter="professional">🌱 Professional</button>
             </div>
 
-            <!-- Featured Achievements -->
-            <div class="cert-group" data-cat="featured">
-            <p class="cert-category-label">🏆 Featured Achievements</p>
-            <div class="row g-4 mb-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="card cert-featured h-100">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-start gap-3">
-                                <div class="cert-icon-lg"><i class="fas fa-trophy"></i></div>
-                                <div>
-                                    <h5 class="card-title mb-1">India AI Impact Buildathon</h5>
-                                    <p class="small text-muted mb-2">HCL GUVI | India AI Impact Summit 2026</p>
-                                    <p class="small mb-3">Competed among <strong>40,000+ participants</strong> across India in a nationwide AI innovation challenge.</p>
-                                    <a href="{{ url_for('view_cert', filename='hcl_guvi_buildathon.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card cert-featured h-100">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-start gap-3">
-                                <div class="cert-icon-lg"><i class="fas fa-pen-nib"></i></div>
-                                <div>
-                                    <h5 class="card-title mb-1">HCL GUVI AI Blogathon</h5>
-                                    <p class="small text-muted mb-2">HCL GUVI, Chennai — 2026</p>
-                                    <p class="small mb-3">Actively participated in the <strong>HCL GUVI AI Blogathon</strong> — writing and contributing to AI-focused content creation.</p>
-                                    <a href="{{ url_for('view_cert', filename='cert_hcl_guvi_blogathon.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card cert-featured h-100">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-start gap-3">
-                                <div class="cert-icon-lg"><i class="fas fa-medal"></i></div>
-                                <div>
-                                    <h5 class="card-title mb-1">Career Readiness Challenge 2026</h5>
-                                    <p class="small text-muted mb-2">upDt Education Technology</p>
-                                    <p class="small mb-3">Achieved <strong class="text-info">Rank 57</strong> — successfully completed all phases of the challenge.</p>
-                                    <a href="{{ url_for('view_cert', filename='career_readiness.png') }}" target="_blank" class="btn btn-sm btn-info">View Certificate</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- swipe hint for mobile only -->
+            <p class="cert-swipe-hint d-md-none"><i class="fas fa-hand-point-right me-1"></i>Swipe to browse</p>
 
+            <!-- ── Featured Achievements ─────────────────────────── -->
+            <div class="cert-group" data-cat="featured">
+                <p class="cert-category-label">🏆 Featured Achievements</p>
+                <div class="cert-grid mb-4">
+
+                    <div class="cert-grid-card cert-grid-card--featured"
+                         data-img="{{ url_for('view_cert', filename='hcl_guvi_buildathon.png') }}"
+                         data-alt="India AI Impact Buildathon certificate">
+                        <div class="cert-thumb cert-thumb--img">
+                            <img src="{{ url_for('view_cert', filename='hcl_guvi_buildathon.png') }}"
+                                 alt="India AI Impact Buildathon" loading="lazy" class="cert-thumb-img">
+                            <div class="cert-thumb-overlay">
+                                <button class="cert-enlarge-btn" aria-label="Enlarge certificate"><i class="fas fa-expand-alt"></i></button>
+                            </div>
+                            <span class="cert-featured-badge">🏆 Featured</span>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">India AI Impact Buildathon</p>
+                            <p class="cert-grid-sub">HCL GUVI | India AI Impact Summit 2026</p>
+                            <a href="{{ url_for('view_cert', filename='hcl_guvi_buildathon.png') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card cert-grid-card--featured"
+                         data-img="{{ url_for('view_cert', filename='cert_hcl_guvi_blogathon.png') }}"
+                         data-alt="HCL GUVI AI Blogathon certificate">
+                        <div class="cert-thumb cert-thumb--img">
+                            <img src="{{ url_for('view_cert', filename='cert_hcl_guvi_blogathon.png') }}"
+                                 alt="HCL GUVI AI Blogathon" loading="lazy" class="cert-thumb-img">
+                            <div class="cert-thumb-overlay">
+                                <button class="cert-enlarge-btn" aria-label="Enlarge certificate"><i class="fas fa-expand-alt"></i></button>
+                            </div>
+                            <span class="cert-featured-badge">🏆 Featured</span>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">HCL GUVI AI Blogathon</p>
+                            <p class="cert-grid-sub">HCL GUVI, Chennai — 2026</p>
+                            <a href="{{ url_for('view_cert', filename='cert_hcl_guvi_blogathon.png') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card cert-grid-card--featured"
+                         data-img="{{ url_for('view_cert', filename='career_readiness.png') }}"
+                         data-alt="Career Readiness Challenge 2026 certificate — Rank 57">
+                        <div class="cert-thumb cert-thumb--img">
+                            <img src="{{ url_for('view_cert', filename='career_readiness.png') }}"
+                                 alt="Career Readiness Challenge 2026" loading="lazy" class="cert-thumb-img">
+                            <div class="cert-thumb-overlay">
+                                <button class="cert-enlarge-btn" aria-label="Enlarge certificate"><i class="fas fa-expand-alt"></i></button>
+                            </div>
+                            <span class="cert-featured-badge">🥇 Rank 57</span>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Career Readiness Challenge 2026</p>
+                            <p class="cert-grid-sub">upDt Education Technology</p>
+                            <a href="{{ url_for('view_cert', filename='career_readiness.png') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                </div>
             </div><!-- /cert-group featured -->
 
-            <!-- AI & Technology -->
+            <!-- ── AI & Technology ────────────────────────────────── -->
             <div class="cert-group" data-cat="ai">
-            <p class="cert-category-label">🤖 AI & Technology</p>
-            <div class="row g-3 mb-4">
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-robot cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Google AI Studio App Deployment</p>
-                            <p class="cert-compact-sub">GUVI | HCL | Google for Education</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='google_ai.png') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-brain cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Create Your Own AI Tools</p>
-                            <p class="cert-compact-sub">SkillEcted Campus Program</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='ai_tools.png') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-microchip cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Generative AI Certificate</p>
-                            <p class="cert-compact-sub">GenAI Technologies</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='gen_ai.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-robot cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Intro to Generative AI & Agents</p>
-                            <p class="cert-compact-sub">Generative AI Technologies</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='gen_ai_agents.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-tools cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">AI Workshop Completion</p>
-                            <p class="cert-compact-sub">Artificial Intelligence Workshop</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='workshop.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-terminal cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Claude Code: Coding Assistant</p>
-                            <p class="cert-compact-sub">Free Course Completion</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='claude_code.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-code cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Vibe Coding with Replit</p>
-                            <p class="cert-compact-sub">Free Course Completion</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='vibe_coding_replit.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-wind cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Vibe Coding in Windsurf</p>
-                            <p class="cert-compact-sub">Free Course Completion</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='vibe_coding_windsurf.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-cogs cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Explore Machine Learning with Python</p>
-                            <p class="cert-compact-sub">Infosys Springboard</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='infosys_ml.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-brain cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Yuva AI for All</p>
-                            <p class="cert-compact-sub">NASSCOM FutureSkills Prime · Apr 2026</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='nasscom_yuva_ai.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-            </div>
+                <p class="cert-category-label">🤖 AI &amp; Technology</p>
+                <div class="cert-grid mb-4">
 
+                    <div class="cert-grid-card"
+                         data-img="{{ url_for('view_cert', filename='google_ai.png') }}"
+                         data-alt="Google AI Studio App Deployment certificate">
+                        <div class="cert-thumb cert-thumb--img">
+                            <img src="{{ url_for('view_cert', filename='google_ai.png') }}"
+                                 alt="Google AI Studio App Deployment" loading="lazy" class="cert-thumb-img">
+                            <div class="cert-thumb-overlay">
+                                <button class="cert-enlarge-btn" aria-label="Enlarge certificate"><i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Google AI Studio App Deployment</p>
+                            <p class="cert-grid-sub">GUVI | HCL | Google for Education</p>
+                            <a href="{{ url_for('view_cert', filename='google_ai.png') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card"
+                         data-img="{{ url_for('view_cert', filename='ai_tools.png') }}"
+                         data-alt="Create Your Own AI Tools certificate">
+                        <div class="cert-thumb cert-thumb--img">
+                            <img src="{{ url_for('view_cert', filename='ai_tools.png') }}"
+                                 alt="Create Your Own AI Tools" loading="lazy" class="cert-thumb-img">
+                            <div class="cert-thumb-overlay">
+                                <button class="cert-enlarge-btn" aria-label="Enlarge certificate"><i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Create Your Own AI Tools</p>
+                            <p class="cert-grid-sub">SkillEcted Campus Program</p>
+                            <a href="{{ url_for('view_cert', filename='ai_tools.png') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-microchip cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Generative AI Certificate</p>
+                            <p class="cert-grid-sub">GenAI Technologies</p>
+                            <a href="{{ url_for('view_cert', filename='gen_ai.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-robot cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Intro to Generative AI &amp; Agents</p>
+                            <p class="cert-grid-sub">Generative AI Technologies</p>
+                            <a href="{{ url_for('view_cert', filename='gen_ai_agents.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-tools cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">AI Workshop Completion</p>
+                            <p class="cert-grid-sub">Artificial Intelligence Workshop</p>
+                            <a href="{{ url_for('view_cert', filename='workshop.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-terminal cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Claude Code: Coding Assistant</p>
+                            <p class="cert-grid-sub">Free Course Completion</p>
+                            <a href="{{ url_for('view_cert', filename='claude_code.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-code cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Vibe Coding with Replit</p>
+                            <p class="cert-grid-sub">Free Course Completion</p>
+                            <a href="{{ url_for('view_cert', filename='vibe_coding_replit.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-wind cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Vibe Coding in Windsurf</p>
+                            <p class="cert-grid-sub">Free Course Completion</p>
+                            <a href="{{ url_for('view_cert', filename='vibe_coding_windsurf.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-cogs cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Explore Machine Learning with Python</p>
+                            <p class="cert-grid-sub">Infosys Springboard</p>
+                            <a href="{{ url_for('view_cert', filename='infosys_ml.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-brain cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Yuva AI for All</p>
+                            <p class="cert-grid-sub">NASSCOM FutureSkills Prime · Apr 2026</p>
+                            <a href="{{ url_for('view_cert', filename='nasscom_yuva_ai.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                </div>
             </div><!-- /cert-group ai -->
 
-            <!-- Cloud & Data -->
+            <!-- ── Cloud & Data ────────────────────────────────────── -->
             <div class="cert-group" data-cat="cloud">
-            <p class="cert-category-label">☁️ Cloud & Data</p>
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fab fa-aws cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">AWS Cloud Certification</p>
-                            <p class="cert-compact-sub">Cloud Computing</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='aws_cloud.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-chart-pie cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Microsoft Data Analytics</p>
-                            <p class="cert-compact-sub">Data Analysis</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='data_analytics.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fab fa-python cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Python Coder Badge</p>
-                            <p class="cert-compact-sub">Kaggle</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='python_coder.png') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-certificate cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Mindluster Certification</p>
-                            <p class="cert-compact-sub">Online Learning Platform</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='mindluster.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-chart-bar cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Power BI Certification</p>
-                            <p class="cert-compact-sub">Business Intelligence &amp; Data Viz</p>
-                        </div>
-                        <a href="{{ url_for('view_cert', filename='power_bi.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-            </div>
+                <p class="cert-category-label">☁️ Cloud &amp; Data</p>
+                <div class="cert-grid mb-4">
 
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fab fa-aws cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">AWS Cloud Certification</p>
+                            <p class="cert-grid-sub">Cloud Computing</p>
+                            <a href="{{ url_for('view_cert', filename='aws_cloud.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-chart-pie cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Microsoft Data Analytics</p>
+                            <p class="cert-grid-sub">Data Analysis</p>
+                            <a href="{{ url_for('view_cert', filename='data_analytics.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card"
+                         data-img="{{ url_for('view_cert', filename='python_coder.png') }}"
+                         data-alt="Kaggle Python Coder Badge">
+                        <div class="cert-thumb cert-thumb--img">
+                            <img src="{{ url_for('view_cert', filename='python_coder.png') }}"
+                                 alt="Kaggle Python Coder Badge" loading="lazy" class="cert-thumb-img">
+                            <div class="cert-thumb-overlay">
+                                <button class="cert-enlarge-btn" aria-label="Enlarge certificate"><i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Python Coder Badge</p>
+                            <p class="cert-grid-sub">Kaggle</p>
+                            <a href="{{ url_for('view_cert', filename='python_coder.png') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-certificate cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Mindluster Certification</p>
+                            <p class="cert-grid-sub">Online Learning Platform</p>
+                            <a href="{{ url_for('view_cert', filename='mindluster.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-chart-bar cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Power BI Certification</p>
+                            <p class="cert-grid-sub">Business Intelligence &amp; Data Viz</p>
+                            <a href="{{ url_for('view_cert', filename='power_bi.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
+                </div>
             </div><!-- /cert-group cloud -->
 
-            <!-- Professional & Recognition -->
+            <!-- ── Professional & Recognition ─────────────────────── -->
             <div class="cert-group" data-cat="professional">
-            <p class="cert-category-label mt-4">🌱 Professional &amp; Recognition</p>
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-user-tie cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">Professional Career Development</p>
-                            <p class="cert-compact-sub">Skillified Mentor — Industry Orientation</p>
+                <p class="cert-category-label">🌱 Professional &amp; Recognition</p>
+                <div class="cert-grid mb-4">
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-user-tie cert-pdf-icon"></i></div>
                         </div>
-                        <a href="{{ url_for('view_cert', filename='skillified_mentor.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="cert-compact-card">
-                        <i class="fas fa-leaf cert-compact-icon"></i>
-                        <div>
-                            <p class="cert-compact-title">IGEN GREENDAY 2024</p>
-                            <p class="cert-compact-sub">Institution of Green Engineers — SDG 17</p>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Professional Career Development</p>
+                            <p class="cert-grid-sub">Skillified Mentor — Industry Orientation</p>
+                            <a href="{{ url_for('view_cert', filename='skillified_mentor.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
                         </div>
-                        <a href="{{ url_for('view_cert', filename='igen_green_day.pdf') }}" target="_blank" class="cert-compact-btn">View</a>
                     </div>
+
+                    <div class="cert-grid-card">
+                        <div class="cert-thumb cert-thumb--pdf">
+                            <div class="cert-pdf-thumb"><i class="fas fa-leaf cert-pdf-icon"></i></div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">IGEN GREENDAY 2024</p>
+                            <p class="cert-grid-sub">Institution of Green Engineers — SDG 17</p>
+                            <a href="{{ url_for('view_cert', filename='igen_green_day.pdf') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Certificate</a>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
             </div><!-- /cert-group professional -->
+
+        </div><!-- /container -->
+
+        <!-- Certificate lightbox overlay -->
+        <div id="certLightbox" class="cert-lightbox" role="dialog" aria-modal="true" aria-label="Certificate preview">
+            <button class="cert-lightbox-close" aria-label="Close preview"><i class="fas fa-times"></i></button>
+            <img class="cert-lightbox-img" src="" alt="">
         </div>
+
     </section>
 
     <!-- Currently Learning Section -->
