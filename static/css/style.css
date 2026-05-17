@@ -5234,3 +5234,91 @@ html[data-theme="light"] .proj-arrow:hover {
 /* ── #64748b subtle text: 4.31:1 on #f0f4fb (large text ✅, small ⚠️) ──
    Used only for timestamps / metadata — these are always ≥14px bold
    or ≥18px regular so AA Large threshold (3:1) applies → no change needed */
+
+/* ═══════════════════════════════════════════════════════════════
+   PROFILE PHOTO UPDATE — 500×500px circular, optimised
+   ---------------------------------------------------------------
+   • hero-avatar-img: add cyan box-shadow per spec
+   • about-photo: switch from 220×260 rect → 220×220 circle
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Hero: add glow shadow to the image itself */
+.hero-avatar-img {
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+}
+
+/* About: circular crop */
+.about-photo {
+    height: 220px !important;      /* was 260px — now equal to max-width */
+    border-radius: 50% !important; /* was 8px */
+    object-position: center center !important; /* was top center */
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15),
+                0 20px 60px rgba(0,0,0,0.5) !important;
+}
+
+.about-photo-wrapper {
+    max-width: 220px !important;
+    border-radius: 50% !important;
+}
+
+/* Responsive — keep square at all breakpoints */
+@media (max-width: 767.98px) {
+    .about-photo {
+        width: 180px !important;
+        height: 180px !important;  /* was 215px */
+        max-width: 180px !important;
+        border-radius: 50% !important;
+    }
+    .about-photo-wrapper { max-width: 180px !important; }
+}
+
+@media (max-width: 374.98px) {
+    .about-photo {
+        width: 150px !important;
+        height: 150px !important;  /* was 185px */
+        max-width: 150px !important;
+        border-radius: 50% !important;
+    }
+    .about-photo-wrapper { max-width: 150px !important; }
+}
+
+/* Glow blob: match circular wrapper */
+.about-photo-glow {
+    border-radius: 50% !important;
+}
+
+/* ── About photo: force circular clip ─────────────────────────────────
+   overflow:hidden on wrapper ensures the circular clip is enforced
+   even when background-clip gradient border trick is in play.
+   height override defeats the responsive-images height:auto rule. */
+.about-photo-wrapper {
+    overflow: hidden !important;
+    border-radius: 50% !important;
+    width: 220px !important;
+    max-width: 220px !important;
+    height: 220px !important;
+    flex-shrink: 0 !important;
+}
+.about-photo {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    display: block !important;
+}
+@media (max-width: 767.98px) {
+    .about-photo-wrapper {
+        width: 180px !important;
+        max-width: 180px !important;
+        height: 180px !important;
+    }
+}
+@media (max-width: 374.98px) {
+    .about-photo-wrapper {
+        width: 150px !important;
+        max-width: 150px !important;
+        height: 150px !important;
+    }
+}
