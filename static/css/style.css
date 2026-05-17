@@ -4982,3 +4982,70 @@ html[data-theme="light"] .contact-card-link:hover .contact-card i {
     .skill-badge:hover            { transform: none; }
     .project-card[data-proj-alt]  { transform: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE — SEO & accessibility hardening
+   ═══════════════════════════════════════════════════════════ */
+
+/* Prevent iOS Safari from auto-zooming on form focus (needs 16px minimum) */
+@media (max-width: 767.98px) {
+    input, textarea, select,
+    .cf-input, .form-control {
+        font-size: 16px !important;
+    }
+}
+
+/* Ensure all interactive elements meet 44×44px touch target */
+@media (max-width: 767.98px) {
+    .btn, .nav-link, .about-social-btn,
+    .footer-social-btn, .contact-card-link,
+    .cert-link, .project-link {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Hamburger button — clear tap target */
+    .navbar-toggler {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0.5rem 0.75rem;
+    }
+
+    /* File upload label — easy to tap */
+    .cf-file-label {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* Reduce hero padding on small phones */
+@media (max-width: 375px) {
+    .hero-section,
+    section.py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    .display-4 { font-size: 1.75rem !important; }
+    .display-5 { font-size: 1.5rem  !important; }
+}
+
+/* Cert cards: ensure full-width on very small phones */
+@media (max-width: 375px) {
+    .cert-featured, .cert-compact-card {
+        max-width: 100%;
+    }
+}
+
+/* Project cards: full-width on mobile for better readability */
+@media (max-width: 575.98px) {
+    .project-card { max-width: 100%; }
+}
+
+/* Respect prefers-reduced-motion for new rules */
+@media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+}
