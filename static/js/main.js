@@ -1706,3 +1706,19 @@ window.addEventListener('error', function(e) {
     }, { passive: true });
 
 })();
+
+// ── Alternating project card slide directions ─────────────────────────────
+// Mark odd cards as 'left', even cards as 'right' so the CSS can target them
+(function () {
+    function tagProjectCards() {
+        var cards = document.querySelectorAll('.project-card');
+        cards.forEach(function (card, i) {
+            card.setAttribute('data-proj-alt', i % 2 === 0 ? 'left' : 'right');
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', tagProjectCards);
+    } else {
+        tagProjectCards();
+    }
+})();

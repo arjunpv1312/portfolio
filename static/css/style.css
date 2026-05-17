@@ -4898,3 +4898,87 @@ html[data-theme="light"] .contact-card-link:hover .contact-card i {
     from { opacity:0; transform:translateX(-50%) translateY(10px); }
     to   { opacity:1; transform:translateX(-50%) translateY(0);    }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MICRO-INTERACTIONS — additions (missing from original set)
+   ═══════════════════════════════════════════════════════════ */
+
+/* 1. Contact form — neon pulse on focus (enhances existing glow) */
+@keyframes inputFocusPulse {
+    0%   { box-shadow: 0 0 0 0   rgba(0,212,255,0.35); }
+    70%  { box-shadow: 0 0 0 6px rgba(0,212,255,0);    }
+    100% { box-shadow: 0 0 0 0   rgba(0,212,255,0);    }
+}
+.cf-input:focus {
+    animation: inputFocusPulse 0.6s ease-out forwards;
+}
+.cf-input.cf-valid:focus   { animation: none; }
+.cf-input.cf-invalid:focus { animation: none; }
+
+/* 2. Social / icon buttons — micro-bounce on hover */
+@keyframes iconBounce {
+    0%,100% { transform: translateY(0) scale(1);    }
+    40%     { transform: translateY(-5px) scale(1.15); }
+    70%     { transform: translateY(2px)  scale(0.95); }
+}
+.about-social-btn:hover i,
+.footer-social-btn:hover i {
+    animation: iconBounce 0.45s cubic-bezier(0.36,0.07,0.19,0.97) both;
+}
+
+/* 3. Project cards — alternating slide-in direction (odd=left, even=right) */
+/* Applied via data-proj-alt attribute set by JS below */
+.project-card[data-proj-alt="right"].reveal-hidden {
+    transform: translateX(40px) !important;
+    opacity: 0;
+}
+.project-card[data-proj-alt="left"].reveal-hidden {
+    transform: translateX(-40px) !important;
+    opacity: 0;
+}
+
+/* 4. Skill badge hover — subtle pop */
+.skill-badge {
+    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.2s ease,
+                background 0.2s ease !important;
+}
+.skill-badge:hover {
+    transform: translateY(-3px) scale(1.06);
+    box-shadow: 0 6px 18px rgba(0,212,255,0.2);
+}
+
+/* 5. Footer / text links — sliding underline */
+.footer-links a,
+.about-text a,
+.recog-invite-link {
+    position: relative;
+    text-decoration: none;
+}
+.footer-links a::after,
+.about-text a::after,
+.recog-invite-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: var(--accent-start, #00d4ff);
+    transition: width 0.25s ease;
+    border-radius: 2px;
+}
+.footer-links a:hover::after,
+.about-text a:hover::after,
+.recog-invite-link:hover::after {
+    width: 100%;
+}
+
+/* Respect prefers-reduced-motion for new animations */
+@media (prefers-reduced-motion: reduce) {
+    .cf-input:focus               { animation: none; }
+    .about-social-btn:hover i,
+    .footer-social-btn:hover i    { animation: none; }
+    .skill-badge:hover            { transform: none; }
+    .project-card[data-proj-alt]  { transform: none !important; }
+}
