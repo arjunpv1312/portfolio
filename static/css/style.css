@@ -11,9 +11,9 @@
     --accent-glow:  0 0 20px rgba(0, 212, 255, 0.35), 0 0 50px rgba(139, 92, 246, 0.2);
 
     /* ── Backgrounds ── */
-    --bg-base:      #080b14;
-    --bg-surface:   #0d1120;
-    --bg-card:      rgba(15, 20, 40, 0.7);
+    --bg-base:      #0a0e27;
+    --bg-surface:   #0f1330;
+    --bg-card:      rgba(18, 24, 41, 0.85);
     --hero-bg:      transparent;
 
     /* Override Bootstrap info to match brand */
@@ -25,7 +25,7 @@
 body {
     font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
     background-color: var(--bg-base) !important;
-    color: #e2e8f0;
+    color: #f0f1f3;
     letter-spacing: -0.01em;
 }
 
@@ -2988,15 +2988,21 @@ html[data-theme="light"] .theme-icon-moon { opacity: 1; transform: scale(1); }
    LIGHT THEME OVERRIDES
    ═══════════════════════════════════════════════════════════ */
 html[data-theme="light"] {
-    --bg-base:    #f0f4fb;
-    --bg-surface: #e4eaf5;
-    --bg-card:    rgba(255,255,255,0.95);
+    --bg-base:      #f8f9fa;
+    --bg-surface:   #edf0f4;
+    --bg-card:      #ffffff;
+    --accent-start: #0084cc;
+    --accent-end:   #6d28d9;
+    --accent-grad:  linear-gradient(135deg, #0084cc, #6d28d9);
+    --accent-glow:  0 0 20px rgba(0, 132, 204, 0.3), 0 0 50px rgba(109, 40, 217, 0.15);
+    --bs-info:      #0084cc;
+    --bs-info-rgb:  0, 132, 204;
 }
 
 /* Body */
 html[data-theme="light"] body {
-    background-color: #f0f4fb !important;
-    color: #1e293b;
+    background-color: #f8f9fa !important;
+    color: #0a0e27;
 }
 
 /* ── Navbar ── */
