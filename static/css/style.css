@@ -6000,3 +6000,67 @@ html[data-theme="light"] .hero-profile-image {
 html[data-theme="light"] .hero-profile-image:hover {
     box-shadow: 0 12px 40px rgba(3,105,161,0.28), 0 4px 12px rgba(0,0,0,0.1) !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   EXECUTIVE UPGRADE — Hero tagline, link CTA, value props
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Hero tagline: "Building Intelligent Systems That Matter" */
+.hero-tagline {
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.4;
+}
+
+/* Tertiary hero CTA — subtle link with arrow */
+.hero-link-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: rgba(226,232,240,0.75);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+.hero-link-cta:hover {
+    color: var(--accent-start);
+    border-bottom-color: var(--accent-start);
+}
+.hero-link-cta i { font-size: 0.8rem; transition: transform 0.2s ease; }
+.hero-link-cta:hover i { transform: translateX(3px); }
+html[data-theme="light"] .hero-link-cta { color: #475569; }
+html[data-theme="light"] .hero-link-cta:hover { color: #0369a1; border-bottom-color: #0369a1; }
+
+/* About section value proposition list */
+.about-value-props {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+.about-value-props li {
+    font-size: 0.92rem;
+    color: rgba(226,232,240,0.82);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.1rem;
+    line-height: 1.5;
+}
+.about-value-props li i {
+    color: var(--accent-start);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+.about-value-props li strong { color: rgba(226,232,240,0.96); }
+html[data-theme="light"] .about-value-props li { color: #334155; }
+html[data-theme="light"] .about-value-props li strong { color: #0f172a; }
