@@ -16,7 +16,7 @@ else
 fi
 
 git -c credential.helper='!f() { echo "username=arjunpv1312"; echo "password=${GITHUB_PAT}"; }; f' \
-    push github HEAD:main
+    push github HEAD:main --force
 
 PUSH_EXIT=$?
 
