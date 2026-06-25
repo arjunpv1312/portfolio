@@ -134,6 +134,13 @@
             "startDate": "2026-05-01",
             "occupationLocation": {"@type":"Place","name":"JCT College of Engineering and Technology"},
             "worksFor": {"@type":"Organization","name":"Google / Communique","description":"Invite-only Google Gemini Student Ambassador 2026 — AI awareness, workshops, campus liaison."}
+          },
+          {
+            "@type": "Role",
+            "roleName": "Campus Mantri (Official Representative)",
+            "startDate": "2026-06-25",
+            "occupationLocation": {"@type":"Place","name":"JCT College of Engineering and Technology"},
+            "worksFor": {"@type":"Organization","name":"GeeksforGeeks","url":"https://www.geeksforgeeks.org","description":"Appointed as Campus Mantri — official GFG representative for 6 months, promoting initiatives and organising campus-level events."}
           }
         ]
       },
@@ -830,7 +837,7 @@
                             <div class="exp-intern-icon" style="background:linear-gradient(135deg,#f59e0b22,#d9770622);">
                                 <i class="fas fa-pen-nib" style="color:#f59e0b;font-size:1.4rem;"></i>
                             </div>
-                            <span class="exp-intern-badge exp-intern-badge--new">New</span>
+                            <span class="exp-intern-badge exp-intern-badge--new">Completed</span>
                         </div>
                         <p class="exp-intern-title">AI Content Writing Intern</p>
                         <p class="exp-intern-org">InAmigos Foundation &nbsp;·&nbsp; Internshala</p>
@@ -838,6 +845,27 @@
                         <p class="exp-intern-desc">Secured AI Content Writing internship at InAmigos Foundation through Internshala — applying AI knowledge to content creation, writing, and communication for real-world impact.</p>
                         <div class="exp-intern-tags">
                             <span>AI</span><span>Content</span><span>Writing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GeeksforGeeks Campus Mantri -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="exp-intern-card h-100">
+                        <div class="exp-intern-header">
+                            <div class="exp-intern-icon" style="background:linear-gradient(135deg,#2f8d4630,#1a6b2d20);">
+                                <svg width="26" height="26" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="700" fill="#2f8d46">G</text>
+                                </svg>
+                            </div>
+                            <span class="exp-intern-badge exp-intern-badge--new">Active</span>
+                        </div>
+                        <p class="exp-intern-title">Campus Mantri</p>
+                        <p class="exp-intern-org">GeeksforGeeks</p>
+                        <p class="exp-intern-date"><i class="fas fa-calendar-alt me-1 opacity-50"></i>Jun 25, 2026 &nbsp;·&nbsp; 6 Months &nbsp;·&nbsp; On-Campus</p>
+                        <p class="exp-intern-desc">Appointed as Official Representative of GeeksforGeeks at JCT College of Engineering and Technology. Promoting GFG initiatives, organising campus events, and connecting the student community with GFG's educational resources and platforms.</p>
+                        <div class="exp-intern-tags">
+                            <span>Community</span><span>GFG</span><span>Campus Rep</span>
                         </div>
                     </div>
                 </div>
@@ -1175,6 +1203,24 @@
             <div class="cert-group" data-cat="professional">
                 <p class="cert-category-label">🌱 Professional &amp; Recognition</p>
                 <div class="cert-grid mb-4">
+
+                    <!-- GeeksforGeeks Campus Mantri -->
+                    <div class="cert-grid-card cert-grid-card--featured"
+                         data-img="{{ url_for('view_cert', filename='gfg_campus_mantri.png') }}"
+                         data-alt="GeeksforGeeks Campus Mantri — Official Representative Appointment Letter, JCT College of Engineering and Technology">
+                        <div class="cert-thumb cert-thumb--img">
+                            <img src="{{ url_for('view_cert', filename='gfg_campus_mantri.png') }}"
+                                 alt="GeeksforGeeks Campus Mantri Appointment Letter" loading="lazy" class="cert-thumb-img">
+                            <div class="cert-thumb-overlay">
+                                <button class="cert-enlarge-btn" aria-label="Enlarge certificate"><i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                        <div class="cert-grid-body">
+                            <p class="cert-grid-title">Campus Mantri — Official Representative</p>
+                            <p class="cert-grid-sub">GeeksforGeeks &nbsp;·&nbsp; Jun 25, 2026 &nbsp;·&nbsp; 6 Months</p>
+                            <a href="{{ url_for('view_cert', filename='gfg_campus_mantri.png') }}" target="_blank" rel="noopener" class="cert-view-btn"><i class="fas fa-external-link-alt"></i>View Letter</a>
+                        </div>
+                    </div>
 
                     <!-- Horizon TechX AI Internship -->
                     <div class="cert-grid-card cert-grid-card--featured">
