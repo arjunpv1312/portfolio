@@ -5944,3 +5944,59 @@ html[data-theme="light"] .proj-arrow:hover {
     border-color: rgba(3,105,161,0.15);
     color: #64748b;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT MODE — ANIMATION & HERO VISUAL FIXES
+   Bug: old rule targeted #particleCanvas (wrong ID — HTML uses
+   id="particle-canvas"), so canvas ran full-brightness in light
+   mode. Fixed + proper dark-on-light filter applied to all
+   animated hero elements.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Neural network canvas ── */
+/* BUGFIX: was #particleCanvas — never matched id="particle-canvas" */
+html[data-theme="light"] #particleCanvas { opacity: 1; }   /* nullify old broken rule */
+html[data-theme="light"] #particle-canvas {
+    /* Convert bright neon palette → dark visible dots on light bg.
+       brightness(0.13) turns cyan(l:60%) → near-navy, violet → dark purple.
+       Raise opacity since particles are now dark (need to be visible).       */
+    filter: brightness(0.13) saturate(1.5) contrast(1.05);
+    opacity: 0.55;
+}
+
+/* ── Orbit rings ── */
+/* Default rings: rgba(0,212,255,0.2) — nearly invisible on #f0f4fb */
+html[data-theme="light"] .orbit-ring {
+    border-color: rgba(14,165,233,0.38) !important;
+}
+html[data-theme="light"] .orbit-ring-2 {
+    border-color: rgba(109,40,217,0.28) !important;
+}
+
+/* ── Orbit floating icons ── */
+html[data-theme="light"] .orbit-icon {
+    background: rgba(255,255,255,0.92) !important;
+    border-color: rgba(14,165,233,0.35) !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1), 0 1px 4px rgba(14,165,233,0.15) !important;
+    color: #0369a1 !important;
+}
+
+/* ── Hero avatar ring & glow ── */
+/* Glow is too intense on a light background */
+html[data-theme="light"] .hero-avatar-ring {
+    box-shadow: 0 0 18px rgba(3,105,161,0.22), 0 0 36px rgba(3,105,161,0.1) !important;
+}
+
+/* ── Hero background orbs (gradient blobs) ── */
+html[data-theme="light"] .hero-bg-orb {
+    opacity: 0.18 !important;   /* was 0.35 — still too prominent */
+    filter: blur(60px);
+}
+
+/* ── Hero profile image border glow ── */
+html[data-theme="light"] .hero-profile-image {
+    box-shadow: 0 8px 32px rgba(3,105,161,0.18), 0 2px 8px rgba(0,0,0,0.08) !important;
+}
+html[data-theme="light"] .hero-profile-image:hover {
+    box-shadow: 0 12px 40px rgba(3,105,161,0.28), 0 4px 12px rgba(0,0,0,0.1) !important;
+}
