@@ -162,13 +162,13 @@ def sitemap_xml():
           http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://personal-portfolio--serenayt06.replit.app/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://personal-portfolio--serenayt06.replit.app/resume</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>

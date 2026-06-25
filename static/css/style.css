@@ -5842,3 +5842,105 @@ html[data-theme="light"] .proj-arrow:hover {
     color: #024e78;
 }
 [data-theme="light"] .cert-swipe-hint { color: rgba(71,85,105,0.55); }
+
+/* ─────────── Internship Experience Cards ─────────── */
+.exp-intern-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1.25rem 1.35rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.exp-intern-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0,212,255,0.28);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.3);
+}
+.exp-intern-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+.exp-intern-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+}
+.exp-intern-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    background: rgba(52,211,153,0.12);
+    color: #34d399;
+    border: 1px solid rgba(52,211,153,0.3);
+}
+.exp-intern-badge--new {
+    background: rgba(245,158,11,0.12);
+    color: #f59e0b;
+    border-color: rgba(245,158,11,0.3);
+}
+.exp-intern-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin: 0;
+}
+.exp-intern-org {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent-start);
+    margin: 0;
+}
+.exp-intern-date {
+    font-size: 0.7rem;
+    color: rgba(148,163,184,0.6);
+    margin: 0;
+}
+.exp-intern-desc {
+    font-size: 0.78rem;
+    color: rgba(148,163,184,0.8);
+    line-height: 1.5;
+    margin: 0.25rem 0 0;
+    flex: 1;
+}
+.exp-intern-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.6rem;
+}
+.exp-intern-tags span {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.18rem 0.55rem;
+    border-radius: 20px;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.18);
+    color: rgba(148,163,184,0.9);
+}
+
+/* Light mode */
+[data-theme="light"] .exp-intern-card {
+    background: #fff;
+    border-color: rgba(15,23,42,0.08);
+}
+[data-theme="light"] .exp-intern-card:hover {
+    border-color: rgba(3,105,161,0.3);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.1);
+}
+[data-theme="light"] .exp-intern-title { color: #1e293b; }
+[data-theme="light"] .exp-intern-desc  { color: #475569; }
+[data-theme="light"] .exp-intern-org   { color: #0369a1; }
+[data-theme="light"] .exp-intern-date  { color: #94a3b8; }
+[data-theme="light"] .exp-intern-tags span {
+    background: rgba(3,105,161,0.07);
+    border-color: rgba(3,105,161,0.15);
+    color: #64748b;
+}
