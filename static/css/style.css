@@ -6064,3 +6064,94 @@ html[data-theme="light"] .hero-link-cta:hover { color: #0369a1; border-bottom-co
 .about-value-props li strong { color: rgba(226,232,240,0.96); }
 html[data-theme="light"] .about-value-props li { color: #334155; }
 html[data-theme="light"] .about-value-props li strong { color: #0f172a; }
+
+/* ═══════════════════════════════════════════════════════════════
+   ABOUT PHOTO — DEFINITIVE CIRCULAR HEADSHOT (v-final)
+   Strategy: wrapper = gradient ring (same as .hero-avatar-ring).
+   overflow:hidden on wrapper clips img to circle.
+   filter:drop-shadow() applied to wrapper — renders AFTER
+   overflow clipping so shadow follows the circle boundary.
+   height:100% !important beats the global height:auto !important
+   at same specificity because this block is appended last.
+   ═══════════════════════════════════════════════════════════════ */
+.about-photo-wrapper {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 220px !important;
+    height: 220px !important;
+    min-width: 220px !important;
+    min-height: 220px !important;
+    max-width: 220px !important;
+    border-radius: 50% !important;
+    padding: 3px !important;                          /* width of gradient ring */
+    background: linear-gradient(135deg, #00d4ff, #8b5cf6) !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    /* drop-shadow applied after overflow clip → shadow follows circle */
+    filter: drop-shadow(0 10px 32px rgba(0,212,255,0.28))
+            drop-shadow(0 4px 14px rgba(0,0,0,0.38)) !important;
+    transition: filter 0.3s ease, transform 0.3s ease !important;
+    cursor: default !important;
+    margin: 0 auto !important;
+}
+.about-photo-wrapper:hover {
+    filter: drop-shadow(0 14px 46px rgba(0,212,255,0.45))
+            drop-shadow(0 6px 20px rgba(0,0,0,0.5)) !important;
+    transform: scale(1.04) !important;
+}
+
+/* Image fills the 214px inner circle (220px − 2×3px padding) */
+.about-photo {
+    width: 100% !important;
+    height: 100% !important;   /* beats global height:auto !important */
+    min-height: 0 !important;
+    max-width: none !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    display: block !important;
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    flex-shrink: 0 !important;
+}
+
+/* Hide old glow blob — wrapper drop-shadow handles it */
+.about-photo-glow { display: none !important; }
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .about-photo-wrapper {
+        width: 180px !important; height: 180px !important;
+        min-width: 180px !important; min-height: 180px !important;
+        max-width: 180px !important;
+    }
+}
+@media (max-width: 374.98px) {
+    .about-photo-wrapper {
+        width: 150px !important; height: 150px !important;
+        min-width: 150px !important; min-height: 150px !important;
+        max-width: 150px !important;
+    }
+}
+
+/* Light mode — darker shadow so it's visible on white bg */
+html[data-theme="light"] .about-photo-wrapper {
+    filter: drop-shadow(0 10px 32px rgba(3,105,161,0.28))
+            drop-shadow(0 4px 14px rgba(0,0,0,0.18)) !important;
+}
+html[data-theme="light"] .about-photo-wrapper:hover {
+    filter: drop-shadow(0 14px 46px rgba(3,105,161,0.44))
+            drop-shadow(0 6px 20px rgba(0,0,0,0.26)) !important;
+}
+
+/* ── Hero avatar hover effect (was missing) ── */
+.hero-avatar-ring {
+    transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+}
+.hero-avatar-ring:hover {
+    transform: translate(-50%, -50%) scale(1.05) !important;
+    box-shadow: 0 0 32px rgba(0,212,255,0.55), 0 0 64px rgba(139,92,246,0.35) !important;
+}
