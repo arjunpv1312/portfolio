@@ -1817,3 +1817,22 @@ window.addEventListener('error', function(e) {
         }
     });
 })();
+
+/* ── Cert filter: smooth animation on reveal (appended, runs after existing handler) */
+(function () {
+    var bar = document.querySelector('.cert-filter-bar');
+    if (!bar) return;
+    var groups = document.querySelectorAll('.cert-group');
+    bar.addEventListener('click', function (e) {
+        if (!e.target.closest('.cert-filter-btn')) return;
+        requestAnimationFrame(function () {
+            groups.forEach(function (g) {
+                if (!g.classList.contains('cert-hidden')) {
+                    g.classList.remove('cert-anim');
+                    void g.offsetWidth;
+                    g.classList.add('cert-anim');
+                }
+            });
+        });
+    });
+})();

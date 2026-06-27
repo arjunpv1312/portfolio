@@ -6364,3 +6364,81 @@ html[data-theme="light"] .skill-badge-card:hover .skill-badge-tools span {
 }
 html[data-theme="light"] .shd-row > span { color: rgba(71,85,105,0.7); }
 html[data-theme="light"] .shd-bar { background: rgba(0,0,0,0.08); }
+
+/* ─── CERT DASHBOARD UPGRADES ───────────────────────────────────────────────── */
+
+/* Mobile: 1-column proper grid instead of horizontal scroll */
+@media (max-width: 640px) {
+    .cert-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        flex-direction: unset !important;
+        overflow-x: visible !important;
+        scroll-snap-type: unset !important;
+        padding-bottom: 0 !important;
+    }
+    .cert-grid .cert-grid-card {
+        min-width: unset !important;
+        max-width: unset !important;
+        flex-shrink: unset !important;
+        scroll-snap-align: unset !important;
+    }
+    .cert-swipe-hint { display: none !important; }
+}
+
+/* "Latest" badge — top-right of thumbnail, green */
+.cert-latest-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.18rem 0.52rem;
+    border-radius: 5px;
+    z-index: 3;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(34,197,94,0.35);
+}
+
+/* Date chip — inside cert-grid-body, above title */
+.cert-date-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.64rem;
+    font-weight: 600;
+    color: rgba(240,241,243,0.5);
+    margin-bottom: 3px;
+    letter-spacing: 0.03em;
+}
+.cert-date-chip i {
+    color: var(--accent-start, #00d4ff);
+    font-size: 0.6rem;
+}
+
+/* Org-coloured PDF icon helpers */
+.cert-pdf-icon.icon-aws     { color: #ff9900 !important; }
+.cert-pdf-icon.icon-ms      { color: #0078d4 !important; }
+.cert-pdf-icon.icon-nasscom { color: #e31837 !important; }
+.cert-pdf-icon.icon-google  { color: #4285f4 !important; }
+.cert-pdf-icon.icon-kaggle  { color: #20beff !important; }
+.cert-pdf-icon.icon-green   { color: #22c55e !important; }
+.cert-pdf-icon.icon-purple  { color: #8b5cf6 !important; }
+
+/* Smooth filter reveal: fade-in animation on visible groups */
+@keyframes certGroupIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.99); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+.cert-group.cert-anim {
+    animation: certGroupIn 0.32s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* Light mode */
+html[data-theme="light"] .cert-date-chip { color: rgba(71,85,105,0.6); }
+html[data-theme="light"] .cert-date-chip i { color: #0084cc; }
+html[data-theme="light"] .cert-latest-badge { box-shadow: 0 2px 8px rgba(34,197,94,0.25); }
