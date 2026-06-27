@@ -6161,3 +6161,95 @@ html[data-theme="light"] .about-photo-wrapper:hover {
     transform: translate(-50%, -50%) scale(1.05) !important;
     box-shadow: 0 0 32px rgba(0,212,255,0.55), 0 0 64px rgba(139,92,246,0.35) !important;
 }
+
+/* ─── PROJECT CARDS: Featured Badge, Metrics Strip ─────────────────────────── */
+
+/* Featured card — elevated cyan border glow */
+.project-card.proj-featured {
+    border-color: rgba(0,212,255,0.35) !important;
+    box-shadow: 0 0 0 1px rgba(0,212,255,0.18), 0 8px 32px rgba(0,212,255,0.10), 0 2px 8px rgba(0,0,0,0.4) !important;
+    position: relative;
+}
+.project-card.proj-featured::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(0,212,255,0.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Featured pill badge */
+.proj-featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 3px 9px 3px 7px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(0,212,255,0.18), rgba(139,92,246,0.14));
+    border: 1px solid rgba(0,212,255,0.45);
+    color: #00d4ff;
+    white-space: nowrap;
+    animation: featuredPulse 3s ease-in-out infinite;
+}
+.proj-featured-badge i { font-size: 0.6rem; color: #fbbf24; }
+@keyframes featuredPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,255,0); }
+    50%       { box-shadow: 0 0 8px 2px rgba(0,212,255,0.22); }
+}
+
+/* Project metrics strip */
+.proj-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+    margin-top: 2px;
+}
+.proj-metrics span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: rgba(240,241,243,0.72);
+    background: rgba(255,255,255,0.042);
+    border: 1px solid rgba(255,255,255,0.09);
+    padding: 3px 9px;
+    border-radius: 6px;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.proj-metrics span i {
+    font-size: 0.68rem;
+    color: var(--accent-start, #00d4ff);
+    flex-shrink: 0;
+}
+.project-card:hover .proj-metrics span {
+    background: rgba(0,212,255,0.07);
+    border-color: rgba(0,212,255,0.2);
+    color: rgba(240,241,243,0.88);
+}
+html[data-theme="light"] .proj-metrics span {
+    color: #475569;
+    background: rgba(0,0,0,0.03);
+    border-color: rgba(0,0,0,0.09);
+}
+html[data-theme="light"] .proj-metrics span i { color: #0084cc; }
+html[data-theme="light"] .project-card:hover .proj-metrics span {
+    background: rgba(0,132,204,0.06);
+    border-color: rgba(0,132,204,0.2);
+}
+html[data-theme="light"] .project-card.proj-featured {
+    border-color: rgba(0,132,204,0.35) !important;
+    box-shadow: 0 0 0 1px rgba(0,132,204,0.15), 0 8px 28px rgba(0,132,204,0.09) !important;
+}
+html[data-theme="light"] .proj-featured-badge {
+    background: linear-gradient(135deg, rgba(0,132,204,0.1), rgba(99,102,241,0.08));
+    border-color: rgba(0,132,204,0.38);
+    color: #0084cc;
+}
