@@ -6253,3 +6253,114 @@ html[data-theme="light"] .proj-featured-badge {
     border-color: rgba(0,132,204,0.38);
     color: #0084cc;
 }
+
+/* ─── SKILL DASHBOARD: Exp, Tools, Hover Breakdown ─────────────────────────── */
+
+/* Years-of-experience tag */
+.skill-badge-exp {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(240,241,243,0.45);
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+/* "Used in:" tool pills */
+.skill-badge-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+    justify-content: center;
+}
+.skill-badge-tools span {
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(240,241,243,0.65);
+    white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.skill-badge-card:hover .skill-badge-tools span {
+    background: rgba(0,212,255,0.1);
+    border-color: rgba(0,212,255,0.25);
+    color: rgba(240,241,243,0.88);
+}
+
+/* Hover detail breakdown — expands from 0 on card hover */
+.skill-hover-detail {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 0;
+    transition: max-height 0.28s ease, opacity 0.25s ease, margin-top 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.skill-badge-card:hover .skill-hover-detail {
+    max-height: 72px;
+    opacity: 1;
+    margin-top: 8px;
+}
+.shd-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+.shd-row > span {
+    font-size: 0.58rem;
+    font-weight: 500;
+    color: rgba(240,241,243,0.55);
+    white-space: nowrap;
+    min-width: 52px;
+    text-align: right;
+}
+.shd-bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+}
+.shd-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent-start, #00d4ff), var(--accent-end, #8b5cf6));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease 0.08s;
+}
+.skill-badge-card:hover .shd-fill {
+    transform: scaleX(1);
+}
+
+/* Per-level accent for hover bars */
+.skill-badge-card[data-level="advanced"]:hover .shd-fill {
+    background: linear-gradient(90deg, #4f8ef7, #7c3aed);
+}
+.skill-badge-card[data-level="beginner"]:hover .shd-fill {
+    background: linear-gradient(90deg, #fb923c, #f59e0b);
+}
+
+/* Light mode overrides */
+html[data-theme="light"] .skill-badge-exp { color: rgba(71,85,105,0.55); }
+html[data-theme="light"] .skill-badge-tools span {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.1);
+    color: #475569;
+}
+html[data-theme="light"] .skill-badge-card:hover .skill-badge-tools span {
+    background: rgba(0,132,204,0.07);
+    border-color: rgba(0,132,204,0.22);
+    color: #0f172a;
+}
+html[data-theme="light"] .shd-row > span { color: rgba(71,85,105,0.7); }
+html[data-theme="light"] .shd-bar { background: rgba(0,0,0,0.08); }
