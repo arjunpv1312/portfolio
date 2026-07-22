@@ -6526,3 +6526,32 @@ html[data-theme="light"] .cert-latest-badge { box-shadow: 0 2px 8px rgba(34,197,
 html[data-theme="light"] #heroNeuralCanvas { opacity: 0.18; }
 html[data-theme="light"] .hero-neural-glow { opacity: 0.5; }
 html[data-theme="light"] .btn-hero-primary { color: #fff !important; }
+
+/* ─── CONTACT CARDS: colour-coded icons & values ───────────────────────────── */
+.contact-icon-email   { color: #00d4ff; }
+.contact-icon-phone   { color: #4ade80; }
+.contact-icon-linkedin{ color: #0a66c2; }
+.contact-icon-github  { color: #e2e8f0; }
+.contact-icon-cv      { color: #f59e0b; }
+
+.contact-val-email    { color: #00d4ff; }
+.contact-val-phone    { color: #4ade80; }
+.contact-val-linkedin { color: #0a66c2; }
+.contact-val-github   { color: rgba(226,232,240,0.7); }
+.contact-val-cv       { color: #f59e0b; }
+
+/* Hover: icon & value both brighten to full white + lift */
+.contact-card-link:hover .contact-icon-email,
+.contact-card-link:hover .contact-icon-phone,
+.contact-card-link:hover .contact-icon-linkedin,
+.contact-card-link:hover .contact-icon-github,
+.contact-card-link:hover .contact-icon-cv {
+    filter: brightness(1.35);
+    transform: scale(1.2) rotate(-4deg);
+}
+
+/* Light mode */
+html[data-theme="light"] .contact-icon-github  { color: #334155; }
+html[data-theme="light"] .contact-val-github   { color: #475569; }
+html[data-theme="light"] .contact-icon-linkedin{ color: #0a66c2; }
+html[data-theme="light"] .contact-val-linkedin { color: #0a66c2; }
