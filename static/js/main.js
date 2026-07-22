@@ -1836,3 +1836,88 @@ window.addEventListener('error', function(e) {
         });
     });
 })();
+
+/* ── Hero neural network canvas animation ─────────────────────────────── */
+(function () {
+    var canvas = document.getElementById('heroNeuralCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var nodes = [];
+    var NODE_COUNT = 48;
+    var MAX_DIST   = 155;
+    var raf;
+
+    function resize() {
+        var section = canvas.parentElement;
+        canvas.width  = section.offsetWidth;
+        canvas.height = section.offsetHeight;
+    }
+
+    function init() {
+        resize();
+        nodes = [];
+        for (var i = 0; i < NODE_COUNT; i++) {
+            nodes.push({
+                x:  Math.random() * canvas.width,
+                y:  Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.38,
+                vy: (Math.random() - 0.5) * 0.38,
+                r:  Math.random() * 1.8 + 0.7
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        /* edges */
+        for (var i = 0; i < nodes.length; i++) {
+            for (var j = i + 1; j < nodes.length; j++) {
+                var dx   = nodes[i].x - nodes[j].x;
+                var dy   = nodes[i].y - nodes[j].y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MAX_DIST) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'rgba(0,212,255,' + ((1 - dist / MAX_DIST) * 0.22) + ')';
+                    ctx.lineWidth   = 0.85;
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        /* nodes */
+        nodes.forEach(function (n) {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0,212,255,0.55)';
+            ctx.fill();
+        });
+    }
+
+    function update() {
+        nodes.forEach(function (n) {
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < 0 || n.x > canvas.width)  n.vx *= -1;
+            if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+        });
+    }
+
+    function loop() {
+        update();
+        draw();
+        raf = requestAnimationFrame(loop);
+    }
+
+    /* Pause when tab hidden — saves CPU */
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) { cancelAnimationFrame(raf); }
+        else { loop(); }
+    });
+
+    window.addEventListener('resize', resize);
+    init();
+    loop();
+})();
