@@ -1,7 +1,12 @@
 /* Custom styles for the personal introduction website */
 :root {
-    --transition-speed: 0.3s;
-    --card-hover-transform: translateY(-6px);
+    --transition-speed: 0.25s;
+    --ease-swift: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-std:   cubic-bezier(0.4, 0, 0.2, 1);
+    --dur-fast: 150ms;
+    --dur-std:  250ms;
+    --dur-slow: 400ms;
+    --card-hover-transform: translateY(-5px);
 
     /* ── Brand gradient: cyan → violet ── */
     --accent-start: #00d4ff;
@@ -132,7 +137,7 @@ section {
     position: absolute;
     font-size: 1.5rem;
     opacity: 0.7;
-    animation: float 3s ease-in-out infinite;
+    /* float removed — looping bounce is template-grade */
 }
 
 .floating-icon:nth-child(1) { animation-delay: 0s; }
@@ -173,7 +178,7 @@ section {
     line-height: 1.1;
     display: inline-block;
     filter: drop-shadow(0 0 30px rgba(0,212,255,0.3));
-    animation: heroFloat 3s ease-in-out infinite;
+    /* no continuous float — purposeful stillness */
 }
 
 @keyframes textGradient {
@@ -212,8 +217,8 @@ section {
 }
 
 .hero-buttons .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* Navigation */
@@ -513,13 +518,15 @@ section {
     background: var(--bg-card);
     border: 1px solid rgba(255,255,255,0.06) !important;
     backdrop-filter: blur(16px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform var(--dur-std) var(--ease-swift),
+                box-shadow var(--dur-std) var(--ease-swift),
+                border-color var(--dur-std) ease;
 }
 
 #certificates .card:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-5px) scale(1.01);
     border-color: rgba(0,212,255,0.4) !important;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5), var(--accent-glow) !important;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.4), 0 0 20px rgba(0,212,255,0.12) !important;
 }
 
 #certificates i {
@@ -531,8 +538,8 @@ section {
 }
 
 #certificates .card:hover i {
-    transform: rotate(10deg) scale(1.15);
-    filter: brightness(1.2);
+    transform: scale(1.1);
+    filter: brightness(1.15);
 }
 
 /* Glassmorphism effects */
@@ -546,7 +553,10 @@ section {
 .contact-card {
     background: var(--bg-card);
     border: 1px solid rgba(255,255,255,0.07);
-    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: transform var(--dur-std) var(--ease-swift),
+                box-shadow var(--dur-std) var(--ease-swift),
+                background var(--dur-std) ease,
+                border-color var(--dur-std) ease;
     backdrop-filter: blur(16px);
     cursor: pointer;
     position: relative;
@@ -567,9 +577,9 @@ section {
 
 .contact-card:hover {
     background: rgba(0,212,255,0.08);
-    transform: translateY(-8px) scale(1.02);
-    border-color: rgba(0,212,255,0.5);
-    box-shadow: 0 12px 40px rgba(0,212,255,0.18), 0 0 0 1px rgba(0,212,255,0.2);
+    transform: translateY(-4px) scale(1.01);
+    border-color: rgba(0,212,255,0.4);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 18px rgba(0,212,255,0.12);
 }
 
 .contact-card:hover::after {
@@ -910,6 +920,7 @@ section {
     padding: 4px;
     background: var(--accent-grad);
     box-shadow: var(--accent-glow);
+    overflow: hidden;
 }
 
 .hero-avatar-img {
@@ -917,6 +928,7 @@ section {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center top;
     display: block;
 }
 
@@ -959,21 +971,23 @@ section {
     width: 100%;
     max-width: 220px;
     margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .about-photo {
-    width: 100%;
-    max-width: 220px;
-    height: 260px;
-    border-radius: 8px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
     object-fit: cover;
-    object-position: top center;
+    object-position: center top;
     border: 2px solid transparent;
     background: linear-gradient(var(--bg-base), var(--bg-base)) padding-box,
                 var(--accent-grad) border-box;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5), var(--accent-glow);
     display: block;
     margin: 0 auto;
+    aspect-ratio: 1 / 1;
 }
 
 .about-photo-fallback {
@@ -1304,6 +1318,7 @@ html[data-theme="light"] .cert-sub-label { color: rgba(6,148,162,0.8); }
     .hero-avatar-ring {
         width: 130px;
         height: 130px;
+        overflow: hidden;
     }
 
     .orbit-icon {
@@ -1407,11 +1422,14 @@ html[data-theme="light"] .cert-sub-label { color: rgba(6,148,162,0.8); }
     /* About photo — compact on very small phones */
     .about-photo {
         width: 150px !important;
-        height: 185px !important;
+        height: 150px !important;
         max-width: 150px !important;
+        border-radius: 50% !important;
     }
     .about-photo-wrapper {
         max-width: 150px !important;
+        border-radius: 50% !important;
+        overflow: hidden !important;
     }
 
     /* Contact cards — horizontal layout on very small screens */
@@ -2059,8 +2077,8 @@ html[data-theme="light"] .cert-sub-label { color: rgba(6,148,162,0.8); }
 .anim-bars span:nth-child(4) { animation-delay: 0.45s; }
 .anim-bars span:nth-child(5) { animation-delay: 0.6s;  }
 @keyframes animBarBounce {
-    0%, 100% { transform: scaleY(0.35); }
-    50%      { transform: scaleY(1);    }
+    0%, 100% { transform: scaleY(0.4); opacity: 0.7; }
+    50%      { transform: scaleY(1);   opacity: 1;   }
 }
 
 /* ── 5. Orbit ── */
@@ -2102,7 +2120,7 @@ html[data-theme="light"] .cert-sub-label { color: rgba(6,148,162,0.8); }
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    animation: animFlipRotate 2s ease-in-out infinite;
+    animation: animFlipRotate 5s ease-in-out infinite;
 }
 .anim-flip-face {
     position: absolute;
@@ -2140,17 +2158,17 @@ html[data-theme="light"] .cert-sub-label { color: rgba(6,148,162,0.8); }
     inset: -8px;
     border-radius: 22px;
     border: 2px solid rgba(0, 212, 255, 0.35);
-    animation: geminiPulse 3s ease-in-out infinite;
+    animation: geminiPulse 5s ease-in-out infinite;
     pointer-events: none;
 }
 .gemini-ring-2 {
     inset: -16px;
-    border-color: rgba(139, 92, 246, 0.2);
-    animation-delay: 1.5s;
+    border-color: rgba(139, 92, 246, 0.18);
+    animation-delay: 2.5s;
 }
 @keyframes geminiPulse {
-    0%, 100% { opacity: 0.7; transform: scale(1); }
-    50%       { opacity: 0.25; transform: scale(1.01); }
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%       { opacity: 0.2;  transform: scale(1.005); }
 }
 .gemini-card {
     position: relative;
@@ -2354,18 +2372,18 @@ html[data-theme="light"] .cert-sub-label { color: rgba(6,148,162,0.8); }
     border-radius: 50%;
     background: transparent;
     border: 2px solid rgba(0,212,255,0.4);
-    animation: avatarPulse 3s ease-out infinite;
+    animation: avatarPulse 4s ease-out infinite;
     pointer-events: none;
     z-index: 0;
 }
 .hero-avatar-pulse-2 {
     width: 260px; height: 260px;
-    border-color: rgba(139,92,246,0.3);
-    animation: avatarPulse 3s ease-out infinite 1.5s;
+    border-color: rgba(139,92,246,0.25);
+    animation: avatarPulse 4s ease-out infinite 2s;
 }
 @keyframes avatarPulse {
-    0%   { transform: translate(-50%,-50%) scale(1);   opacity: 0.8; }
-    100% { transform: translate(-50%,-50%) scale(1.35); opacity: 0; }
+    0%   { transform: translate(-50%,-50%) scale(1);    opacity: 0.5; }
+    100% { transform: translate(-50%,-50%) scale(1.28); opacity: 0; }
 }
 
 /* Enhanced glow on the avatar ring itself */
@@ -2375,11 +2393,11 @@ html[data-theme="light"] .cert-sub-label { color: rgba(6,148,162,0.8); }
         0 0 30px rgba(0,212,255,0.35),
         0 0 60px rgba(139,92,246,0.25),
         0 0 100px rgba(0,212,255,0.12);
-    animation: avatarGlow 4s ease-in-out infinite alternate;
+    animation: avatarGlow 7s ease-in-out infinite alternate;
 }
 @keyframes avatarGlow {
-    0%   { box-shadow: 0 0 0 3px rgba(0,212,255,0.2), 0 0 30px rgba(0,212,255,0.35), 0 0 60px rgba(139,92,246,0.25), 0 0 100px rgba(0,212,255,0.12); }
-    100% { box-shadow: 0 0 0 3px rgba(139,92,246,0.3), 0 0 40px rgba(139,92,246,0.45), 0 0 80px rgba(0,212,255,0.3), 0 0 120px rgba(139,92,246,0.15); }
+    0%   { box-shadow: 0 0 0 3px rgba(0,212,255,0.15), 0 0 20px rgba(0,212,255,0.25), 0 0 40px rgba(139,92,246,0.15); }
+    100% { box-shadow: 0 0 0 3px rgba(139,92,246,0.2), 0 0 28px rgba(139,92,246,0.3),  0 0 50px rgba(0,212,255,0.18); }
 }
 
 /* ─────────── Hero Role Typewriter ─────────── */
@@ -2408,17 +2426,17 @@ html[data-theme="light"] .cert-sub-label { color: rgba(6,148,162,0.8); }
     padding: 0;
     overflow: hidden;
     border-radius: 18px;
-    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 0.38s ease;
+    transition: transform var(--dur-std) var(--ease-swift),
+                box-shadow var(--dur-std) var(--ease-swift),
+                border-color var(--dur-std) ease;
 }
 .project-card:hover {
-    transform: translateY(-12px) scale(1.01);
+    transform: translateY(-6px) scale(1.01);
     box-shadow:
-        0 24px 60px rgba(0,0,0,0.45),
-        0 0 0 1px rgba(0,212,255,0.25),
-        0 0 40px rgba(0,212,255,0.1);
-    border-color: rgba(0,212,255,0.45);
+        0 16px 40px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(0,212,255,0.2),
+        0 0 24px rgba(0,212,255,0.08);
+    border-color: rgba(0,212,255,0.4);
 }
 .project-card-body {
     padding: 1.4rem 1.5rem 1.5rem;
@@ -2591,10 +2609,12 @@ html[data-theme="light"] .cert-sub-label { color: rgba(6,148,162,0.8); }
 
 /* Icon scale on card hover */
 .project-card:hover .project-icon {
-    transform: scale(1.12) rotate(-4deg);
-    background: rgba(0,212,255,0.18);
-    box-shadow: 0 0 16px rgba(0,212,255,0.25);
-    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: scale(1.1);
+    background: rgba(0,212,255,0.15);
+    box-shadow: 0 0 14px rgba(0,212,255,0.2);
+    transition: transform var(--dur-std) var(--ease-swift),
+                background var(--dur-std) ease,
+                box-shadow var(--dur-std) ease;
 }
 
 /* ─────────── Interactive Skills Progress Bars ─────────── */
@@ -3752,8 +3772,8 @@ section { overflow-x: hidden; }
 }
 
 /* ── 16. Images always responsive ───────────────────── */
-.hero-avatar-img,
-.about-photo,
+/* hero-avatar-img & about-photo are contained in fixed circular wrappers —
+   they must NOT get height:auto or they will escape the circle crop */
 .hero-profile-image { max-width: 100% !important; height: auto !important; }
 
 /* ── 17. Respect prefers-reduced-motion ─────────────── */
@@ -3764,12 +3784,21 @@ section { overflow-x: hidden; }
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+        animation-delay: 0s !important;
     }
     html { scroll-behavior: auto !important; }
     /* Reveal items instantly — no slide-in */
     .recog-reveal { opacity: 1 !important; transform: none !important; }
     .skill-bar-fill { transition: none !important; }
     .fade-in { opacity: 1 !important; animation: none !important; }
+    /* Disable all continuous looping animations */
+    .hero-avatar-pulse,
+    .hero-avatar-pulse-2 { display: none !important; }
+    .hero-neural-glow { animation: none !important; }
+    .gemini-pulse-ring { animation: none !important; }
+    .btn-hero-primary::before { animation: none !important; display: none; }
+    .resume-reveal { opacity: 1 !important; transform: none !important; }
+    .project-card { transition: none !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -3960,11 +3989,13 @@ section { overflow-x: hidden; }
 .resume-download-btn {
     position: relative;
     overflow: hidden;
-    animation: btnGlow 3s ease-in-out infinite;
+    box-shadow: 0 0 14px rgba(0,212,255,0.25);
+    transition: box-shadow var(--dur-std) var(--ease-swift),
+                transform var(--dur-std) var(--ease-swift);
 }
-@keyframes btnGlow {
-    0%, 100% { box-shadow: 0 0 12px rgba(0,212,255,0.3); }
-    50%       { box-shadow: 0 0 28px rgba(0,212,255,0.65), 0 0 50px rgba(0,212,255,0.25); }
+.resume-download-btn:hover {
+    box-shadow: 0 0 28px rgba(0,212,255,0.5);
+    transform: translateY(-2px);
 }
 .resume-download-btn::after {
     content: '';
@@ -4935,14 +4966,17 @@ html[data-theme="light"] .contact-card-link:hover .contact-card i {
 .cf-input.cf-invalid:focus { animation: none; }
 
 /* 2. Social / icon buttons — micro-bounce on hover */
-@keyframes iconBounce {
-    0%,100% { transform: translateY(0) scale(1);    }
-    40%     { transform: translateY(-5px) scale(1.15); }
-    70%     { transform: translateY(2px)  scale(0.95); }
+@keyframes iconLift {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-3px); }
 }
 .about-social-btn:hover i,
 .footer-social-btn:hover i {
-    animation: iconBounce 0.45s cubic-bezier(0.36,0.07,0.19,0.97) both;
+    animation: iconLift 0.2s var(--ease-swift) both;
+}
+.about-social-btn:not(:hover) i,
+.footer-social-btn:not(:hover) i {
+    animation: none;
 }
 
 /* 3. Project cards — alternating slide-in direction (odd=left, even=right) */
@@ -4958,13 +4992,13 @@ html[data-theme="light"] .contact-card-link:hover .contact-card i {
 
 /* 4. Skill badge hover — subtle pop */
 .skill-badge {
-    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
-                box-shadow 0.2s ease,
-                background 0.2s ease !important;
+    transition: transform var(--dur-fast) var(--ease-swift),
+                box-shadow var(--dur-fast) ease,
+                background var(--dur-fast) ease !important;
 }
 .skill-badge:hover {
-    transform: translateY(-3px) scale(1.06);
-    box-shadow: 0 6px 18px rgba(0,212,255,0.2);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 14px rgba(0,212,255,0.18);
 }
 
 /* 5. Footer / text links — sliding underline */
@@ -5280,25 +5314,35 @@ html[data-theme="light"] .proj-arrow:hover {
     border-radius: 50% !important;
 }
 
-/* Responsive — keep square at all breakpoints */
+/* Responsive — keep 1:1 circle at all breakpoints */
 @media (max-width: 767.98px) {
     .about-photo {
         width: 180px !important;
-        height: 180px !important;  /* was 215px */
+        height: 180px !important;
         max-width: 180px !important;
         border-radius: 50% !important;
+        aspect-ratio: 1 / 1 !important;
     }
-    .about-photo-wrapper { max-width: 180px !important; }
+    .about-photo-wrapper {
+        max-width: 180px !important;
+        border-radius: 50% !important;
+        overflow: hidden !important;
+    }
 }
 
 @media (max-width: 374.98px) {
     .about-photo {
         width: 150px !important;
-        height: 150px !important;  /* was 185px */
+        height: 150px !important;
         max-width: 150px !important;
         border-radius: 50% !important;
+        aspect-ratio: 1 / 1 !important;
     }
-    .about-photo-wrapper { max-width: 150px !important; }
+    .about-photo-wrapper {
+        max-width: 150px !important;
+        border-radius: 50% !important;
+        overflow: hidden !important;
+    }
 }
 
 /* Glow blob: match circular wrapper */
@@ -6208,13 +6252,10 @@ html[data-theme="light"] .about-photo-wrapper:hover {
     border: 1px solid rgba(0,212,255,0.45);
     color: #00d4ff;
     white-space: nowrap;
-    animation: featuredPulse 3s ease-in-out infinite;
+    /* static — no infinite pulse on badges */
+    box-shadow: 0 0 6px rgba(0,212,255,0.15);
 }
 .proj-featured-badge i { font-size: 0.6rem; color: #fbbf24; }
-@keyframes featuredPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,255,0); }
-    50%       { box-shadow: 0 0 8px 2px rgba(0,212,255,0.22); }
-}
 
 /* Project metrics strip */
 .proj-metrics {
@@ -6479,13 +6520,12 @@ html[data-theme="light"] .cert-latest-badge { box-shadow: 0 2px 8px rgba(34,197,
         radial-gradient(ellipse 72% 55% at 12% 22%, rgba(0,212,255,0.11) 0%, transparent 58%),
         radial-gradient(ellipse 55% 48% at 88% 78%, rgba(139,92,246,0.12) 0%, transparent 58%),
         radial-gradient(ellipse 38% 32% at 55% 8%,  rgba(0,212,255,0.06) 0%, transparent 52%);
-    animation: heroGradPulse 9s ease-in-out infinite alternate;
+    animation: heroGradPulse 14s ease-in-out infinite alternate;
 }
 
 @keyframes heroGradPulse {
-    0%   { opacity: 0.6;  transform: scale(1)    rotate(0deg); }
-    50%  { opacity: 1.0;  transform: scale(1.06) rotate(0.8deg); }
-    100% { opacity: 0.6;  transform: scale(1)    rotate(0deg); }
+    0%   { opacity: 0.55; transform: scale(1);    }
+    100% { opacity: 0.85; transform: scale(1.02); }
 }
 
 /* Ensure text content stays above canvas layers */
@@ -6515,7 +6555,7 @@ html[data-theme="light"] .cert-latest-badge { box-shadow: 0 2px 8px rgba(34,197,
     top: 0; left: -75%;
     width: 50%; height: 100%;
     background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
-    animation: heroShimmer 2.8s ease-in-out infinite;
+    animation: heroShimmer 4.5s ease-in-out infinite;
 }
 @keyframes heroShimmer {
     0%   { left: -75%; }
