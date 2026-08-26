@@ -993,6 +993,9 @@ section {
 .about-photo-fallback {
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
     background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(139,92,246,0.15));
     font-size: 3rem;
     font-weight: 800;
@@ -6138,9 +6141,7 @@ html[data-theme="light"] .about-value-props li strong { color: #0f172a; }
    ═══════════════════════════════════════════════════════════════ */
 .about-photo-wrapper {
     position: relative !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: block !important;
     width: 220px !important;
     height: 220px !important;
     min-width: 220px !important;
@@ -6165,7 +6166,7 @@ html[data-theme="light"] .about-value-props li strong { color: #0f172a; }
 }
 
 /* Image fills the 214px inner circle (220px − 2×3px padding) */
-.about-photo {
+img.about-photo {
     width: 100% !important;
     height: 100% !important;   /* beats global height:auto !important */
     min-height: 0 !important;

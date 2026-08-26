@@ -1361,7 +1361,7 @@ window.addEventListener('error', function(e) {
         const target = link.getAttribute('target') || '_blank';
         showLoader();
         setTimeout(function () {
-            window.open(href, target);
+            window.open(href, target, 'noopener,noreferrer');
         }, OPEN_DELAY);
     });
 
@@ -1445,8 +1445,8 @@ window.addEventListener('error', function(e) {
         { group: 'Navigate', icon: 'fas fa-file-lines',    title: 'Résumé',              desc: 'Download & view CV',                 action: function() { scrollTo('#resume'); } },
         { group: 'Navigate', icon: 'fas fa-envelope',      title: 'Contact',             desc: 'Send me a message',                  action: function() { scrollTo('#contact'); } },
         // Actions
-        { group: 'Actions',  icon: 'fas fa-file-arrow-down', title: 'Download Resume',   desc: 'Opens printable resume page',        action: function() { window.open('/resume', '_blank'); } },
-        { group: 'Actions',  icon: 'fab fa-linkedin',        title: 'View LinkedIn',     desc: 'linkedin.com/in/arjun-pv1312',       action: function() { window.open('https://www.linkedin.com/in/arjun-pv1312', '_blank'); } },
+        { group: 'Actions',  icon: 'fas fa-file-arrow-down', title: 'Download Resume',   desc: 'Opens printable resume page',        action: function() { window.open('/resume', '_blank', 'noopener,noreferrer'); } },
+        { group: 'Actions',  icon: 'fab fa-linkedin',        title: 'View LinkedIn',     desc: 'linkedin.com/in/arjun-pv1312',       action: function() { window.open('https://www.linkedin.com/in/arjun-pv1312', '_blank', 'noopener,noreferrer'); } },
         { group: 'Actions',  icon: 'fas fa-copy',            title: 'Copy Email Address',desc: 'Pvarjun527@gmail.com',               action: function() { copyEmail(); } },
         { group: 'Actions',  icon: 'fas fa-circle-half-stroke', title: 'Toggle Theme',   desc: 'Switch dark / light mode',           action: function() { var b = document.getElementById('themeToggleBtn'); if (b) b.click(); } },
         { group: 'Actions',  icon: 'fas fa-arrow-up-to-line',  title: 'Back to Top',     desc: 'Scroll to top of page',              action: function() { window.scrollTo({ top: 0, behavior: 'smooth' }); } },

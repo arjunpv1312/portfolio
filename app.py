@@ -120,6 +120,20 @@ try:
 except Exception as _e:
     logging.warning(f"Asset minification skipped: {_e}")
 
+# The generated CSS/JS files use immutable caching, so change their query
+# version whenever startup rewrites them. This prevents visitors from being
+# stuck on an older bundle after a deployment.
+try:
+    _asset_paths = [
+        os.path.join(app.root_path, 'static', 'css', 'style.min.css'),
+        os.path.join(app.root_path, 'static', 'js', 'main.min.js'),
+    ]
+    app.config['ASSET_VERSION'] = str(max(
+        os.stat(path).st_mtime_ns for path in _asset_paths
+    ))
+except OSError:
+    app.config['ASSET_VERSION'] = '1'
+
 # ── Static-file cache headers ─────────────────────────────────
 @app.after_request
 def add_cache_headers(response):
