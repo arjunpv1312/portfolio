@@ -5369,7 +5369,6 @@ html[data-theme="light"] .proj-arrow:hover {
     border-radius: 50% !important;
     object-fit: cover !important;
     object-position: center center !important;
-    display: block !important;
 }
 @media (max-width: 767.98px) {
     .about-photo-wrapper {
