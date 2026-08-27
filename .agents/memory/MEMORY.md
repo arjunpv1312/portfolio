@@ -1,1 +1,2 @@
 - [Fallback image specificity](fallback-image-specificity.md) — keep fallback elements out of real-image utility classes when display state is controlled inline.
+- [GitHub push authentication](github-push-authentication.md) — use a temporary Git askpass script with workspace secrets when the stored GitHub credential is rejected.
