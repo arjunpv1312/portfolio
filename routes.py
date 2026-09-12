@@ -287,10 +287,11 @@ def contact():
         logging.error(f"Failed to save submission backup: {exc}")
 
     # ── Send email ────────────────────────────────────────────────
-    mail_password = os.environ.get('MAIL_PASSWORD')
+    mail_password = app.config.get('MAIL_PASSWORD')
+    mail_sent = False
     if mail_password:
         try:
-            recipient = os.environ.get('MAIL_FORWARD_TO', 'Pvarjun527@gmail.com')
+            recipient = app.config.get('MAIL_FORWARD_TO', 'Pvarjun527@gmail.com')
             body = (
                 f"New message from your portfolio website:\n\n"
                 f"Name:    {name}\n"
@@ -310,15 +311,21 @@ def contact():
                 reply_to=email,
             )
             mail.send(msg)
+            mail_sent = True
             logging.info(f"Contact email sent to {recipient}")
         except Exception as exc:
             logging.error(f"Failed to send contact email: {exc}")
     else:
         logging.warning("MAIL_PASSWORD not set — submission saved to JSON, not emailed.")
 
+    if mail_sent:
+        success_message = "Thanks for reaching out — your message was sent successfully."
+    else:
+        success_message = "Thanks for reaching out — your message was received and saved. I'll get back to you soon."
+
     if is_ajax:
-        return jsonify(success=True, message="Thank you! I'll get back to you soon.")
-    flash("Thank you for your message! I'll get back to you soon.", 'success')
+        return jsonify(success=True, message=success_message)
+    flash(success_message, 'success')
     return redirect(url_for('index') + '#contact')
 
 

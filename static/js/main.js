@@ -415,6 +415,7 @@ function initializeGallery() {
 function initializeContactForm() {
     const form        = document.getElementById('contactForm');
     const successCard = document.getElementById('contactSuccess');
+    const successText = document.getElementById('contactSuccessMessage');
     const sendAnother = document.getElementById('contactSendAnother');
     const submitBtn   = document.getElementById('cfSubmitBtn');
     if (!form) return;
@@ -516,6 +517,7 @@ function initializeContactForm() {
         .then(json => {
             submitBtn.classList.remove('is-loading');
             if (json.success) {
+                if (successText && json.message) successText.textContent = json.message;
                 // Show success card, hide form
                 form.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
                 form.style.opacity = '0';
